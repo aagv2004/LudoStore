@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de compradores | LudoStore</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="navbar" id="home">
+      <a href="../index.html" class="navbar-logo">LudoStore</a>
+
+      <nav class="navbar-menu">
+        <div class="submenu">
+          <button class="submenu-boton" type="button">
+            Juegos <span>▼</span>
+          </button>
+
+          <div class="submenu-contenido">
+            <a href="estrategias.html">Estrategia</a>
+            <a href="familiares.html">Familiares</a>
+            <a href="cartas.html">Cartas</a>
+            <a href="cooperativos.html">Cooperativos</a>
+          </div>
+        </div>
+
+        <a href="../index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="registro-contenedor">
+        <div class="registro-info">
+          <span class="etiqueta-registro">Programa de recompensas</span>
+          <h2>Registro de futuros compradores</h2>
+          <p>
+            Crea un registro de clientes para futuras recompensas, historial de
+            compras y acceso a beneficios dentro de la tienda LudoStore.
+          </p>
+        </div>
+
+        <form
+          id="formRegistro"
+          class="form-registro needs-validation"
+          novalidate>
+          <div class="grupo-formulario mb-3">
+            <label for="nombreCompleto" class="form-label"
+              >Nombre completo</label
+            >
+            <input
+              type="text"
+              id="nombreCompleto"
+              name="nombreCompleto"
+              class="form-control"
+              placeholder="Ej: Alejandro González" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="usuario" class="form-label">Nombre de usuario</label>
+            <input
+              type="text"
+              id="usuario"
+              name="usuario"
+              class="form-control"
+              placeholder="Ej: ludoplayer22" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              id="correo"
+              name="correo"
+              class="form-control"
+              placeholder="Ej: usuario@correo.com" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 grupo-formulario mb-3">
+              <label for="password" class="form-label">Clave de ingreso</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Entre 6 y 18 caracteres" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="col-md-6 grupo-formulario mb-3">
+              <label for="repetirPassword" class="form-label"
+                >Repetir clave</label
+              >
+              <input
+                type="password"
+                id="repetirPassword"
+                name="repetirPassword"
+                class="form-control"
+                placeholder="Repite tu clave" />
+              <small class="mensaje-error"></small>
+            </div>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="fechaNacimiento" class="form-label"
+              >Fecha de nacimiento</label
+            >
+            <input
+              type="date"
+              id="fechaNacimiento"
+              name="fechaNacimiento"
+              class="form-control" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="direccion" class="form-label">
+              Dirección de despacho <span>Opcional</span>
+            </label>
+            <textarea
+              id="direccion"
+              name="direccion"
+              rows="3"
+              class="form-control"
+              placeholder="Ej: Calle, número, comuna, región"></textarea>
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="resumen-validacion mb-3" id="resumenValidacion">
+            Completa el formulario para activar el registro.
+          </div>
+
+          <div class="botones-formulario d-flex gap-3 flex-wrap">
+            <button type="submit" class="btn btn-ludostore">
+              Enviar registro
+            </button>
+
+            <button type="reset" class="btn btn-outline-ludostore">
+              Limpiar formulario
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>LudoStore - Catálogo de juegos de mesa</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/registro.js"></script>
+  </body>
+</html>

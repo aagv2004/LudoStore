@@ -4,18 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juegos familiares | LudoStore</title>
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/styles.css" />
   </head>
   <body>
-    <header class="header-principal" id="home">
-      <h1>LudoStore</h1>
+    <header class="navbar" id="home">
+      <a href="../index.html" class="navbar-logo">LudoStore</a>
 
-      <nav class="menu-principal">
-        <a href="index.html">Inicio</a>
-        <a href="familiares.html">Familiares</a>
-        <a href="estrategias.html">Estrategia</a>
-        <a href="cartas.html">Cartas</a>
-        <a href="cooperativos.html">Cooperativos</a>
+      <nav class="navbar-menu">
+        <div class="submenu">
+          <button class="submenu-boton" type="button">
+            Juegos <span>▼</span>
+          </button>
+
+          <div class="submenu-contenido">
+            <a href="familiares.html">Familiares</a>
+            <a href="estrategias.html">Estrategia</a>
+            <a href="cartas.html">Cartas</a>
+            <a href="cooperativos.html">Cooperativos</a>
+          </div>
+        </div>
+
+        <a href="../index.html">Inicio</a>
+        <a href="registro.html">Registrarse</a>
       </nav>
     </header>
 
@@ -32,7 +45,7 @@
 
       <section class="listado-juegos">
         <article class="juego-card">
-          <img src="/images/juegos/pandemic.webp" alt="Juego Pandemic" />
+          <img src="..//images/juegos/pandemic.webp" alt="Juego Pandemic" />
           <div class="juego-info">
             <h3>Pandemic</h3>
             <p>
@@ -46,7 +59,7 @@
         </article>
 
         <article class="juego-card">
-          <img src="images/juegos/thecrew.webp" alt="Juego The Crew" />
+          <img src="../images/juegos/thecrew.webp" alt="Juego The Crew" />
           <div class="juego-info">
             <h3>The Crew</h3>
             <p>
@@ -60,7 +73,7 @@
         </article>
 
         <article class="juego-card">
-          <img src="images/juegos/codigosecretoduo.webp" alt="Juego Virus" />
+          <img src="../images/juegos/codigosecretoduo.webp" alt="Juego Virus" />
           <div class="juego-info">
             <h3>Código Secreto Dúo</h3>
             <p>
@@ -73,19 +86,13 @@
           </div>
         </article>
       </section>
-
-      <section class="navegacion-interna">
-        <h2>Explorar otras categorías</h2>
-
-        <a href="index.html">Volver al inicio</a>
-        <a href="familiares.html">Ver juegos familiares</a>
-        <a href="cartas.html">Ver juegos de cartas</a>
-        <a href="estrategias.html">Ver juegos de estrategias</a>
-      </section>
     </main>
 
     <footer>
       <p>LudoStore - Catálogo de juegos de mesa</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/navbar.js"></script>
   </body>
 </html>

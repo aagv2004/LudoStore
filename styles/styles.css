@@ -33,54 +33,172 @@ body {
   line-height: 1.6;
 }
 
-
-/* HEADER Y MENÚ */
-.header-principal,
+/* HEADER */
 header {
-  background: linear-gradient(135deg, var(--color-principal), var(--color-secundario));
+  background: linear-gradient(
+    135deg,
+    var(--color-principal),
+    var(--color-secundario)
+  );
   color: white;
   padding: 24px 40px;
   text-align: center;
   animation: aparecerDesdeArriba 0.8s ease;
 }
 
-header h1,
-.logo {
-  font-size: 2.4rem;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-}
-
-.logo {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-}
-
-.menu-principal {
+/* MENÚ DE NAVEGACIÓN NAVBAR*/
+.navbar {
   display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 24px;
+  padding: 18px 32px;
+  background: linear-gradient(
+    135deg,
+    var(--color-principal),
+    var(--color-secundario)
+  );
+
+  box-shadow: var(--sombra-card);
+  margin-bottom: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition:
+    background 0.5s ease,
+    box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
 }
 
-.menu-principal a {
-  color: white;
+.navbar-logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--color-card);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.navbar.nav-scroll {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 47, 47, 0.88),
+    rgba(139, 94, 52, 0.88)
+  );
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.navbar a {
+  color: var(--color-card);
   text-decoration: none;
   font-weight: bold;
   padding: 8px 14px;
   border-radius: var(--radio-pildora);
   transition: var(--transicion);
+}
+
+.navbar-menu > a:hover {
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+}
+
+/* SUBMENÚ */
+.submenu {
   position: relative;
 }
 
-.menu-principal a:hover {
-  background-color: var(--color-acento);
-  color: var(--color-principal);
-  transform: translateY(-2px);
+.submenu-boton {
+  border: none;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: var(--radio-pildora);
+  cursor: pointer;
+  transition: var(--transicion);
 }
 
+.submenu-boton:hover {
+  background-color: rgba(217, 164, 65, 0.18);
+  color: white;
+}
+
+.submenu-boton span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.submenu.activo .submenu-boton span {
+  transform: rotate(180deg);
+}
+
+.submenu-contenido {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 210px;
+  padding: 10px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(59, 47, 47, 0.96),
+    rgba(139, 94, 52, 0.96)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease,
+    transform 0.25s ease;
+}
+
+.submenu.activo .submenu-contenido {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.submenu-contenido a {
+  display: block;
+  color: white;
+  padding: 11px 14px;
+  border-radius: 12px;
+  text-align: left;
+  text-decoration: none;
+  font-weight: bold;
+  transition: var(--transicion);
+}
+
+.submenu-contenido a:hover {
+  background-color: rgba(217, 164, 65, 0.18);
+  color: #fff3cd;
+  transform: translateX(4px);
+}
 
 /* CONTENIDO GENERAL */
 main {
@@ -174,7 +292,6 @@ section {
   color: var(--color-principal);
 }
 
-
 /* FICHAS DE JUEGOS */
 .listado-juegos {
   display: grid;
@@ -254,6 +371,165 @@ section {
   transform: translateY(-3px);
 }
 
+/* FORMULARIO DE REGISTRO */
+.registro-contenedor {
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+  background-color: var(--color-card);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-card);
+  padding: 36px;
+  animation: subirSuave 0.8s ease;
+}
+
+.registro-info {
+  padding: 20px;
+}
+
+.etiqueta-registro {
+  display: inline-block;
+  background-color: #fff3cd;
+  color: #7a5200;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: var(--radio-pildora);
+  margin-bottom: 16px;
+}
+
+.registro-info h2 {
+  color: var(--color-principal);
+  font-size: 2rem;
+  margin-bottom: 14px;
+}
+
+.registro-info p {
+  color: var(--color-texto-suave);
+}
+
+.form-registro {
+  display: flex;
+  flex-direction: column;
+}
+
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grupo-formulario label {
+  font-weight: bold;
+  color: var(--color-principal);
+}
+
+.grupo-formulario label span {
+  font-weight: normal;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.grupo-formulario input,
+.grupo-formulario textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 2px solid #e4dccf;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-texto);
+  background-color: #fffaf2;
+  outline: none;
+  transition: var(--transicion);
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario textarea:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.2);
+  background-color: white;
+}
+
+.grupo-doble {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.mensaje-error {
+  min-height: 18px;
+  font-size: 0.85rem;
+  color: #b00020;
+}
+
+.grupo-formulario.error input,
+.grupo-formulario.error textarea {
+  border-color: #b00020;
+  background-color: #fff5f5;
+}
+
+.grupo-formulario.correcto input,
+.grupo-formulario.correcto textarea {
+  border-color: #2e7d32;
+  background-color: #f4fff6;
+}
+
+.resumen-validacion {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background-color: #f4efe6;
+  color: var(--color-texto-suave);
+  font-weight: bold;
+  transition: var(--transicion);
+}
+
+.resumen-validacion.correcto {
+  background-color: #e7f6e9;
+  color: #2e7d32;
+}
+
+.resumen-validacion.error {
+  background-color: #fdeaea;
+  color: #b00020;
+}
+
+.botones-formulario {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-ludostore {
+  background-color: var(--color-secundario);
+  color: white;
+  border-radius: var(--radio-pildora);
+  font-weight: bold;
+  padding: 12px 20px;
+  transition: var(--transicion);
+}
+
+.btn-ludostore:hover {
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  transform: translateY(-3px);
+}
+
+.btn-outline-ludostore {
+  background-color: transparent;
+  color: var(--color-principal);
+  border: 2px solid var(--color-secundario);
+  border-radius: var(--radio-pildora);
+  font-weight: bold;
+  padding: 12px 20px;
+  transition: var(--transicion);
+}
+
+.btn-outline-ludostore:hover {
+  background-color: var(--color-principal);
+  color: white;
+  transform: translateY(-3px);
+}
 
 /* FOOTER */
 footer {
@@ -263,6 +539,8 @@ footer {
   padding: 22px;
   margin-top: 40px;
 }
+
+/* EFECTO DE MENÚ DE NAVEGACIÓN AL SCROLLEAR */
 
 /* ANIMACIONES */
 @keyframes fadeIn {
@@ -325,7 +603,6 @@ footer {
   }
 }
 
-
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .contenedor-categorias {
@@ -347,9 +624,52 @@ footer {
     padding: 22px 20px;
   }
 
-  .menu-principal {
+  .navbar {
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .navbar-menu {
+    justify-content: center;
+  }
+
+  .submenu-contenido {
+    position: static;
+    width: 100%;
+    min-width: auto;
+    margin-top: 0;
+    padding: 0 10px;
+
+    max-height: 0;
+    overflow: hidden;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+    pointer-events: none;
+  }
+
+  .submenu-contenido a {
+    text-align: center;
+  }
+
+  .submenu:hover .submenu-contenido {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .submenu.activo .submenu-contenido {
+    max-height: 260px;
+    margin-top: 8px;
+    padding: 10px;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .contenedor-categorias,
@@ -372,5 +692,41 @@ footer {
   .categoria-card img,
   .juego-card img {
     height: 190px;
+  }
+}
+
+/* RESPONSIVE DEL FORMULARIO */
+@media (max-width: 900px) {
+  .registro-contenedor {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .registro-info {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .registro-contenedor {
+    padding: 22px;
+  }
+
+  .grupo-doble {
+    grid-template-columns: 1fr;
+  }
+
+  .botones-formulario {
+    flex-direction: column;
+  }
+
+  .btn-ludostore,
+  .btn-outline-ludostore {
+    width: 100%;
+  }
+
+  .registro-info h2 {
+    font-size: 1.6rem;
   }
 }

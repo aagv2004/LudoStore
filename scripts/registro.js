@@ -1,0 +1,182 @@
+const formulario = document.getElementById("formRegistro");
+const resumenValidacion = document.getElementById("resumenValidacion");
+
+const campos = {
+    nombreCompleto: document.getElementById("nombreCompleto"),
+    usuario: document.getElementById("usuario"),
+    correo: document.getElementById("correo"),
+    password: document.getElementById("password"),
+    repetirPassword: document.getElementById("repetirPassword"),
+    fechaNacimiento: document.getElementById("fechaNacimiento"),
+    direccion: document.getElementById("direccion")
+};
+
+function mostrarError(input, mensaje) {
+    const grupo = input.closest(".grupo-formulario");
+    const mensajeError = grupo.querySelector(".mensaje-error");
+
+    grupo.classList.remove("correcto");
+    grupo.classList.add("error");
+    mensajeError.textContent = mensaje;
+}
+
+function mostrarCorrecto(input) {
+    const grupo = input.closest(".grupo-formulario");
+    const mensajeError = grupo.querySelector(".mensaje-error");
+
+    grupo.classList.remove("error");
+    grupo.classList.add("correcto");
+    mensajeError.textContent = "";
+}
+
+function limpiarEstado(input) {
+    const grupo = input.closest(".grupo-formulario");
+    const mensajeError = grupo.querySelector(".mensaje-error");
+
+    grupo.classList.remove("error", "correcto");
+    mensajeError.textContent = "";
+}
+
+function campoVacio(valor) {
+    return valor.trim() === "";
+}
+
+function correoValido(correo) {
+    const expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return expresionCorreo.test(correo);
+}
+
+function passwordValida(password) {
+    const tieneMayuscula = /[A-Z]/.test(password);
+    const tieneNumero = /[0-9]/.test(password);
+    const largoValido = password.length >= 6 && password.length <= 18;
+
+    return tieneMayuscula && tieneNumero && largoValido;
+}
+
+function calcularEdad(fechaNacimiento) {
+    const nacimiento = new Date(fechaNacimiento);
+    const hoy = new Date();
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    const dia = hoy.getDate() - nacimiento.getDate();
+
+    if (mes < 0 || (mes === 0 && dia < 0)) {
+        edad--;
+    }
+
+    return edad;
+}
+
+function actualizarResumen(mensaje, tipo) {
+    resumenValidacion.textContent = mensaje;
+    resumenValidacion.classList.remove("correcto", "error");
+
+    if (tipo) {
+        resumenValidacion.classList.add(tipo);
+    }
+}
+
+function validarFormulario() {
+    let formularioValido = true;
+
+    const nombre = campos.nombreCompleto.value;
+    const usuario = campos.usuario.value;
+    const correo = campos.correo.value;
+    const password = campos.password.value;
+    const repetirPassword = campos.repetirPassword.value;
+    const fechaNacimiento = campos.fechaNacimiento.value;
+
+    if (campoVacio(nombre)) {
+        mostrarError(campos.nombreCompleto, "El nombre completo es obligatorio.");
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.nombreCompleto);
+    }
+
+    if (campoVacio(usuario)) {
+        mostrarError(campos.usuario, "El nombre de usuario es obligatorio.");
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.usuario);
+    }
+
+    if (campoVacio(correo)) {
+        mostrarError(campos.correo, "El correo electrónico es obligatorio.");
+        formularioValido = false;
+    } else if (!correoValido(correo)) {
+        mostrarError(campos.correo, "Ingresa un correo electrónico válido.");
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.correo);
+    }
+
+    if (campoVacio(password)) {
+        mostrarError(campos.password, "La clave es obligatoria.");
+        formularioValido = false;
+    } else if (!passwordValida(password)) {
+        mostrarError(
+            campos.password,
+            "Debe tener entre 6 y 18 caracteres, una mayúscula y un número."
+        );
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.password);
+    }
+
+    if (campoVacio(repetirPassword)) {
+        mostrarError(campos.repetirPassword, "Debes repetir la clave.");
+        formularioValido = false;
+    } else if (password !== repetirPassword) {
+        mostrarError(campos.repetirPassword, "Las claves no coinciden.");
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.repetirPassword);
+    }
+
+    if (campoVacio(fechaNacimiento)) {
+        mostrarError(campos.fechaNacimiento, "La fecha de nacimiento es obligatoria.");
+        formularioValido = false;
+    } else if (calcularEdad(fechaNacimiento) < 13) {
+        mostrarError(campos.fechaNacimiento, "Debes tener al menos 13 años para registrarte.");
+        formularioValido = false;
+    } else {
+        mostrarCorrecto(campos.fechaNacimiento);
+    }
+
+    limpiarEstado(campos.direccion);
+
+    return formularioValido;
+}
+
+formulario.addEventListener("submit", function (evento) {
+    evento.preventDefault();
+
+    const esValido = validarFormulario();
+
+    if (esValido) {
+        actualizarResumen("Registro enviado correctamente. El comprador ya puede ser considerado para futuras recompensas.", "correcto");
+
+        formulario.classList.add("formulario-enviado");
+
+        setTimeout(() => {
+            formulario.classList.remove("formulario-enviado");
+        }, 700);
+    } else {
+        actualizarResumen("Revisa los campos marcados antes de enviar el formulario.", "error");
+    }
+});
+
+formulario.addEventListener("reset", function () {
+    setTimeout(() => {
+        Object.values(campos).forEach((campo) => limpiarEstado(campo));
+        actualizarResumen("Completa el formulario para activar el registro.", "");
+    }, 0);
+});
+
+Object.values(campos).forEach((campo) => {
+    campo.addEventListener("input", function () {
+        validarFormulario();
+    });
+});
