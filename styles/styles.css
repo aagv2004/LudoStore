@@ -31,6 +31,59 @@ body {
   background-color: var(--color-fondo);
   color: var(--color-texto);
   line-height: 1.6;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+body.pagina-cargada {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.pagina-saliendo {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+a,
+button,
+select,
+.btn-ludostore,
+.btn-outline-ludostore {
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+small,
+label,
+li {
+  cursor: default;
+}
+
+button:disabled,
+select:disabled,
+.btn-ludostore:disabled,
+.btn-outline-ludostore:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* HEADER */
@@ -72,11 +125,24 @@ header {
 }
 
 .navbar-logo {
-  font-size: 1.7rem;
-  font-weight: bold;
-  color: var(--color-card);
-  text-decoration: none;
-  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-pildora);
+  line-height: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.navbar-logo:hover {
+  background-color: white;
+  transform: translateY(-2px);
+}
+
+.navbar-logo img {
+  width: 190px;
+  height: auto;
+  display: block;
 }
 
 .navbar-menu {
@@ -127,6 +193,9 @@ header {
   border-radius: var(--radio-pildora);
   cursor: pointer;
   transition: var(--transicion);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .submenu-boton:hover {
@@ -134,13 +203,19 @@ header {
   color: white;
 }
 
-.submenu-boton span {
-  display: inline-block;
+.submenu-boton::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transform-origin: center;
   transition: transform 0.3s ease;
 }
 
-.submenu.activo .submenu-boton span {
-  transform: rotate(180deg);
+.submenu.activo .submenu-boton::after {
+  transform: rotate(225deg) translate(-2px, -2px);
 }
 
 .submenu-contenido {
@@ -220,6 +295,7 @@ section {
 .presentacion h2,
 .categoria-detalle h2,
 .categorias h2,
+.catalogo-general h2,
 .navegacion-interna h2 {
   font-size: 2rem;
   color: var(--color-principal);
@@ -234,13 +310,18 @@ section {
 }
 
 /* CATEGORÍAS INDEX */
+.categorias {
+  scroll-margin-top: 120px;
+}
+
 .contenedor-categorias {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 24px;
 }
 
 .categoria-card {
+  grid-column: span 3;
   background-color: var(--color-card);
   border-radius: var(--radio-borde);
   box-shadow: var(--sombra-card);
@@ -248,6 +329,8 @@ section {
   text-align: center;
   animation: subirSuave 0.8s ease;
   transition: var(--transicion);
+  display: flex;
+  flex-direction: column;
 }
 
 .categoria-card:hover {
@@ -273,11 +356,13 @@ section {
 .categoria-card p {
   padding: 0 16px;
   color: var(--color-texto-suave);
+  margin-bottom: 18px;
 }
 
 .categoria-card a {
   display: inline-block;
-  margin: 18px 0 22px;
+  align-self: center;
+  margin: auto 0 22px;
   padding: 10px 18px;
   background-color: var(--color-secundario);
   color: white;
@@ -290,6 +375,119 @@ section {
 .categoria-card a:hover {
   background-color: var(--color-acento);
   color: var(--color-principal);
+}
+
+/* CATALOGO GENERAL */
+.catalogo-general {
+  scroll-margin-top: 120px;
+}
+
+.catalogo-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.catalogo-encabezado p {
+  max-width: 640px;
+  color: var(--color-texto-suave);
+  margin-bottom: 0;
+}
+
+.catalogo-contador {
+  flex-shrink: 0;
+  background-color: #fff3cd;
+  color: #7a5200;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: var(--radio-pildora);
+}
+
+.catalogo-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.catalogo-filtros {
+  position: sticky;
+  top: 132px;
+  background-color: var(--color-card);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-card);
+  padding: 22px;
+}
+
+.catalogo-filtros h3 {
+  color: var(--color-principal);
+  margin-bottom: 18px;
+}
+
+.grupo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.grupo-filtro label {
+  color: var(--color-principal);
+  font-weight: bold;
+}
+
+.grupo-filtro input,
+.grupo-filtro select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e4dccf;
+  border-radius: 14px;
+  background-color: #fffaf2;
+  color: var(--color-texto);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transicion);
+}
+
+.grupo-filtro input:focus,
+.grupo-filtro select:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.2);
+  background-color: white;
+}
+
+.catalogo-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.catalogo-etiqueta {
+  align-self: flex-start;
+  background-color: #f4efe6;
+  color: var(--color-principal) !important;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: var(--radio-pildora);
+}
+
+.catalogo-vacio {
+  grid-column: 1 / -1;
+  background-color: var(--color-card);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-card);
+  padding: 32px;
+  text-align: center;
+}
+
+.catalogo-vacio h3 {
+  color: var(--color-principal);
+  margin-bottom: 8px;
+}
+
+.catalogo-vacio p {
+  color: var(--color-texto-suave);
+  margin-bottom: 0;
 }
 
 /* FICHAS DE JUEGOS */
@@ -306,6 +504,9 @@ section {
   overflow: hidden;
   animation: aparecerEscala 0.7s ease;
   transition: var(--transicion);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .juego-card:hover {
@@ -320,6 +521,9 @@ section {
 
 .juego-info {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .juego-info h3 {
@@ -337,16 +541,21 @@ section {
   color: var(--color-secundario) !important;
   font-size: 1.3rem;
   font-weight: bold;
+  margin-top: auto;
 }
 
 .descuento {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-height: 34px;
   background-color: #fff3cd;
   color: #7a5200 !important;
   padding: 6px 12px;
   border-radius: var(--radio-pildora);
   font-weight: bold;
-  animation: brilloDescuento 1.8s infinite ease-in-out;
+  line-height: 1.2;
 }
 
 /* NAVEGACIÓN INTERNA */
@@ -494,6 +703,8 @@ section {
   color: #b00020;
 }
 
+/* BOTONES */
+
 .botones-formulario {
   display: flex;
   gap: 14px;
@@ -523,6 +734,14 @@ section {
   font-weight: bold;
   padding: 12px 20px;
   transition: var(--transicion);
+  text-decoration: none;
+}
+
+.btn-detalle-producto {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: 12px;
+  margin-left: 12px;
 }
 
 .btn-outline-ludostore:hover {
@@ -540,7 +759,139 @@ footer {
   margin-top: 40px;
 }
 
-/* EFECTO DE MENÚ DE NAVEGACIÓN AL SCROLLEAR */
+/* DETALLE DE PRODUCTO */
+.detalle-producto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+  background-color: var(--color-card);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-card);
+  padding: 36px;
+  animation: subirSuave 0.8s ease;
+}
+
+.detalle-imagen {
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  border-radius: var(--radio-borde);
+  background-color: #f4efe6;
+}
+
+.detalle-imagen img {
+  width: 100%;
+  height: 420px;
+  max-height: 420px;
+  object-fit: contain;
+  display: block;
+  padding: 24px;
+}
+
+.detalle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detalle-categoria {
+  align-self: flex-start;
+  background-color: #fff3cd;
+  color: #7a5200;
+  font-weight: bold;
+  padding: 7px 14px;
+  border-radius: var(--radio-pildora);
+  margin-bottom: 0;
+}
+
+.detalle-info h2 {
+  color: var(--color-principal);
+  font-size: 2.2rem;
+  margin-bottom: 0;
+}
+
+.detalle-descripcion {
+  color: var(--color-texto-suave);
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+
+.detalle-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.detalle-meta span {
+  background-color: #f4efe6;
+  color: var(--color-principal);
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: var(--radio-pildora);
+}
+
+.detalle-precio {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detalle-precio span {
+  color: var(--color-secundario);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.detalle-precio small {
+  color: #7a5200;
+  font-weight: bold;
+}
+
+.detalle-stock {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.detalle-cantidad {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 180px;
+}
+
+.detalle-cantidad label {
+  color: var(--color-principal);
+  font-weight: bold;
+}
+
+.detalle-cantidad input {
+  padding: 12px 14px;
+  border: 2px solid #e4dccf;
+  border-radius: 14px;
+  background-color: #fffaf2;
+  font-size: 1rem;
+  outline: none;
+}
+
+.detalle-cantidad input:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.2);
+}
+
+.detalle-acciones {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.detalle-mensaje {
+  min-height: 24px;
+  color: #2e7d32;
+  font-weight: bold;
+  margin-bottom: 0;
+}
 
 /* ANIMACIONES */
 @keyframes fadeIn {
@@ -589,27 +940,39 @@ footer {
   }
 }
 
-@keyframes brilloDescuento {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.06);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  .contenedor-categorias {
-    grid-template-columns: repeat(2, 1fr);
+  .detalle-producto {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .detalle-imagen {
+    max-width: 100%;
+  }
+
+  .detalle-imagen img {
+    height: 340px;
+    max-height: 340px;
+  }
+
+  .categoria-card {
+    grid-column: span 6;
   }
 
   .listado-juegos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalogo-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogo-filtros {
+    position: static;
+  }
+
+  .catalogo-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -633,6 +996,10 @@ footer {
 
   .navbar-menu {
     justify-content: center;
+  }
+
+  .navbar-logo img {
+    width: 160px;
   }
 
   .submenu-contenido {
@@ -672,7 +1039,14 @@ footer {
     pointer-events: auto;
   }
 
-  .contenedor-categorias,
+  .contenedor-categorias {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .categoria-card {
+    grid-column: span 12;
+  }
+
   .listado-juegos {
     grid-template-columns: 1fr;
   }
@@ -685,13 +1059,48 @@ footer {
   .presentacion h2,
   .categoria-detalle h2,
   .categorias h2,
+  .catalogo-general h2,
   .navegacion-interna h2 {
     font-size: 1.6rem;
+  }
+
+  .catalogo-encabezado {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .catalogo-contador {
+    width: 100%;
+    text-align: center;
   }
 
   .categoria-card img,
   .juego-card img {
     height: 190px;
+  }
+
+  .catalogo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-producto {
+    padding: 22px;
+  }
+
+  .detalle-info h2 {
+    font-size: 1.7rem;
+  }
+
+  .detalle-imagen img {
+    height: 260px;
+    max-height: 260px;
+    padding: 16px;
+  }
+
+  .detalle-acciones,
+  .detalle-acciones .btn-ludostore,
+  .detalle-acciones .btn-outline-ludostore {
+    width: 100%;
   }
 }
 

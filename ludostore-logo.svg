@@ -1,0 +1,26 @@
+<svg width="260" height="72" viewBox="0 0 260 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LudoStore Logo</title>
+  <desc id="desc">Logo simple de LudoStore con un dado y texto en tonos café y dorado.</desc>
+
+  <!-- Icon background -->
+  <rect x="8" y="8" width="56" height="56" rx="16" fill="#3B2F2F"/>
+  <rect x="13" y="13" width="46" height="46" rx="13" fill="#F7F3EA"/>
+
+  <!-- Dice face -->
+  <rect x="19" y="19" width="34" height="34" rx="9" fill="#D9A441"/>
+  <circle cx="28" cy="28" r="3.2" fill="#3B2F2F"/>
+  <circle cx="44" cy="28" r="3.2" fill="#3B2F2F"/>
+  <circle cx="36" cy="36" r="3.2" fill="#3B2F2F"/>
+  <circle cx="28" cy="44" r="3.2" fill="#3B2F2F"/>
+  <circle cx="44" cy="44" r="3.2" fill="#3B2F2F"/>
+
+  <!-- Small game piece accent -->
+  <path d="M57 51C62 47 63.5 39.5 58.5 35.5C54.3 39.7 52.8 46.6 57 51Z" fill="#8B5E34"/>
+
+  <!-- Wordmark -->
+  <text x="76" y="40" font-family="Poppins, Montserrat, Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-0.6" fill="#3B2F2F">Ludo</text>
+  <text x="145" y="40" font-family="Poppins, Montserrat, Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-0.6" fill="#D9A441">Store</text>
+
+  <!-- Subtitle line -->
+  <path d="M78 49H207" stroke="#8B5E34" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+</svg>

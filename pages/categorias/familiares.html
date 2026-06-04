@@ -4,31 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juegos familiares | LudoStore</title>
+    <link rel="icon" type="image/svg+xml" href="../../ludostore-logo.svg" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet" />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/styles.css" />
   </head>
   <body>
     <header class="navbar" id="home">
-      <a href="../index.html" class="navbar-logo">LudoStore</a>
+      <a href="../../index.html" class="navbar-logo">
+        <img src="../../ludostore-logo.svg" alt="LudoStore" />
+      </a>
 
       <nav class="navbar-menu">
         <div class="submenu">
           <button class="submenu-boton" type="button">
-            Juegos <span>▼</span>
+            Otras categorías
           </button>
 
           <div class="submenu-contenido">
             <a href="estrategias.html">Estrategia</a>
-            <a href="familiares.html">Familiares</a>
             <a href="cartas.html">Cartas</a>
             <a href="cooperativos.html">Cooperativos</a>
           </div>
         </div>
 
-        <a href="../index.html">Inicio</a>
-        <a href="registro.html">Registrarse</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../registro-membresia.html">Registrarse</a>
       </nav>
     </header>
 
@@ -44,7 +46,7 @@
 
       <section class="listado-juegos">
         <article class="juego-card">
-          <img src="../images/juegos/uno.webp" alt="Juego de cartas UNO" />
+          <img src="../../images/juegos/uno.webp" alt="Juego de cartas UNO" />
           <div class="juego-info">
             <h3>UNO</h3>
             <p>
@@ -54,10 +56,15 @@
             <p class="precio">$7.990</p>
             <p class="descuento">Descuento: Sí, 10%</p>
           </div>
+          <a
+            class="btn-outline-ludostore btn-detalle-producto"
+            href="../detalle-producto.html?id=uno">
+            Ver detalle
+          </a>
         </article>
 
         <article class="juego-card">
-          <img src="../images/juegos/jenga.webp" alt="Juego Jenga" />
+          <img src="../../images/juegos/jenga.webp" alt="Juego Jenga" />
           <div class="juego-info">
             <h3>Jenga</h3>
             <p>
@@ -67,10 +74,15 @@
             <p class="precio">$12.990</p>
             <p class="descuento">Descuento: No</p>
           </div>
+          <a
+            class="btn-outline-ludostore btn-detalle-producto"
+            href="../detalle-producto.html?id=jenga">
+            Ver detalle
+          </a>
         </article>
 
         <article class="juego-card">
-          <img src="../images/juegos/dobble.webp" alt="Juego dobble" />
+          <img src="../../images/juegos/dobble.webp" alt="Juego dobble" />
           <div class="juego-info">
             <h3>Dobble</h3>
             <p>
@@ -80,6 +92,11 @@
             <p class="precio">$10.990</p>
             <p class="descuento">Descuento: Sí, 15%</p>
           </div>
+          <a
+            class="btn-outline-ludostore btn-detalle-producto"
+            href="../detalle-producto.html?id=dobble">
+            Ver detalle
+          </a>
         </article>
       </section>
     </main>
@@ -89,6 +106,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../scripts/navbar.js"></script>
+    <script src="../../scripts/navbar.js"></script>
   </body>
 </html>
