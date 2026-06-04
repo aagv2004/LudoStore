@@ -2,181 +2,251 @@ const formulario = document.getElementById("formRegistro");
 const resumenValidacion = document.getElementById("resumenValidacion");
 
 const campos = {
-    nombreCompleto: document.getElementById("nombreCompleto"),
-    usuario: document.getElementById("usuario"),
-    correo: document.getElementById("correo"),
-    password: document.getElementById("password"),
-    repetirPassword: document.getElementById("repetirPassword"),
-    fechaNacimiento: document.getElementById("fechaNacimiento"),
-    direccion: document.getElementById("direccion")
+  nombreCompleto: document.getElementById("nombreCompleto"),
+  usuario: document.getElementById("usuario"),
+  correo: document.getElementById("correo"),
+  password: document.getElementById("password"),
+  repetirPassword: document.getElementById("repetirPassword"),
+  fechaNacimiento: document.getElementById("fechaNacimiento"),
+  direccion: document.getElementById("direccion"),
 };
 
 function mostrarError(input, mensaje) {
-    const grupo = input.closest(".grupo-formulario");
-    const mensajeError = grupo.querySelector(".mensaje-error");
+  const grupo = input.closest(".grupo-formulario");
+  const mensajeError = grupo.querySelector(".mensaje-error");
 
-    grupo.classList.remove("correcto");
-    grupo.classList.add("error");
-    mensajeError.textContent = mensaje;
+  grupo.classList.remove("correcto");
+  grupo.classList.add("error");
+  mensajeError.textContent = mensaje;
 }
 
 function mostrarCorrecto(input) {
-    const grupo = input.closest(".grupo-formulario");
-    const mensajeError = grupo.querySelector(".mensaje-error");
+  const grupo = input.closest(".grupo-formulario");
+  const mensajeError = grupo.querySelector(".mensaje-error");
 
-    grupo.classList.remove("error");
-    grupo.classList.add("correcto");
-    mensajeError.textContent = "";
+  grupo.classList.remove("error");
+  grupo.classList.add("correcto");
+  mensajeError.textContent = "";
 }
 
 function limpiarEstado(input) {
-    const grupo = input.closest(".grupo-formulario");
-    const mensajeError = grupo.querySelector(".mensaje-error");
+  const grupo = input.closest(".grupo-formulario");
+  const mensajeError = grupo.querySelector(".mensaje-error");
 
-    grupo.classList.remove("error", "correcto");
-    mensajeError.textContent = "";
+  grupo.classList.remove("error", "correcto");
+  mensajeError.textContent = "";
 }
 
 function campoVacio(valor) {
-    return valor.trim() === "";
+  return valor.trim() === "";
 }
 
 function correoValido(correo) {
-    const expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return expresionCorreo.test(correo);
+  const expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return expresionCorreo.test(correo);
 }
 
 function passwordValida(password) {
-    const tieneMayuscula = /[A-Z]/.test(password);
-    const tieneNumero = /[0-9]/.test(password);
-    const largoValido = password.length >= 6 && password.length <= 18;
+  const tieneMayuscula = /[A-Z]/.test(password);
+  const tieneNumero = /[0-9]/.test(password);
+  const largoValido = password.length >= 6 && password.length <= 18;
 
-    return tieneMayuscula && tieneNumero && largoValido;
+  return tieneMayuscula && tieneNumero && largoValido;
 }
 
 function calcularEdad(fechaNacimiento) {
-    const nacimiento = new Date(fechaNacimiento);
-    const hoy = new Date();
+  const nacimiento = new Date(fechaNacimiento);
+  const hoy = new Date();
 
-    let edad = hoy.getFullYear() - nacimiento.getFullYear();
-    const mes = hoy.getMonth() - nacimiento.getMonth();
-    const dia = hoy.getDate() - nacimiento.getDate();
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const mes = hoy.getMonth() - nacimiento.getMonth();
+  const dia = hoy.getDate() - nacimiento.getDate();
 
-    if (mes < 0 || (mes === 0 && dia < 0)) {
-        edad--;
-    }
+  if (mes < 0 || (mes === 0 && dia < 0)) {
+    edad--;
+  }
 
-    return edad;
+  return edad;
 }
 
 function actualizarResumen(mensaje, tipo) {
-    resumenValidacion.textContent = mensaje;
-    resumenValidacion.classList.remove("correcto", "error");
+  resumenValidacion.textContent = mensaje;
+  resumenValidacion.classList.remove("correcto", "error");
 
-    if (tipo) {
-        resumenValidacion.classList.add(tipo);
-    }
+  if (tipo) {
+    resumenValidacion.classList.add(tipo);
+  }
 }
 
 function validarFormulario() {
-    let formularioValido = true;
+  let formularioValido = true;
 
-    const nombre = campos.nombreCompleto.value;
-    const usuario = campos.usuario.value;
-    const correo = campos.correo.value;
-    const password = campos.password.value;
-    const repetirPassword = campos.repetirPassword.value;
-    const fechaNacimiento = campos.fechaNacimiento.value;
+  const nombre = campos.nombreCompleto.value;
+  const usuario = campos.usuario.value;
+  const correo = campos.correo.value;
+  const password = campos.password.value;
+  const repetirPassword = campos.repetirPassword.value;
+  const fechaNacimiento = campos.fechaNacimiento.value;
 
-    if (campoVacio(nombre)) {
-        mostrarError(campos.nombreCompleto, "El nombre completo es obligatorio.");
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.nombreCompleto);
-    }
+  if (campoVacio(nombre)) {
+    mostrarError(campos.nombreCompleto, "El nombre completo es obligatorio.");
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.nombreCompleto);
+  }
 
-    if (campoVacio(usuario)) {
-        mostrarError(campos.usuario, "El nombre de usuario es obligatorio.");
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.usuario);
-    }
+  if (campoVacio(usuario)) {
+    mostrarError(campos.usuario, "El nombre de usuario es obligatorio.");
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.usuario);
+  }
 
-    if (campoVacio(correo)) {
-        mostrarError(campos.correo, "El correo electrónico es obligatorio.");
-        formularioValido = false;
-    } else if (!correoValido(correo)) {
-        mostrarError(campos.correo, "Ingresa un correo electrónico válido.");
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.correo);
-    }
+  if (campoVacio(correo)) {
+    mostrarError(campos.correo, "El correo electrónico es obligatorio.");
+    formularioValido = false;
+  } else if (!correoValido(correo)) {
+    mostrarError(campos.correo, "Ingresa un correo electrónico válido.");
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.correo);
+  }
 
-    if (campoVacio(password)) {
-        mostrarError(campos.password, "La clave es obligatoria.");
-        formularioValido = false;
-    } else if (!passwordValida(password)) {
+  if (campoVacio(password)) {
+    mostrarError(campos.password, "La clave es obligatoria.");
+    formularioValido = false;
+  } else if (!passwordValida(password)) {
+    mostrarError(
+      campos.password,
+      "Debe tener entre 6 y 18 caracteres, una mayúscula y un número.",
+    );
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.password);
+  }
+
+  if (campoVacio(repetirPassword)) {
+    mostrarError(campos.repetirPassword, "Debes repetir la clave.");
+    formularioValido = false;
+  } else if (password !== repetirPassword) {
+    mostrarError(campos.repetirPassword, "Las claves no coinciden.");
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.repetirPassword);
+  }
+
+  if (campoVacio(fechaNacimiento)) {
+    mostrarError(
+      campos.fechaNacimiento,
+      "La fecha de nacimiento es obligatoria.",
+    );
+    formularioValido = false;
+  } else if (calcularEdad(fechaNacimiento) < 13) {
+    mostrarError(
+      campos.fechaNacimiento,
+      "Debes tener al menos 13 años para registrarte.",
+    );
+    formularioValido = false;
+  } else {
+    mostrarCorrecto(campos.fechaNacimiento);
+  }
+
+  limpiarEstado(campos.direccion);
+
+  return formularioValido;
+}
+
+function validarCampo(input) {
+  const id = input.id;
+  const valor = input.value;
+
+  switch (id) {
+    case "nombreCompleto":
+      if (campoVacio(valor))
+        mostrarError(input, "El nombre completo es obligatorio.");
+      else mostrarCorrecto(input);
+      break;
+    case "usuario":
+      if (campoVacio(valor))
+        mostrarError(input, "El nombre de usuario es obligatorio.");
+      else mostrarCorrecto(input);
+      break;
+    case "correo":
+      if (campoVacio(valor))
+        mostrarError(input, "El correo electrónico es obligatorio.");
+      else if (!correoValido(valor))
+        mostrarError(input, "Ingresa un correo electrónico válido.");
+      else mostrarCorrecto(input);
+      break;
+    case "password":
+      if (campoVacio(valor)) mostrarError(input, "La clave es obligatoria.");
+      else if (!passwordValida(valor))
         mostrarError(
-            campos.password,
-            "Debe tener entre 6 y 18 caracteres, una mayúscula y un número."
+          input,
+          "Debe tener entre 6 y 18 caracteres, una mayúscula y un número.",
         );
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.password);
-    }
-
-    if (campoVacio(repetirPassword)) {
-        mostrarError(campos.repetirPassword, "Debes repetir la clave.");
-        formularioValido = false;
-    } else if (password !== repetirPassword) {
-        mostrarError(campos.repetirPassword, "Las claves no coinciden.");
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.repetirPassword);
-    }
-
-    if (campoVacio(fechaNacimiento)) {
-        mostrarError(campos.fechaNacimiento, "La fecha de nacimiento es obligatoria.");
-        formularioValido = false;
-    } else if (calcularEdad(fechaNacimiento) < 13) {
-        mostrarError(campos.fechaNacimiento, "Debes tener al menos 13 años para registrarte.");
-        formularioValido = false;
-    } else {
-        mostrarCorrecto(campos.fechaNacimiento);
-    }
-
-    limpiarEstado(campos.direccion);
-
-    return formularioValido;
+      else mostrarCorrecto(input);
+      break;
+    case "repetirPassword":
+      if (campoVacio(valor)) mostrarError(input, "Debes repetir la clave.");
+      else if (valor !== campos.password.value)
+        mostrarError(input, "Las claves no coinciden.");
+      else mostrarCorrecto(input);
+      break;
+    case "fechaNacimiento":
+      if (campoVacio(valor))
+        mostrarError(input, "La fecha de nacimiento es obligatoria.");
+      else if (calcularEdad(valor) < 13)
+        mostrarError(input, "Debes tener al menos 13 años para registrarte.");
+      else mostrarCorrecto(input);
+      break;
+    case "direccion":
+      limpiarEstado(input);
+      break;
+    default:
+      break;
+  }
 }
 
 formulario.addEventListener("submit", function (evento) {
-    evento.preventDefault();
+  evento.preventDefault();
 
-    const esValido = validarFormulario();
+  const esValido = validarFormulario();
 
-    if (esValido) {
-        actualizarResumen("Registro enviado correctamente. El comprador ya puede ser considerado para futuras recompensas.", "correcto");
+  if (esValido) {
+    actualizarResumen(
+      "Registro enviado correctamente. El comprador ya puede ser considerado para futuras recompensas.",
+      "correcto",
+    );
 
-        formulario.classList.add("formulario-enviado");
+    formulario.classList.add("formulario-enviado");
 
-        setTimeout(() => {
-            formulario.classList.remove("formulario-enviado");
-        }, 700);
-    } else {
-        actualizarResumen("Revisa los campos marcados antes de enviar el formulario.", "error");
-    }
+    setTimeout(() => {
+      formulario.classList.remove("formulario-enviado");
+    }, 700);
+  } else {
+    actualizarResumen(
+      "Revisa los campos marcados antes de enviar el formulario.",
+      "error",
+    );
+  }
 });
 
 formulario.addEventListener("reset", function () {
-    setTimeout(() => {
-        Object.values(campos).forEach((campo) => limpiarEstado(campo));
-        actualizarResumen("Completa el formulario para activar el registro.", "");
-    }, 0);
+  setTimeout(() => {
+    Object.values(campos).forEach((campo) => limpiarEstado(campo));
+    actualizarResumen("Completa el formulario para activar el registro.", "");
+  }, 0);
 });
 
 Object.values(campos).forEach((campo) => {
-    campo.addEventListener("input", function () {
-        validarFormulario();
-    });
+  campo.addEventListener("input", function (e) {
+    if (document.activeElement === campo) {
+      validarCampo(campo);
+    }
+  });
+
+  campo.addEventListener("blur", function () {
+    validarCampo(campo);
+  });
 });
