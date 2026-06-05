@@ -8,7 +8,7 @@ const totalCarrito = document.getElementById("totalCarrito");
 const btnVaciarCarrito = document.getElementById("btnVaciarCarrito");
 const btnFinalizarCompra = document.getElementById("btnFinalizarCompra");
 const mensajeCarrito = document.getElementById("mensajeCarrito");
-const contadorCarritoNav = document.getElementById("contadorCarritoNav");
+const contadorCarritoNavCarrito = document.getElementById("contadorCarritoNav");
 
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
@@ -30,13 +30,13 @@ function obtenerRutaImagen(rutaImagen) {
 }
 
 function actualizarContadorNav(carrito) {
-  if (!contadorCarritoNav) return;
+  if (!contadorCarritoNavCarrito) return;
 
   const cantidadTotal = carrito.reduce((total, item) => {
     return total + item.cantidad;
   }, 0);
 
-  contadorCarritoNav.textContent = cantidadTotal;
+  contadorCarritoNavCarrito.textContent = cantidadTotal;
 }
 
 function renderizarCarrito() {
@@ -86,7 +86,7 @@ function renderizarCarrito() {
                     type="button"
                     class="btn-cantidad"
                     data-accion="aumentar"
-                    data-id="${item.id}
+                    data-id="${item.id}"
                     aria-label="Aumentar cantidad de ${item.nombre}"
                 >
                     +
