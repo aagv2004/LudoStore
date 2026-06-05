@@ -423,7 +423,23 @@ section {
 
 .catalogo-filtros h3 {
   color: var(--color-principal);
+  margin-bottom: 0;
+}
+
+.catalogo-filtros-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
   margin-bottom: 18px;
+}
+
+.catalogo-filtros-boton {
+  display: none;
+}
+
+.catalogo-filtros-panel {
+  display: contents;
 }
 
 .grupo-filtro {
@@ -942,6 +958,25 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
+  .navbar {
+    gap: 18px;
+    padding: 16px 24px;
+  }
+
+  .navbar-logo img {
+    width: 170px;
+  }
+
+  .navbar-menu {
+    gap: 10px;
+  }
+
+  .navbar a,
+  .submenu-boton {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
   .detalle-producto {
     grid-template-columns: 1fr;
     padding: 30px;
@@ -970,15 +1005,42 @@ footer {
 
   .catalogo-filtros {
     position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .catalogo-filtros-encabezado {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .catalogo-filtros .grupo-filtro {
+    margin-bottom: 0;
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type {
+    grid-column: 1 / -1;
   }
 
   .catalogo-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   header h1,
   .logo {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .catalogo-filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type,
+  .catalogo-filtros .grupo-filtro:last-of-type {
+    grid-column: 1 / -1;
   }
 }
 
@@ -991,15 +1053,36 @@ footer {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    gap: 12px;
+    padding: 14px 12px 16px;
   }
 
   .navbar-menu {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: center;
+    gap: 8px;
+  }
+
+  .navbar-menu > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 9px 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  .navbar-menu > a:last-child {
+    grid-column: 1 / -1;
   }
 
   .navbar-logo img {
-    width: 160px;
+    width: 150px;
   }
 
   .submenu-contenido {
@@ -1074,6 +1157,82 @@ footer {
     text-align: center;
   }
 
+  .catalogo-filtros {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type,
+  .catalogo-filtros .grupo-filtro:last-of-type {
+    grid-column: auto;
+  }
+
+  .catalogo-filtros-encabezado {
+    margin-bottom: 0;
+    padding: 14px 16px;
+  }
+
+  .catalogo-filtros h3 {
+    font-size: 1.1rem;
+  }
+
+  .catalogo-filtros-boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--radio-pildora);
+    background-color: var(--color-secundario);
+    color: white;
+    font-weight: bold;
+    line-height: 1.2;
+    transition: var(--transicion);
+  }
+
+  .catalogo-filtros-boton::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.25s ease;
+  }
+
+  .catalogo-filtros:not(.filtros-cerrados) .catalogo-filtros-boton::after {
+    transform: rotate(225deg) translate(-2px, -2px);
+  }
+
+  .catalogo-filtros-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-height: 520px;
+    padding: 0 16px 16px;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      padding 0.28s ease,
+      visibility 0.22s ease;
+  }
+
+  .catalogo-filtros.filtros-cerrados .catalogo-filtros-panel {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .catalogo-filtros-panel .grupo-filtro {
+    margin-bottom: 0;
+  }
+
   .categoria-card img,
   .juego-card img {
     height: 190px;
@@ -1101,6 +1260,26 @@ footer {
   .detalle-acciones .btn-ludostore,
   .detalle-acciones .btn-outline-ludostore {
     width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar-logo img {
+    width: 138px;
+  }
+
+  .navbar-menu {
+    gap: 7px;
+  }
+
+  .navbar-menu > a {
+    min-height: 40px;
+    padding: 8px;
+    font-size: 0.84rem;
+  }
+
+  main {
+    width: 94%;
   }
 }
 

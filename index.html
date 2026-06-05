@@ -91,9 +91,20 @@
         </div>
 
         <div class="catalogo-layout">
-          <aside class="catalogo-filtros">
-            <h3>Filtros</h3>
+          <aside class="catalogo-filtros filtros-cerrados">
+            <div class="catalogo-filtros-encabezado">
+              <h3>Filtros</h3>
+              <button
+                class="catalogo-filtros-boton"
+                id="botonFiltrosCatalogo"
+                type="button"
+                aria-controls="panelFiltrosCatalogo"
+                aria-expanded="false">
+                Ver filtros
+              </button>
+            </div>
 
+            <div class="catalogo-filtros-panel" id="panelFiltrosCatalogo">
             <div class="grupo-filtro">
               <label for="buscadorCatalogo">Buscar</label>
               <input
@@ -130,6 +141,7 @@
                 <option value="con-descuento">Con descuento</option>
                 <option value="sin-descuento">Sin descuento</option>
               </select>
+            </div>
             </div>
           </aside>
 

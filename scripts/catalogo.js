@@ -4,6 +4,8 @@ const filtroPrecio = document.getElementById("filtroPrecio");
 const filtroDescuento = document.getElementById("filtroDescuento");
 const buscadorCatalogo = document.getElementById("buscadorCatalogo");
 const contadorCatalogo = document.getElementById("contadorCatalogo");
+const contenedorFiltros = document.querySelector(".catalogo-filtros");
+const botonFiltrosCatalogo = document.getElementById("botonFiltrosCatalogo");
 
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
@@ -107,5 +109,16 @@ function renderizarCatalogo() {
     control.addEventListener("change", renderizarCatalogo);
   },
 );
+
+if (contenedorFiltros && botonFiltrosCatalogo) {
+  botonFiltrosCatalogo.addEventListener("click", () => {
+    const estaCerrado = contenedorFiltros.classList.toggle("filtros-cerrados");
+
+    botonFiltrosCatalogo.setAttribute("aria-expanded", String(!estaCerrado));
+    botonFiltrosCatalogo.textContent = estaCerrado
+      ? "Ver filtros"
+      : "Ocultar filtros";
+  });
+}
 
 renderizarCatalogo();
