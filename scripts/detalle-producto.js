@@ -78,7 +78,16 @@ function agregarAlCarrito() {
   const productoEnCarrito = carrito.find((item) => item.id === producto.id);
 
   if (productoEnCarrito) {
-    productoEnCarrito.cantidad += cantidadSeleccionada;
+    const nuevaCantidad = productoEnCarrito.cantidad + cantidadSeleccionada;
+
+    if (nuevaCantidad > producto.stock) {
+      mensaje.textContent =
+        "No puedes agregar mas unidades que el stock disponible.";
+      mensaje.style.color = "#b00020";
+      return;
+    }
+
+    productoEnCarrito.cantidad = nuevaCantidad;
   } else {
     carrito.push({
       id: producto.id,

@@ -909,6 +909,222 @@ footer {
   margin-bottom: 0;
 }
 
+/* CARRITO */
+.link-carrito {
+  position: relative;
+}
+
+.link-carrito span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: var(--radio-pildora);
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.carrito-seccion {
+  width: min(1120px, 92%);
+  margin: 120px auto 60px;
+}
+
+.carrito-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.carrito-encabezado h1 {
+  color: var(--color-principal);
+  margin-bottom: 8px;
+}
+
+.carrito-encabezado p {
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.btn-volver-catalogo,
+.carrito-vacio a,
+.btn-finalizar,
+.btn-vaciar {
+  border: none;
+  border-radius: var(--radio-pildora);
+  padding: 12px 20px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn-volver-catalogo,
+.carrito-vacio a,
+.btn-finalizar {
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+}
+
+.btn-vaciar {
+  background-color: transparent;
+  border: 2px solid var(--color-secundario);
+  color: var(--color-secundario);
+}
+
+.btn-volver-catalogo:hover,
+.carrito-vacio a:hover,
+.btn-finalizar:hover,
+.btn-vaciar:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-card);
+}
+
+.carrito-vacio {
+  display: none;
+  padding: 48px 24px;
+  border-radius: var(--radio-borde);
+  background-color: var(--color-card);
+  box-shadow: var(--sombra-card);
+  text-align: center;
+}
+
+.carrito-vacio h2 {
+  color: var(--color-principal);
+  margin-bottom: 10px;
+}
+
+.carrito-vacio p {
+  color: var(--color-texto-suave);
+  margin-bottom: 24px;
+}
+
+.carrito-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+.carrito-lista {
+  display: grid;
+  gap: 18px;
+}
+
+.carrito-item {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto auto;
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border-radius: var(--radio-borde);
+  background-color: var(--color-card);
+  box-shadow: var(--sombra-card);
+}
+
+.carrito-item img {
+  width: 120px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.carrito-item-info h2 {
+  margin-bottom: 8px;
+  color: var(--color-principal);
+  font-size: 1.15rem;
+}
+
+.carrito-item-info p {
+  margin: 4px 0;
+  color: var(--color-texto-suave);
+}
+
+.carrito-controles {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--radio-pildora);
+  background-color: var(--color-fondo);
+}
+
+.btn-cantidad {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-secundario);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.carrito-controles span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.btn-eliminar {
+  border: none;
+  border-radius: var(--radio-pildora);
+  padding: 10px 16px;
+  background-color: #f7d7d7;
+  color: #8a1f1f;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.carrito-resumen {
+  position: sticky;
+  top: 110px;
+  padding: 24px;
+  border-radius: var(--radio-borde);
+  background-color: var(--color-card);
+  box-shadow: var(--sombra-card);
+}
+
+.carrito-resumen h2 {
+  margin-bottom: 18px;
+  color: var(--color-principal);
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.resumen-total {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: var(--color-principal);
+}
+
+.btn-finalizar,
+.btn-vaciar {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.mensaje-carrito {
+  margin-top: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
 /* ANIMACIONES */
 @keyframes fadeIn {
   from {
@@ -957,7 +1173,16 @@ footer {
 }
 
 /* RESPONSIVE */
+/* TABLET */
 @media (max-width: 900px) {
+  /* HEADER Y H1 */
+
+  header h1,
+  .logo {
+    font-size: 2rem;
+  }
+
+  /* NAVBAR */
   .navbar {
     gap: 18px;
     padding: 16px 24px;
@@ -977,6 +1202,7 @@ footer {
     font-size: 0.95rem;
   }
 
+  /* DETALLE PRODUCTO */
   .detalle-producto {
     grid-template-columns: 1fr;
     padding: 30px;
@@ -991,6 +1217,7 @@ footer {
     max-height: 340px;
   }
 
+  /* CATEGORIA Y CATALOGO */
   .categoria-card {
     grid-column: span 6;
   }
@@ -1027,12 +1254,27 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  header h1,
-  .logo {
-    font-size: 2rem;
+  /* CARRITO */
+  .carrito-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-resumen {
+    position: static;
+  }
+
+  .carrito-item {
+    grid-template-columns: 100px 1fr;
+  }
+
+  .carrito-controles,
+  .btn-eliminar {
+    grid-column: 2;
+    justify-self: start;
   }
 }
 
+/* PROBANDO MEDIAS */
 @media (max-width: 700px) {
   .catalogo-filtros {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1044,11 +1286,20 @@ footer {
   }
 }
 
+/* TELÉFONO */
 @media (max-width: 600px) {
+  /* HEADER */
   header {
     padding: 22px 20px;
   }
 
+  /* MAIN */
+  main {
+    width: 92%;
+    padding: 28px 0;
+  }
+
+  /* NAVBAR */
   .navbar {
     flex-direction: column;
     justify-content: center;
@@ -1122,6 +1373,7 @@ footer {
     pointer-events: auto;
   }
 
+  /* CATEGORÍAS */
   .contenedor-categorias {
     grid-template-columns: repeat(12, 1fr);
   }
@@ -1130,13 +1382,9 @@ footer {
     grid-column: span 12;
   }
 
+  /* CATÁLOGO */
   .listado-juegos {
     grid-template-columns: 1fr;
-  }
-
-  main {
-    width: 92%;
-    padding: 28px 0;
   }
 
   .presentacion h2,
@@ -1242,6 +1490,7 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  /* DETALLE PRODUCTO */
   .detalle-producto {
     padding: 22px;
   }
@@ -1260,6 +1509,30 @@ footer {
   .detalle-acciones .btn-ludostore,
   .detalle-acciones .btn-outline-ludostore {
     width: 100%;
+  }
+
+  /* CARRITO */
+  .carrito-seccion {
+    margin-top: 100px;
+  }
+
+  .carrito-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .carrito-item {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-item img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .carrito-controles,
+  .btn-eliminar {
+    grid-column: auto;
   }
 }
 
