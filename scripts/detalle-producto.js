@@ -57,14 +57,6 @@ function cargarDetalleProducto() {
     rutasCategorias[producto.categoria] || "categorias/cartas.html";
 }
 
-function obtenerCarrito() {
-  return JSON.parse(localStorage.getItem("ludostore_carrito")) || [];
-}
-
-function guardarCarrito(carrito) {
-  localStorage.setItem("ludostore_carrito", JSON.stringify(carrito));
-}
-
 function agregarAlCarrito() {
   const cantidadSeleccionada = Number(cantidad.value);
 
@@ -74,34 +66,14 @@ function agregarAlCarrito() {
     return;
   }
 
-  const carrito = obtenerCarrito();
-  const productoEnCarrito = carrito.find((item) => item.id === producto.id);
+  const resultado = agregarProductoAlCarrito(producto, cantidadSeleccionada);
 
-  if (productoEnCarrito) {
-    const nuevaCantidad = productoEnCarrito.cantidad + cantidadSeleccionada;
+  mensaje.textContent = resultado.mensaje;
+  mensaje.style.color = resultado.ok ? "#2e7d32" : "#b00020";
 
-    if (nuevaCantidad > producto.stock) {
-      mensaje.textContent =
-        "No puedes agregar mas unidades que el stock disponible.";
-      mensaje.style.color = "#b00020";
-      return;
-    }
-
-    productoEnCarrito.cantidad = nuevaCantidad;
-  } else {
-    carrito.push({
-      id: producto.id,
-      nombre: producto.nombre,
-      precio: producto.precio,
-      imagen: producto.imagen,
-      cantidad: cantidadSeleccionada,
-    });
+  if (resultado.ok) {
+    actualizarContadorCarrito();
   }
-
-  guardarCarrito(carrito);
-
-  mensaje.textContent = "Producto agregado al carrito.";
-  mensaje.style.color = "#2e7d32";
 }
 
 cargarDetalleProducto();

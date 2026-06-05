@@ -45,11 +45,21 @@ function crearCardProducto(producto) {
         <p>${producto.descripcion}</p>
         <p class="precio">${formatearPrecio(producto.precio)}</p>
         <p class="descuento">${descuentoTexto}</p>
-        <a
-          class="btn-outline-ludostore btn-detalle-producto"
-          href="pages/detalle-producto.html?id=${producto.id}">
-          Ver detalle
-        </a>
+        <div class="card-producto-acciones">
+          <a
+            class="btn-outline-ludostore btn-detalle-producto"
+            href="pages/detalle-producto.html?id=${producto.id}">
+            Ver detalle
+          </a>
+
+          <button 
+            type="button"
+            class="btn-agregar-carrito-card"
+            data-id="${producto.id}"
+          >
+            Agregar
+          </button>
+        </div>
       </div>
     </article>
   `;
@@ -120,5 +130,28 @@ if (contenedorFiltros && botonFiltrosCatalogo) {
       : "Ocultar filtros";
   });
 }
+
+document.addEventListener("click", (event) => {
+  const botonAgregar = event.target.closest(".btn-agregar-carrito-card");
+
+  if (!botonAgregar) return;
+
+  const idProducto = botonAgregar.dataset.id;
+  const producto = productos.find((item) => item.id === idProducto);
+
+  if (!producto) return;
+
+  const resultado = agregarProductoAlCarrito(producto, 1);
+
+  actualizarContadorCarrito();
+
+  botonAgregar.textContent = resultado.ok ? "Agregado" : "Sin stock";
+  botonAgregar.classList.add(resultado.ok ? "agregado" : "sin-stock");
+
+  setTimeout(() => {
+    botonAgregar.textContent = "Agregar";
+    botonAgregar.classList.remove("agregado", "sin-stock");
+  }, 1600);
+});
 
 renderizarCatalogo();

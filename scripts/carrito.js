@@ -1,5 +1,3 @@
-const CLAVE_CARRITO = "ludostore_carrito";
-
 const carritoVacio = document.getElementById("carritoVacio");
 const carritoContenido = document.getElementById("carritoContenido");
 const listaCarrito = document.getElementById("listaCarrito");
@@ -8,7 +6,6 @@ const totalCarrito = document.getElementById("totalCarrito");
 const btnVaciarCarrito = document.getElementById("btnVaciarCarrito");
 const btnFinalizarCompra = document.getElementById("btnFinalizarCompra");
 const mensajeCarrito = document.getElementById("mensajeCarrito");
-const contadorCarritoNavCarrito = document.getElementById("contadorCarritoNav");
 
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
@@ -17,32 +14,14 @@ function formatearPrecio(valor) {
   });
 }
 
-function obtenerCarrito() {
-  return JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || [];
-}
-
-function guardarCarrito(carrito) {
-  localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
-}
-
 function obtenerRutaImagen(rutaImagen) {
   return `../${rutaImagen}`;
-}
-
-function actualizarContadorNav(carrito) {
-  if (!contadorCarritoNavCarrito) return;
-
-  const cantidadTotal = carrito.reduce((total, item) => {
-    return total + item.cantidad;
-  }, 0);
-
-  contadorCarritoNavCarrito.textContent = cantidadTotal;
 }
 
 function renderizarCarrito() {
   const carrito = obtenerCarrito();
 
-  actualizarContadorNav(carrito);
+  actualizarContadorCarrito();
 
   if (carrito.length === 0) {
     carritoVacio.style.display = "block";
@@ -167,7 +146,7 @@ function vaciarCarrito() {
 
   if (!confirmar) return;
 
-  localStorage.removeItem(CLAVE_CARRITO);
+  vaciarCarritoGuardado();
 
   mensajeCarrito.textContent = "";
   renderizarCarrito();
@@ -180,7 +159,7 @@ function finalizarCompra() {
 
   alert("Compra simulada correctamente. Gracias por comprar en LudoStore.");
 
-  localStorage.removeItem(CLAVE_CARRITO);
+  vaciarCarritoGuardado();
   renderizarCarrito();
 }
 

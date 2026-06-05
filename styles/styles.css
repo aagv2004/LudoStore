@@ -295,8 +295,7 @@ section {
 .presentacion h2,
 .categoria-detalle h2,
 .categorias h2,
-.catalogo-general h2,
-.navegacion-interna h2 {
+.catalogo-general h2 {
   font-size: 2rem;
   color: var(--color-principal);
   margin-bottom: 14px;
@@ -536,10 +535,8 @@ section {
 }
 
 .juego-info {
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 
 .juego-info h3 {
@@ -574,29 +571,7 @@ section {
   line-height: 1.2;
 }
 
-/* NAVEGACIÓN INTERNA */
-.navegacion-interna {
-  text-align: center;
-}
-
-.navegacion-interna a {
-  display: inline-block;
-  margin: 8px;
-  padding: 10px 16px;
-  background-color: var(--color-principal);
-  color: white;
-  text-decoration: none;
-  border-radius: var(--radio-pildora);
-  transition: var(--transicion);
-}
-
-.navegacion-interna a:hover {
-  background-color: var(--color-acento);
-  color: var(--color-principal);
-  transform: translateY(-3px);
-}
-
-/* FORMULARIO DE REGISTRO */
+/* REGISTRO MEMBRESIA */
 .registro-contenedor {
   display: grid;
   grid-template-columns: 0.9fr 1.2fr;
@@ -676,12 +651,6 @@ section {
   background-color: white;
 }
 
-.grupo-doble {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
 .mensaje-error {
   min-height: 18px;
   font-size: 0.85rem;
@@ -717,6 +686,45 @@ section {
 .resumen-validacion.error {
   background-color: #fdeaea;
   color: #b00020;
+}
+
+.formulario-enviado {
+  position: relative;
+  border: 2px solid #2e7d32;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
+  box-shadow: 0 12px 28px rgba(46, 125, 50, 0.18);
+  transform: scale(1.01);
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  animation: formularioConfirmado 0.45s ease;
+}
+
+.formulario-enviado::before {
+  content: "✓ Formulario enviado correctamente";
+  display: block;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border-radius: var(--radio-pildora);
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 700;
+  text-align: center;
+}
+
+.formulario-enviado input,
+.formulario-enviado textarea,
+.formulario-enviado select {
+  border-color: #a5d6a7;
+  background-color: #f7fff8;
+}
+
+.formulario-enviado button[type="submit"] {
+  background-color: #2e7d32;
+  color: #ffffff;
+  cursor: default;
 }
 
 /* BOTONES */
@@ -1125,6 +1133,43 @@ footer {
   text-align: center;
 }
 
+/* BOTONES Y CARDS CATÁLOGO -> CARRITO */
+.card-producto-acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-agregar-carrito-card {
+  border: none;
+  border-radius: var(--radio-pildora);
+  padding: 10px 16px;
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn-agregar-carrito-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-card);
+}
+
+.btn-agregar-carrito-card.agregado {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.btn-agregar-carrito-card.sin-stock {
+  background-color: #b00020;
+  color: #ffffff;
+}
+
 /* ANIMACIONES */
 @keyframes fadeIn {
   from {
@@ -1172,13 +1217,24 @@ footer {
   }
 }
 
+@keyframes formularioConfirmado {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.01);
+    opacity: 1;
+  }
+}
+
 /* RESPONSIVE */
 /* TABLET */
 @media (max-width: 900px) {
   /* HEADER Y H1 */
 
-  header h1,
-  .logo {
+  header h1 {
     font-size: 2rem;
   }
 
@@ -1390,8 +1446,7 @@ footer {
   .presentacion h2,
   .categoria-detalle h2,
   .categorias h2,
-  .catalogo-general h2,
-  .navegacion-interna h2 {
+  .catalogo-general h2 {
     font-size: 1.6rem;
   }
 
