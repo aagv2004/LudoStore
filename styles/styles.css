@@ -526,6 +526,7 @@ section {
 
 .juego-card:hover {
   transform: translateY(-8px);
+  border: 1px solid var(--color-acento);
 }
 
 .juego-card img {
@@ -537,6 +538,7 @@ section {
 .juego-info {
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .juego-info h3 {
@@ -1136,15 +1138,33 @@ footer {
 /* BOTONES Y CARDS CATÁLOGO -> CARRITO */
 .card-producto-acciones {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 10px;
+  align-items: stretch;
   margin-top: auto;
+}
+
+.card-producto-acciones .btn-detalle-producto {
+  align-self: stretch;
+  margin: 0;
+}
+
+.card-producto-acciones .btn-outline-ludostore,
+.card-producto-acciones .btn-agregar-carrito-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .btn-agregar-carrito-card {
   border: none;
   border-radius: var(--radio-pildora);
-  padding: 10px 16px;
   background-color: var(--color-acento);
   color: var(--color-principal);
   font-weight: 700;
@@ -1608,6 +1628,10 @@ footer {
 
   main {
     width: 94%;
+  }
+
+  .card-producto-acciones {
+    grid-template-columns: 1fr;
   }
 }
 
