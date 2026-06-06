@@ -47,11 +47,43 @@ function correoValido(correo) {
 }
 
 function passwordValida(password) {
-  const tieneMayuscula = /[A-Z]/.test(password);
-  const tieneNumero = /[0-9]/.test(password);
-  const largoValido = password.length >= 6 && password.length <= 18;
+  return obtenerErroresPassword(password).length === 0;
+}
 
-  return tieneMayuscula && tieneNumero && largoValido;
+function obtenerErroresPassword(password) {
+  const errores = [];
+
+  if (password.length < 6) {
+    errores.push("minimo 6 caracteres");
+  } else if (password.length > 18) {
+    errores.push("maximo 18 caracteres");
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    errores.push("una mayuscula");
+  }
+
+  if (!/[0-9]/.test(password)) {
+    errores.push("un numero");
+  }
+
+  if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]`;~]/.test(password)) {
+    errores.push("un caracter especial");
+  }
+
+  return errores;
+}
+
+function mensajePassword(password) {
+  const errores = obtenerErroresPassword(password);
+
+  if (errores.length === 1) {
+    return `Debe incluir ${errores[0]}.`;
+  }
+
+  return `Debe incluir ${errores.slice(0, -1).join(", ")} y ${
+    errores[errores.length - 1]
+  }.`;
 }
 
 function calcularEdad(fechaNacimiento) {
@@ -116,10 +148,7 @@ function validarFormulario() {
     mostrarError(campos.password, "La clave es obligatoria.");
     formularioValido = false;
   } else if (!passwordValida(password)) {
-    mostrarError(
-      campos.password,
-      "Debe tener entre 6 y 18 caracteres, una mayúscula y un número.",
-    );
+    mostrarError(campos.password, mensajePassword(password));
     formularioValido = false;
   } else {
     mostrarCorrecto(campos.password);
@@ -164,11 +193,21 @@ function validarCampo(input) {
     case "nombreCompleto":
       if (campoVacio(valor))
         mostrarError(input, "El nombre completo es obligatorio.");
+      else if (valor.length < 3)
+        mostrarError(
+          input,
+          "El nombre completo debe tener al menos 3 caracteres.",
+        );
       else mostrarCorrecto(input);
       break;
     case "usuario":
       if (campoVacio(valor))
         mostrarError(input, "El nombre de usuario es obligatorio.");
+      else if (valor.length < 3)
+        mostrarError(
+          input,
+          "El nombre de usuario debe tener al menos 3 caracteres.",
+        );
       else mostrarCorrecto(input);
       break;
     case "correo":
@@ -181,10 +220,7 @@ function validarCampo(input) {
     case "password":
       if (campoVacio(valor)) mostrarError(input, "La clave es obligatoria.");
       else if (!passwordValida(valor))
-        mostrarError(
-          input,
-          "Debe tener entre 6 y 18 caracteres, una mayúscula y un número.",
-        );
+        mostrarError(input, mensajePassword(valor));
       else mostrarCorrecto(input);
       break;
     case "repetirPassword":

@@ -508,25 +508,30 @@ section {
 /* FICHAS DE JUEGOS */
 .listado-juegos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
 .juego-card {
   background-color: var(--color-card);
+  border: 1px solid transparent;
   border-radius: var(--radio-borde);
   box-shadow: var(--sombra-card);
   overflow: hidden;
   animation: aparecerEscala 0.7s ease;
-  transition: var(--transicion);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   display: flex;
   flex-direction: column;
+  padding: 12px;
 }
 
 .juego-card:hover {
   transform: translateY(-8px);
-  border: 1px solid var(--color-acento);
+  border-color: var(--color-acento);
 }
 
 .juego-card img {
@@ -920,12 +925,30 @@ footer {
 }
 
 /* CARRITO */
+@media (min-width: 700px) {
+  .carrito-container {
+    border-left: 1px solid var(--color-fondo);
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .link-carrito {
   position: relative;
+  justify-self: center;
+}
+
+.link-carrito svg {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
 }
 
 .link-carrito span {
   display: inline-flex;
+  position: absolute;
+  right: 0.5px;
+  top: 1px;
   align-items: center;
   justify-content: center;
   min-width: 22px;
@@ -933,10 +956,15 @@ footer {
   margin-left: 4px;
   padding: 0 6px;
   border-radius: var(--radio-pildora);
-  background-color: var(--color-acento);
-  color: var(--color-principal);
+  background-color: var(--color-principal);
+  color: var(--color-acento);
   font-size: 0.8rem;
   font-weight: 700;
+}
+
+.link-carrito:hover {
+  transform: translateY(-2px);
+  transition: var(--transicion);
 }
 
 .carrito-seccion {
@@ -1331,6 +1359,7 @@ footer {
   }
 
   /* CARRITO */
+
   .carrito-layout {
     grid-template-columns: 1fr;
   }
