@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesion | LudoStore</title>
+    <link rel="icon" type="image/svg+xml" href="../ludostore-logo.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="navbar" id="home">
+      <a href="../index.html" class="navbar-logo">
+        <img src="../ludostore-logo.svg" alt="LudoStore" />
+      </a>
+
+      <nav class="navbar-menu">
+        <div class="submenu">
+          <button class="submenu-boton" type="button">Otras categorias</button>
+
+          <div class="submenu-contenido">
+            <a href="categorias/estrategias.html">Estrategia</a>
+            <a href="categorias/familiares.html">Familiares</a>
+            <a href="categorias/cartas.html">Cartas</a>
+            <a href="categorias/cooperativos.html">Cooperativos</a>
+          </div>
+        </div>
+
+        <a href="../index.html">Inicio</a>
+        <a href="carrito.html">Carrito</a>
+        <a href="registro-usuario.html">Crear cuenta</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="registro-contenedor auth-contenedor">
+        <div class="registro-info">
+          <span class="etiqueta-registro">Acceso de clientes</span>
+          <h2>Iniciar sesion</h2>
+          <p>
+            Accede con tu cuenta para continuar compras, editar tu perfil y
+            usar funciones asociadas a tu usuario.
+          </p>
+        </div>
+
+        <form id="formLogin" class="form-registro" novalidate>
+          <div class="grupo-formulario mb-3">
+            <label for="correoLogin" class="form-label">
+              Correo electronico
+            </label>
+            <input
+              type="email"
+              id="correoLogin"
+              name="correo"
+              class="form-control"
+              placeholder="Ej: usuario@correo.com" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="passwordLogin" class="form-label">
+              Clave
+            </label>
+            <input
+              type="password"
+              id="passwordLogin"
+              name="password"
+              class="form-control"
+              placeholder="Ingresa tu clave" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="resumen-validacion mb-3" id="resumenLogin">
+            Ingresa tus datos para acceder.
+          </div>
+
+          <div class="botones-formulario d-flex gap-3 flex-wrap">
+            <button type="submit" class="btn btn-ludostore">
+              Iniciar sesion
+            </button>
+
+            <a href="registro-usuario.html" class="btn btn-outline-ludostore">
+              Crear cuenta
+            </a>
+          </div>
+
+          <a
+            href="recuperar-password.html"
+            class="link-formulario link-login-recuperar">
+            Olvide mi clave
+          </a>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>LudoStore - Catalogo de juegos de mesa</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/carrito-utils.js"></script>
+    <script src="../scripts/validaciones.js"></script>
+    <script src="../scripts/auth-utils.js"></script>
+    <script src="../scripts/login.js"></script>
+  </body>
+</html>

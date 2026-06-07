@@ -11,103 +11,8 @@ const campos = {
   direccion: document.getElementById("direccion"),
 };
 
-function mostrarError(input, mensaje) {
-  const grupo = input.closest(".grupo-formulario");
-  const mensajeError = grupo.querySelector(".mensaje-error");
-
-  grupo.classList.remove("correcto");
-  grupo.classList.add("error");
-  mensajeError.textContent = mensaje;
-}
-
-function mostrarCorrecto(input) {
-  const grupo = input.closest(".grupo-formulario");
-  const mensajeError = grupo.querySelector(".mensaje-error");
-
-  grupo.classList.remove("error");
-  grupo.classList.add("correcto");
-  mensajeError.textContent = "";
-}
-
-function limpiarEstado(input) {
-  const grupo = input.closest(".grupo-formulario");
-  const mensajeError = grupo.querySelector(".mensaje-error");
-
-  grupo.classList.remove("error", "correcto");
-  mensajeError.textContent = "";
-}
-
-function campoVacio(valor) {
-  return valor.trim() === "";
-}
-
-function correoValido(correo) {
-  const expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return expresionCorreo.test(correo);
-}
-
 function passwordValida(password) {
-  return obtenerErroresPassword(password).length === 0;
-}
-
-function obtenerErroresPassword(password) {
-  const errores = [];
-
-  if (password.length < 6) {
-    errores.push("minimo 6 caracteres");
-  } else if (password.length > 18) {
-    errores.push("maximo 18 caracteres");
-  }
-
-  if (!/[A-Z]/.test(password)) {
-    errores.push("una mayuscula");
-  }
-
-  if (!/[0-9]/.test(password)) {
-    errores.push("un numero");
-  }
-
-  if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]`;~]/.test(password)) {
-    errores.push("un caracter especial");
-  }
-
-  return errores;
-}
-
-function mensajePassword(password) {
-  const errores = obtenerErroresPassword(password);
-
-  if (errores.length === 1) {
-    return `Debe incluir ${errores[0]}.`;
-  }
-
-  return `Debe incluir ${errores.slice(0, -1).join(", ")} y ${
-    errores[errores.length - 1]
-  }.`;
-}
-
-function calcularEdad(fechaNacimiento) {
-  const nacimiento = new Date(fechaNacimiento);
-  const hoy = new Date();
-
-  let edad = hoy.getFullYear() - nacimiento.getFullYear();
-  const mes = hoy.getMonth() - nacimiento.getMonth();
-  const dia = hoy.getDate() - nacimiento.getDate();
-
-  if (mes < 0 || (mes === 0 && dia < 0)) {
-    edad--;
-  }
-
-  return edad;
-}
-
-function actualizarResumen(mensaje, tipo) {
-  resumenValidacion.textContent = mensaje;
-  resumenValidacion.classList.remove("correcto", "error");
-
-  if (tipo) {
-    resumenValidacion.classList.add(tipo);
-  }
+  return passwordSegura(password);
 }
 
 function validarFormulario() {
@@ -251,6 +156,7 @@ formulario.addEventListener("submit", function (evento) {
 
   if (esValido) {
     actualizarResumen(
+      resumenValidacion,
       "Registro enviado correctamente. El comprador ya puede ser considerado para futuras recompensas.",
       "correcto",
     );
@@ -262,6 +168,7 @@ formulario.addEventListener("submit", function (evento) {
     }, 700);
   } else {
     actualizarResumen(
+      resumenValidacion,
       "Revisa los campos marcados antes de enviar el formulario.",
       "error",
     );
@@ -271,7 +178,11 @@ formulario.addEventListener("submit", function (evento) {
 formulario.addEventListener("reset", function () {
   setTimeout(() => {
     Object.values(campos).forEach((campo) => limpiarEstado(campo));
-    actualizarResumen("Completa el formulario para activar el registro.", "");
+    actualizarResumen(
+      resumenValidacion,
+      "Completa el formulario para activar el registro.",
+      "",
+    );
   }, 0);
 });
 
