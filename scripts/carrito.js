@@ -6,6 +6,19 @@ const totalCarrito = document.getElementById("totalCarrito");
 const btnVaciarCarrito = document.getElementById("btnVaciarCarrito");
 const btnFinalizarCompra = document.getElementById("btnFinalizarCompra");
 const mensajeCarrito = document.getElementById("mensajeCarrito");
+const modalCheckout = document.getElementById("modalCheckout");
+const checkoutFormulario = document.getElementById("checkoutFormulario");
+const checkoutExito = document.getElementById("checkoutExito");
+const formCheckout = document.getElementById("formCheckout");
+const checkoutTotal = document.getElementById("checkoutTotal");
+const camposCheckout = {
+  nombre: document.getElementById("checkoutNombre"),
+  telefono: document.getElementById("checkoutTelefono"),
+  direccion: document.getElementById("checkoutDireccion"),
+  entrega: document.getElementById("checkoutEntrega"),
+  pago: document.getElementById("checkoutPago"),
+};
+const CLAVE_COMPRAS = "ludostore_compras";
 
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
@@ -152,15 +165,233 @@ function vaciarCarrito() {
   renderizarCarrito();
 }
 
-function finalizarCompra() {
+function obtenerComprasGuardadas() {
+  return JSON.parse(localStorage.getItem(CLAVE_COMPRAS)) || [];
+}
+
+function guardarCompra(carrito, sesion) {
+  const compras = obtenerComprasGuardadas();
+  const total = carrito.reduce((acumulador, item) => {
+    return acumulador + item.precio * item.cantidad;
+  }, 0);
+
+  compras.push({
+    id: `PED-${Date.now()}`,
+    idUsuario: sesion.id,
+    fecha: new Date().toISOString(),
+    productos: carrito.map((item) => {
+      return {
+        id: item.id,
+        nombre: item.nombre,
+        precio: item.precio,
+        cantidad: item.cantidad,
+      };
+    }),
+    total,
+    despacho: {
+      nombre: camposCheckout.nombre.value.trim(),
+      telefono: camposCheckout.telefono.value.trim(),
+      direccion: camposCheckout.direccion.value.trim(),
+      entrega: camposCheckout.entrega.value,
+      pago: camposCheckout.pago.value,
+    },
+  });
+
+  localStorage.setItem(CLAVE_COMPRAS, JSON.stringify(compras));
+}
+
+function obtenerTotalCarrito(carrito) {
+  return carrito.reduce((acumulador, item) => {
+    return acumulador + item.precio * item.cantidad;
+  }, 0);
+}
+
+function mostrarErrorCheckout(campo, mensaje) {
+  mostrarError(campo, mensaje);
+}
+
+function normalizarTelefono(telefono) {
+  return telefono.replace(/[\s().-]/g, "");
+}
+
+function telefonoValido(telefono) {
+  const telefonoNormalizado = normalizarTelefono(telefono);
+
+  return /^(\+?56)?9\d{8}$/.test(telefonoNormalizado);
+}
+
+function direccionValida(direccion) {
+  const direccionLimpia = direccion.trim();
+
+  return direccionLimpia.length >= 8 && direccionLimpia.includes(" ");
+}
+
+function requiereDireccionDespacho() {
+  return camposCheckout.entrega.value === "Despacho a domicilio";
+}
+
+function actualizarEstadoDireccionCheckout() {
+  const direccion = camposCheckout.direccion;
+
+  if (requiereDireccionDespacho()) {
+    direccion.placeholder = "Calle, numero si aplica, comuna y region";
+    return;
+  }
+
+  direccion.placeholder = "Opcional si retiraras en tienda";
+
+  if (campoVacio(direccion.value)) {
+    limpiarEstado(direccion);
+  }
+}
+
+function validarCampoCheckout(campo) {
+  const valor = campo.value;
+
+  switch (campo.id) {
+    case "checkoutNombre":
+      if (campoVacio(valor)) {
+        mostrarErrorCheckout(campo, "Ingresa un nombre de contacto.");
+        return false;
+      }
+
+      if (valor.trim().length < 3) {
+        mostrarErrorCheckout(campo, "El nombre debe tener al menos 3 caracteres.");
+        return false;
+      }
+
+      mostrarCorrecto(campo);
+      return true;
+    case "checkoutTelefono":
+      if (campoVacio(valor)) {
+        mostrarErrorCheckout(campo, "Ingresa un telefono de contacto.");
+        return false;
+      }
+
+      if (!telefonoValido(valor)) {
+        mostrarErrorCheckout(campo, "Usa un formato valido, por ejemplo +56 9 1234 5678.");
+        return false;
+      }
+
+      mostrarCorrecto(campo);
+      return true;
+    case "checkoutDireccion":
+      if (!requiereDireccionDespacho() && campoVacio(valor)) {
+        limpiarEstado(campo);
+        return true;
+      }
+
+      if (campoVacio(valor)) {
+        mostrarErrorCheckout(campo, "Ingresa una direccion de despacho.");
+        return false;
+      }
+
+      if (!direccionValida(valor)) {
+        mostrarErrorCheckout(campo, "Ingresa una direccion mas completa.");
+        return false;
+      }
+
+      mostrarCorrecto(campo);
+      return true;
+    case "checkoutEntrega":
+      if (campoVacio(valor)) {
+        mostrarErrorCheckout(campo, "Selecciona un metodo de entrega.");
+        return false;
+      }
+
+      mostrarCorrecto(campo);
+      actualizarEstadoDireccionCheckout();
+      validarCampoCheckout(camposCheckout.direccion);
+      return true;
+    case "checkoutPago":
+      if (campoVacio(valor)) {
+        mostrarErrorCheckout(campo, "Selecciona un metodo de pago.");
+        return false;
+      }
+
+      mostrarCorrecto(campo);
+      return true;
+    default:
+      return true;
+  }
+}
+
+function validarCheckout() {
+  let checkoutValido = true;
+
+  Object.values(camposCheckout).forEach((campo) => {
+    if (!validarCampoCheckout(campo)) {
+      checkoutValido = false;
+    }
+  });
+
+  return checkoutValido;
+}
+
+function limpiarCheckout() {
+  Object.values(camposCheckout).forEach((campo) => {
+    limpiarEstado(campo);
+  });
+}
+
+function precargarDatosCheckout(sesion) {
+  const usuario = buscarUsuarioPorId(sesion.id);
+
+  camposCheckout.nombre.value = usuario?.nombreCompleto || sesion.nombreCompleto || "";
+  camposCheckout.telefono.value = usuario?.telefono || "";
+  camposCheckout.direccion.value = usuario?.direccion || "";
+}
+
+function abrirCheckout() {
   const carrito = obtenerCarrito();
 
   if (carrito.length === 0) return;
 
-  alert("Compra simulada correctamente. Gracias por comprar en LudoStore.");
+  const sesion = obtenerSesionActiva();
 
+  if (!sesion) {
+    mensajeCarrito.textContent = "Inicia sesion para finalizar tu compra.";
+    mensajeCarrito.style.color = "#b00020";
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 900);
+    return;
+  }
+
+  limpiarCheckout();
+  checkoutFormulario.style.display = "flex";
+  checkoutExito.classList.remove("activo");
+  checkoutTotal.textContent = formatearPrecio(obtenerTotalCarrito(carrito));
+  precargarDatosCheckout(sesion);
+  actualizarEstadoDireccionCheckout();
+
+  const modal = new bootstrap.Modal(modalCheckout);
+  modal.show();
+}
+
+function mostrarConfirmacionCheckout() {
+  checkoutFormulario.style.display = "none";
+  checkoutExito.classList.add("activo");
+}
+
+function confirmarCheckout(evento) {
+  evento.preventDefault();
+
+  const carrito = obtenerCarrito();
+  const sesion = obtenerSesionActiva();
+
+  if (carrito.length === 0 || !sesion) return;
+  if (!validarCheckout()) return;
+
+  guardarCompra(carrito, sesion);
   vaciarCarritoGuardado();
   renderizarCarrito();
+  mostrarConfirmacionCheckout();
+
+  setTimeout(() => {
+    window.location.href = "mis-compras.html";
+  }, 1800);
 }
 
 listaCarrito.addEventListener("click", (event) => {
@@ -182,6 +413,21 @@ listaCarrito.addEventListener("click", (event) => {
 });
 
 btnVaciarCarrito.addEventListener("click", vaciarCarrito);
-btnFinalizarCompra.addEventListener("click", finalizarCompra);
+btnFinalizarCompra.addEventListener("click", abrirCheckout);
+formCheckout.addEventListener("submit", confirmarCheckout);
+
+Object.values(camposCheckout).forEach((campo) => {
+  campo.addEventListener("input", () => {
+    if (document.activeElement === campo) {
+      validarCampoCheckout(campo);
+    }
+  });
+
+  campo.addEventListener("blur", () => {
+    validarCampoCheckout(campo);
+  });
+});
+
+camposCheckout.entrega.addEventListener("change", actualizarEstadoDireccionCheckout);
 
 renderizarCarrito();

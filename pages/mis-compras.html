@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis compras | LudoStore</title>
+    <link rel="icon" type="image/svg+xml" href="../ludostore-logo.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="navbar" id="home">
+      <a href="../index.html" class="navbar-logo">
+        <img src="../ludostore-logo.svg" alt="LudoStore" />
+      </a>
+
+      <nav class="navbar-menu">
+        <a href="../index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="mis-compras-contenedor">
+        <div class="mis-compras-encabezado">
+          <div>
+            <span class="etiqueta-registro">Cuenta LudoStore</span>
+            <h1>Mis compras</h1>
+            <p>
+              Revisa los pedidos que has finalizado en LudoStore desde esta
+              cuenta.
+            </p>
+          </div>
+
+          <a href="../index.html#catalogo" class="btn-volver-catalogo">
+            Ver catalogo
+          </a>
+        </div>
+
+        <div class="compras-resumen" id="comprasResumen">
+          <div>
+            <span>Pedidos</span>
+            <strong id="totalComprasUsuario">0</strong>
+          </div>
+          <div>
+            <span>Total gastado</span>
+            <strong id="totalGastadoUsuario">$0</strong>
+          </div>
+        </div>
+
+        <div class="compras-vacio" id="comprasVacio">
+          <h2>Aun no tienes compras</h2>
+          <p>
+            Cuando finalices un pedido con tu sesion iniciada, aparecera en
+            este historial.
+          </p>
+          <a href="../index.html#catalogo">Explorar juegos</a>
+        </div>
+
+        <div class="compras-lista" id="comprasLista"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>LudoStore - Catalogo de juegos de mesa</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/carrito-utils.js"></script>
+    <script src="../scripts/auth-utils.js"></script>
+    <script src="../scripts/mis-compras.js"></script>
+  </body>
+</html>

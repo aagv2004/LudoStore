@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const opcionesConSesion = `
       ${opcionAdmin}
       <a href="${crearHref("pages/perfil.html")}">Mi perfil</a>
+      <a href="${crearHref("pages/mis-compras.html")}">Mis compras</a>
       <a href="${crearHref("pages/registro-membresia.html")}">Membresia</a>
       <button
         class="usuario-menu-logout"

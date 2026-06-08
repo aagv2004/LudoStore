@@ -1037,11 +1037,13 @@ section {
 }
 
 .modal-ludostore {
+  display: flex;
+  flex-direction: column;
   border: 0;
   border-radius: var(--radio-borde);
   overflow: hidden;
   box-shadow: var(--sombra-card);
-  max-height: calc(100vh - 36px);
+  max-height: calc(100dvh - 36px);
 }
 
 .modal-backdrop {
@@ -1058,6 +1060,8 @@ section {
 }
 
 .modal-dialog {
+  display: flex;
+  max-height: calc(100dvh - 36px);
   margin-inline: auto;
 }
 
@@ -1078,6 +1082,7 @@ body.modal-open .usuario-menu-contenido {
 }
 
 .modal-ludostore .modal-header {
+  flex: 0 0 auto;
   background: linear-gradient(
     135deg,
     var(--color-principal),
@@ -1087,6 +1092,8 @@ body.modal-open .usuario-menu-contenido {
 }
 
 .modal-ludostore .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
   background-color: var(--color-card);
   color: var(--color-texto-suave);
   overflow-y: auto;
@@ -1097,6 +1104,7 @@ body.modal-open .usuario-menu-contenido {
 }
 
 .modal-ludostore .modal-footer {
+  flex: 0 0 auto;
   background-color: var(--color-card);
   border-top: 1px solid #e4dccf;
 }
@@ -1616,6 +1624,303 @@ footer {
   text-align: center;
 }
 
+/* CHECKOUT */
+.checkout-dialog {
+  width: min(860px, calc(100vw - 32px));
+  max-width: 860px;
+}
+
+.checkout-modal {
+  position: relative;
+}
+
+.checkout-paso-formulario {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.checkout-modal .modal-body {
+  padding: 22px 24px 18px;
+}
+
+.checkout-modal .modal-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 18px 24px 22px;
+}
+
+.checkout-modal .modal-footer > * {
+  margin: 0;
+}
+
+.checkout-modal .modal-footer .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 190px);
+  min-height: 46px;
+  padding: 11px 18px;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.checkout-modal .modal-footer .btn-outline-ludostore {
+  justify-self: start;
+}
+
+.checkout-modal .modal-footer .btn-ludostore {
+  justify-self: end;
+}
+
+.checkout-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.checkout-campo-ancho {
+  grid-column: 1 / -1;
+}
+
+.checkout-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background-color: #fff3cd;
+  color: var(--color-principal);
+}
+
+.checkout-total span {
+  font-weight: 700;
+}
+
+.checkout-total strong {
+  color: var(--color-secundario);
+  font-size: 1.25rem;
+}
+
+.checkout-form textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.checkout-paso-exito {
+  display: none;
+  min-height: 360px;
+  padding: 46px 30px;
+  text-align: center;
+  background-color: var(--color-card);
+}
+
+.checkout-paso-exito.activo {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+}
+
+.checkout-paso-exito h2 {
+  color: var(--color-principal);
+  margin: 8px 0 0;
+}
+
+.checkout-paso-exito p {
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.checkout-exito-animacion {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: #e7f6e9;
+  color: #2e7d32;
+  animation: checkoutCirculo 0.55s ease both;
+}
+
+.checkout-exito-animacion span {
+  width: 38px;
+  height: 22px;
+  border-left: 6px solid currentColor;
+  border-bottom: 6px solid currentColor;
+  transform: rotate(-45deg) scale(0);
+  transform-origin: center;
+  animation: checkoutCheck 0.38s ease 0.32s both;
+}
+
+.checkout-progreso {
+  width: min(260px, 82%);
+  height: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: var(--radio-pildora);
+  background-color: #e4dccf;
+}
+
+.checkout-progreso::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--color-acento);
+  transform-origin: left;
+  animation: checkoutProgreso 1.65s linear both;
+}
+
+/* MIS COMPRAS */
+.mis-compras-contenedor {
+  width: min(1120px, 92%);
+  margin: 120px auto 60px;
+}
+
+.mis-compras-encabezado {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.mis-compras-encabezado h1 {
+  color: var(--color-principal);
+  margin: 12px 0 8px;
+}
+
+.mis-compras-encabezado p {
+  max-width: 620px;
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.compras-resumen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.compras-resumen div,
+.compra-card,
+.compras-vacio {
+  border-radius: var(--radio-borde);
+  background-color: var(--color-card);
+  box-shadow: var(--sombra-card);
+}
+
+.compras-resumen div {
+  padding: 20px;
+}
+
+.compras-resumen span {
+  display: block;
+  color: var(--color-texto-suave);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.compras-resumen strong {
+  color: var(--color-principal);
+  font-size: 1.35rem;
+}
+
+.compras-lista {
+  display: grid;
+  gap: 18px;
+}
+
+.compra-card {
+  padding: 22px;
+}
+
+.compra-card-encabezado {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e4dccf;
+}
+
+.compra-card-encabezado span {
+  color: var(--color-texto-suave);
+  font-weight: 700;
+}
+
+.compra-card-encabezado h2 {
+  color: var(--color-principal);
+  font-size: 1.25rem;
+  margin: 4px 0 0;
+}
+
+.compra-card-encabezado strong {
+  color: var(--color-secundario);
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+.compra-productos {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compra-productos li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-texto-suave);
+}
+
+.compra-productos strong {
+  color: var(--color-principal);
+  white-space: nowrap;
+}
+
+.compras-vacio {
+  display: none;
+  padding: 44px 24px;
+  text-align: center;
+}
+
+.compras-vacio h2 {
+  color: var(--color-principal);
+  margin-bottom: 10px;
+}
+
+.compras-vacio p {
+  color: var(--color-texto-suave);
+  margin: 0 auto 24px;
+  max-width: 520px;
+}
+
+.compras-vacio a {
+  display: inline-block;
+  border-radius: var(--radio-pildora);
+  padding: 12px 20px;
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transicion);
+}
+
+.compras-vacio a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-card);
+}
+
 /* BOTONES Y CARDS CATÁLOGO -> CARRITO */
 .card-producto-acciones {
   display: grid;
@@ -1729,6 +2034,42 @@ footer {
 
   100% {
     box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+  }
+}
+
+@keyframes checkoutCirculo {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+
+  70% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkoutCheck {
+  from {
+    transform: rotate(-45deg) scale(0);
+  }
+
+  to {
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+@keyframes checkoutProgreso {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -2232,6 +2573,53 @@ footer {
   .carrito-encabezado {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .mis-compras-contenedor {
+    margin-top: 100px;
+  }
+
+  .mis-compras-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .compras-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-modal .modal-body {
+    padding: 20px;
+  }
+
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-modal .modal-footer {
+    grid-template-columns: 1fr;
+    padding: 16px 20px 20px;
+  }
+
+  .checkout-modal .modal-footer .btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .checkout-modal .modal-footer .btn-outline-ludostore,
+  .checkout-modal .modal-footer .btn-ludostore {
+    justify-self: stretch;
+  }
+
+  .compra-card-encabezado,
+  .compra-productos li {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .compra-card-encabezado strong,
+  .compra-productos strong {
+    white-space: normal;
   }
 
   .carrito-item {
