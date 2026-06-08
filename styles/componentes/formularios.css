@@ -1,4 +1,4 @@
-/* REGISTRO MEMBRESIA */
+/* REGISTROS */
 .registro-contenedor {
   display: grid;
   grid-template-columns: minmax(230px, 0.75fr) minmax(0, 1.45fr);
@@ -306,4 +306,3 @@
   background-color: #f7d7d7;
   color: #8a1f1f;
 }
-

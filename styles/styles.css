@@ -1,24 +1,32 @@
+/* BASE */
 @import url("./base/variables.css");
 @import url("./base/reset.css");
 
+/* ESTRUCTURA */
 @import url("./estructura/encabezado.css");
 @import url("./estructura/navegacion.css");
 @import url("./estructura/principal.css");
 
+/* PÁGINAS INICIO */
 @import url("./pages/inicio.css");
 @import url("./pages/catalogo.css");
 
+/* COMPONENTES */
 @import url("./componentes/formularios.css");
 @import url("./componentes/botones.css");
 
+/* ESTRUCTURA -> FOOTER */
 @import url("./estructura/pie.css");
 
+/* PÁGINAS TIENDA */
 @import url("./pages/detalle-producto.css");
 @import url("./pages/carrito.css");
 @import url("./pages/checkout.css");
 @import url("./pages/compras.css");
 
+/* COMPONENTE CARDS DE PRODUCTOS */
 @import url("./componentes/tarjetas-productos.css");
 
+/* ANIMACIONES Y RESPONSIVE */
 @import url("./base/animaciones.css");
 @import url("./estructura/responsivo.css");
