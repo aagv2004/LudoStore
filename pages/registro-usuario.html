@@ -38,14 +38,17 @@
       <section class="registro-contenedor">
         <div class="registro-info">
           <span class="etiqueta-registro">Cuenta LudoStore</span>
-          <h2>Crear cuenta de usuario</h2>
+          <h2>Crea tu cuenta y empieza a jugar!</h2>
           <p>
-            Registra una cuenta para iniciar sesion, finalizar compras y
-            mantener tus datos de despacho asociados a futuros pedidos.
+            Regístrate en menos de un minuto para seguir tus pedidos, recibir
+            ofertas exclusivas antes que nadie y desbloquear envíos rápidos
           </p>
         </div>
 
-        <form id="formRegistroUsuario" class="form-registro" novalidate>
+        <form
+          id="formRegistroUsuario"
+          class="form-registro form-registro-usuario"
+          novalidate>
           <div class="grupo-formulario mb-3">
             <label for="nombreCompletoUsuario" class="form-label">
               Nombre completo
@@ -85,34 +88,6 @@
             <small class="mensaje-error"></small>
           </div>
 
-          <div class="row">
-            <div class="col-md-6 grupo-formulario mb-3">
-              <label for="passwordUsuario" class="form-label">
-                Clave
-              </label>
-              <input
-                type="password"
-                id="passwordUsuario"
-                name="password"
-                class="form-control"
-                placeholder="Minimo 6 caracteres" />
-              <small class="mensaje-error"></small>
-            </div>
-
-            <div class="col-md-6 grupo-formulario mb-3">
-              <label for="repetirPasswordUsuario" class="form-label">
-                Repetir clave
-              </label>
-              <input
-                type="password"
-                id="repetirPasswordUsuario"
-                name="repetirPassword"
-                class="form-control"
-                placeholder="Repite tu clave" />
-              <small class="mensaje-error"></small>
-            </div>
-          </div>
-
           <div class="grupo-formulario mb-3">
             <label for="fechaNacimientoUsuario" class="form-label">
               Fecha de nacimiento
@@ -126,6 +101,30 @@
           </div>
 
           <div class="grupo-formulario mb-3">
+            <label for="passwordUsuario" class="form-label"> Contraseña </label>
+            <input
+              type="password"
+              id="passwordUsuario"
+              name="password"
+              class="form-control"
+              placeholder="Minimo 6 caracteres" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3">
+            <label for="repetirPasswordUsuario" class="form-label">
+              Repetir contraseña
+            </label>
+            <input
+              type="password"
+              id="repetirPasswordUsuario"
+              name="repetirPassword"
+              class="form-control"
+              placeholder="Repite tu contraseña" />
+            <small class="mensaje-error"></small>
+          </div>
+
+          <div class="grupo-formulario mb-3 campo-ancho">
             <label for="direccionUsuario" class="form-label">
               Direccion de despacho <span>Opcional</span>
             </label>
@@ -138,11 +137,13 @@
             <small class="mensaje-error"></small>
           </div>
 
-          <div class="resumen-validacion mb-3" id="resumenRegistroUsuario">
+          <div
+            class="resumen-validacion mb-3 campo-ancho"
+            id="resumenRegistroUsuario">
             Completa el formulario para crear tu cuenta.
           </div>
 
-          <div class="botones-formulario d-flex gap-3 flex-wrap">
+          <div class="botones-formulario d-flex gap-3 flex-wrap campo-ancho">
             <button type="submit" class="btn btn-ludostore">
               Crear cuenta
             </button>
@@ -152,7 +153,7 @@
             </button>
           </div>
 
-          <a href="login.html" class="link-formulario">
+          <a href="login.html" class="link-formulario campo-ancho">
             Ya tengo cuenta
           </a>
         </form>

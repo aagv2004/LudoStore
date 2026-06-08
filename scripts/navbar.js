@@ -95,10 +95,38 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="carrito-container">
         <a href="${crearHref("pages/carrito.html")}" class="link-carrito" aria-label="Ver carrito">
           ${crearSvgCarrito()}
-          <span id="contadorCarritoNav">0</span>
+          <span class="carrito-etiqueta">Carrito</span>
+          <span class="contador-carrito-nav" id="contadorCarritoNav">0</span>
         </a>
       </div>
     `;
+  }
+
+  function prepararMenuMovil() {
+    if (!navbar || !menu) return null;
+
+    let botonMenu = document.getElementById("btnMenuMovil");
+
+    if (!botonMenu) {
+      botonMenu = document.createElement("button");
+      botonMenu.className = "navbar-toggle";
+      botonMenu.id = "btnMenuMovil";
+      botonMenu.type = "button";
+      botonMenu.setAttribute("aria-label", "Abrir menu de navegacion");
+      botonMenu.setAttribute("aria-controls", "menuPrincipal");
+      botonMenu.setAttribute("aria-expanded", "false");
+      botonMenu.innerHTML = `
+        <span></span>
+        <span></span>
+        <span></span>
+      `;
+
+      navbar.insertBefore(botonMenu, menu);
+    }
+
+    menu.id = "menuPrincipal";
+
+    return botonMenu;
   }
 
   function crearMenuUsuario(sesion) {
@@ -169,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   renderizarNavbar();
+  const botonMenuMovil = prepararMenuMovil();
 
   const submenu = document.querySelector(".submenu");
   const botonSubmenu = document.querySelector(".submenu-boton");
@@ -209,7 +238,43 @@ document.addEventListener("DOMContentLoaded", () => {
     menuUsuario.classList.remove("activo");
   }
 
+  function menuMovilAbierto() {
+    return navbar && navbar.classList.contains("menu-abierto");
+  }
+
+  function cerrarMenuMovil() {
+    if (!navbar || !botonMenuMovil) return;
+
+    navbar.classList.remove("menu-abierto");
+    botonMenuMovil.setAttribute("aria-expanded", "false");
+    botonMenuMovil.setAttribute("aria-label", "Abrir menu de navegacion");
+    cerrarSubMenu();
+    cerrarMenuUsuario();
+  }
+
+  function alternarMenuMovil() {
+    if (!navbar || !botonMenuMovil) return;
+
+    const estaAbierto = menuMovilAbierto();
+
+    navbar.classList.toggle("menu-abierto", !estaAbierto);
+    botonMenuMovil.setAttribute("aria-expanded", String(!estaAbierto));
+    botonMenuMovil.setAttribute(
+      "aria-label",
+      estaAbierto ? "Abrir menu de navegacion" : "Cerrar menu de navegacion",
+    );
+
+    if (estaAbierto) {
+      cerrarSubMenu();
+      cerrarMenuUsuario();
+    }
+  }
+
   function cerrarMenusAlHacerClickFuera(evento) {
+    if (navbar && !navbar.contains(evento.target)) {
+      cerrarMenuMovil();
+    }
+
     if (submenu && !submenu.contains(evento.target)) {
       cerrarSubMenu();
     }
@@ -227,6 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
   cambiarNavbarAlScroll();
 
   window.addEventListener("scroll", cambiarNavbarAlScroll);
+
+  if (botonMenuMovil) {
+    botonMenuMovil.addEventListener("click", (evento) => {
+      evento.stopPropagation();
+      alternarMenuMovil();
+    });
+  }
 
   if (botonSubmenu) {
     botonSubmenu.addEventListener("click", (evento) => {
@@ -270,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       evento.preventDefault();
+      cerrarMenuMovil();
       document.body.classList.add("pagina-saliendo");
 
       setTimeout(() => {

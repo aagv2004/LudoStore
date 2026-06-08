@@ -149,6 +149,13 @@ function validarCampo(input) {
   }
 }
 
+function limpiarFormularioEnviado() {
+  Object.values(campos).forEach((campo) => {
+    campo.value = "";
+    limpiarEstado(campo);
+  });
+}
+
 formulario.addEventListener("submit", function (evento) {
   evento.preventDefault();
 
@@ -157,10 +164,11 @@ formulario.addEventListener("submit", function (evento) {
   if (esValido) {
     actualizarResumen(
       resumenValidacion,
-      "Registro enviado correctamente. El comprador ya puede ser considerado para futuras recompensas.",
+      "Tus datos han sido enviados con exito, se te contestara a la brevedad.",
       "correcto",
     );
 
+    limpiarFormularioEnviado();
     formulario.classList.add("formulario-enviado");
 
     setTimeout(() => {
@@ -169,7 +177,7 @@ formulario.addEventListener("submit", function (evento) {
   } else {
     actualizarResumen(
       resumenValidacion,
-      "Revisa los campos marcados antes de enviar el formulario.",
+      "Revisa los campos marcados para que podamos guardar bien tus datos.",
       "error",
     );
   }
@@ -180,7 +188,7 @@ formulario.addEventListener("reset", function () {
     Object.values(campos).forEach((campo) => limpiarEstado(campo));
     actualizarResumen(
       resumenValidacion,
-      "Completa el formulario para activar el registro.",
+      "Completa tus datos para sumarte al Club LudoStore.",
       "",
     );
   }, 0);
