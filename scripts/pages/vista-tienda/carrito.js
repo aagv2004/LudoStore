@@ -1,3 +1,4 @@
+// Se rescatan los elementos principales del carrito.
 const carritoVacio = document.getElementById("carritoVacio");
 const carritoContenido = document.getElementById("carritoContenido");
 const listaCarrito = document.getElementById("listaCarrito");
@@ -11,6 +12,8 @@ const checkoutFormulario = document.getElementById("checkoutFormulario");
 const checkoutExito = document.getElementById("checkoutExito");
 const formCheckout = document.getElementById("formCheckout");
 const checkoutTotal = document.getElementById("checkoutTotal");
+
+// Se rescatan los campos que componen el checkout.
 const camposCheckout = {
   nombre: document.getElementById("checkoutNombre"),
   telefono: document.getElementById("checkoutTelefono"),
@@ -18,8 +21,11 @@ const camposCheckout = {
   entrega: document.getElementById("checkoutEntrega"),
   pago: document.getElementById("checkoutPago"),
 };
+
+// VARIABLES INICIALIZADORAS.
 const CLAVE_COMPRAS = "ludostore_compras";
 
+// Funcion que formatea valores numericos a moneda CLP.
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
     style: "currency",
@@ -27,10 +33,24 @@ function formatearPrecio(valor) {
   });
 }
 
+// Funcion que adapta rutas de imagen para paginas internas.
 function obtenerRutaImagen(rutaImagen) {
   return `../${rutaImagen}`;
 }
 
+// Funcion que busca los datos actuales de un producto del carrito.
+function obtenerProductoActualParaCarrito(item) {
+  return buscarProductoPorId(item.id);
+}
+
+// Funcion que obtiene el precio actualizado de un item del carrito.
+function obtenerPrecioActualItem(item) {
+  const productoActual = obtenerProductoActualParaCarrito(item);
+
+  return productoActual ? productoActual.precio : item.precio;
+}
+
+// Funcion que renderiza el carrito, totales y estado vacio.
 function renderizarCarrito() {
   const carrito = obtenerCarrito();
 
@@ -48,16 +68,20 @@ function renderizarCarrito() {
 
   listaCarrito.innerHTML = carrito
     .map((item) => {
-      const subtotal = item.precio * item.cantidad;
+      const productoActual = obtenerProductoActualParaCarrito(item);
+      const nombreItem = productoActual ? productoActual.nombre : item.nombre;
+      const imagenItem = productoActual ? productoActual.imagen : item.imagen;
+      const precioItem = obtenerPrecioActualItem(item);
+      const subtotal = precioItem * item.cantidad;
 
       return `
             <article class="carrito-item">
-                <img src="${obtenerRutaImagen(item.imagen)}" alt="Juego ${item.nombre}"
+                <img src="${obtenerRutaImagen(imagenItem)}" alt="Juego ${nombreItem}"
             />
             
             <div class="carrito-item-info">
-                <h2>${item.nombre}</h2>
-                <p>Precio unitario: ${formatearPrecio(item.precio)}</p>
+                <h2>${nombreItem}</h2>
+                <p>Precio unitario: ${formatearPrecio(precioItem)}</p>
                 <p>Subtotal: <strong>${formatearPrecio(subtotal)}</strong></p>
             </div>
 
@@ -67,7 +91,7 @@ function renderizarCarrito() {
                     class="btn-cantidad"
                     data-accion="disminuir"
                     data-id="${item.id}"
-                    aria-label="Disminuir cantidad de ${item.nombre}"
+                    aria-label="Disminuir cantidad de ${nombreItem}"
                 >
                     -
                 </button>
@@ -79,7 +103,7 @@ function renderizarCarrito() {
                     class="btn-cantidad"
                     data-accion="aumentar"
                     data-id="${item.id}"
-                    aria-label="Aumentar cantidad de ${item.nombre}"
+                    aria-label="Aumentar cantidad de ${nombreItem}"
                 >
                     +
                 </button>
@@ -102,18 +126,19 @@ function renderizarCarrito() {
   }, 0);
 
   const total = carrito.reduce((acumulador, item) => {
-    return acumulador + item.precio * item.cantidad;
+    return acumulador + obtenerPrecioActualItem(item) * item.cantidad;
   }, 0);
 
   totalProductosCarrito.textContent = cantidadProductos;
   totalCarrito.textContent = formatearPrecio(total);
 }
 
+// Funcion que aumenta o disminuye unidades respetando stock.
 function cambiarCantidad(idProducto, accion) {
   const carrito = obtenerCarrito();
 
   const productoCarrito = carrito.find((item) => item.id === idProducto);
-  const productoOriginal = productos.find((item) => item.id === idProducto);
+  const productoOriginal = buscarProductoPorId(idProducto);
 
   if (!productoCarrito || !productoOriginal) return;
 
@@ -141,6 +166,7 @@ function cambiarCantidad(idProducto, accion) {
   renderizarCarrito();
 }
 
+// Funcion que elimina un producto especifico del carrito.
 function eliminarProducto(idProducto) {
   const carrito = obtenerCarrito().filter((item) => item.id !== idProducto);
 
@@ -150,6 +176,7 @@ function eliminarProducto(idProducto) {
   renderizarCarrito();
 }
 
+// Funcion que vacia el carrito despues de confirmar con el usuario.
 function vaciarCarrito() {
   const carrito = obtenerCarrito();
 
@@ -165,14 +192,16 @@ function vaciarCarrito() {
   renderizarCarrito();
 }
 
+// Funcion que obtiene las compras guardadas en localStorage.
 function obtenerComprasGuardadas() {
   return JSON.parse(localStorage.getItem(CLAVE_COMPRAS)) || [];
 }
 
+// Funcion que registra una compra asociada a la sesion activa.
 function guardarCompra(carrito, sesion) {
   const compras = obtenerComprasGuardadas();
   const total = carrito.reduce((acumulador, item) => {
-    return acumulador + item.precio * item.cantidad;
+    return acumulador + obtenerPrecioActualItem(item) * item.cantidad;
   }, 0);
 
   compras.push({
@@ -180,10 +209,12 @@ function guardarCompra(carrito, sesion) {
     idUsuario: sesion.id,
     fecha: new Date().toISOString(),
     productos: carrito.map((item) => {
+      const productoActual = obtenerProductoActualParaCarrito(item);
+
       return {
         id: item.id,
-        nombre: item.nombre,
-        precio: item.precio,
+        nombre: productoActual ? productoActual.nombre : item.nombre,
+        precio: obtenerPrecioActualItem(item),
         cantidad: item.cantidad,
       };
     }),
@@ -200,36 +231,69 @@ function guardarCompra(carrito, sesion) {
   localStorage.setItem(CLAVE_COMPRAS, JSON.stringify(compras));
 }
 
+// Funcion que calcula el total usando precios actualizados.
 function obtenerTotalCarrito(carrito) {
   return carrito.reduce((acumulador, item) => {
-    return acumulador + item.precio * item.cantidad;
+    return acumulador + obtenerPrecioActualItem(item) * item.cantidad;
   }, 0);
 }
 
+// Funcion que valida disponibilidad de stock antes de comprar.
+function validarStockCarrito(carrito) {
+  for (const item of carrito) {
+    const productoActual = buscarProductoPorId(item.id);
+
+    if (!productoActual) {
+      return {
+        ok: false,
+        mensaje: `${item.nombre} ya no esta disponible en el catalogo.`,
+      };
+    }
+
+    if (item.cantidad > productoActual.stock) {
+      return {
+        ok: false,
+        mensaje: `Stock insuficiente para ${item.nombre}. Disponible: ${productoActual.stock}.`,
+      };
+    }
+  }
+
+  return {
+    ok: true,
+    mensaje: "Stock disponible.",
+  };
+}
+
+// Funcion que muestra errores del checkout reutilizando validaciones.
 function mostrarErrorCheckout(campo, mensaje) {
   mostrarError(campo, mensaje);
 }
 
+// Funcion que limpia espacios y simbolos del telefono.
 function normalizarTelefono(telefono) {
   return telefono.replace(/[\s().-]/g, "");
 }
 
+// Funcion que valida telefonos moviles chilenos.
 function telefonoValido(telefono) {
   const telefonoNormalizado = normalizarTelefono(telefono);
 
   return /^(\+?56)?9\d{8}$/.test(telefonoNormalizado);
 }
 
+// Funcion que valida una direccion minima para despacho.
 function direccionValida(direccion) {
   const direccionLimpia = direccion.trim();
 
   return direccionLimpia.length >= 8 && direccionLimpia.includes(" ");
 }
 
+// Funcion que detecta si el metodo elegido requiere direccion.
 function requiereDireccionDespacho() {
   return camposCheckout.entrega.value === "Despacho a domicilio";
 }
 
+// Funcion que ajusta el campo direccion segun tipo de entrega.
 function actualizarEstadoDireccionCheckout() {
   const direccion = camposCheckout.direccion;
 
@@ -245,6 +309,7 @@ function actualizarEstadoDireccionCheckout() {
   }
 }
 
+// Funcion que valida un campo especifico del checkout.
 function validarCampoCheckout(campo) {
   const valor = campo.value;
 
@@ -316,6 +381,7 @@ function validarCampoCheckout(campo) {
   }
 }
 
+// Funcion que valida el formulario completo del checkout.
 function validarCheckout() {
   let checkoutValido = true;
 
@@ -328,12 +394,14 @@ function validarCheckout() {
   return checkoutValido;
 }
 
+// Funcion que limpia estados visuales del checkout.
 function limpiarCheckout() {
   Object.values(camposCheckout).forEach((campo) => {
     limpiarEstado(campo);
   });
 }
 
+// Funcion que precarga datos del usuario en el checkout.
 function precargarDatosCheckout(sesion) {
   const usuario = buscarUsuarioPorId(sesion.id);
 
@@ -342,10 +410,20 @@ function precargarDatosCheckout(sesion) {
   camposCheckout.direccion.value = usuario?.direccion || "";
 }
 
+// Funcion que abre el modal de checkout si existe stock y sesion.
 function abrirCheckout() {
   const carrito = obtenerCarrito();
 
   if (carrito.length === 0) return;
+
+  const stockDisponible = validarStockCarrito(carrito);
+
+  if (!stockDisponible.ok) {
+    mensajeCarrito.textContent = stockDisponible.mensaje;
+    mensajeCarrito.style.color = "#b00020";
+    renderizarCarrito();
+    return;
+  }
 
   const sesion = obtenerSesionActiva();
 
@@ -370,11 +448,13 @@ function abrirCheckout() {
   modal.show();
 }
 
+// Funcion que muestra la confirmacion visual del checkout.
 function mostrarConfirmacionCheckout() {
   checkoutFormulario.style.display = "none";
   checkoutExito.classList.add("activo");
 }
 
+// Funcion que confirma compra, descuenta stock y guarda pedido.
 function confirmarCheckout(evento) {
   evento.preventDefault();
 
@@ -383,6 +463,22 @@ function confirmarCheckout(evento) {
 
   if (carrito.length === 0 || !sesion) return;
   if (!validarCheckout()) return;
+
+  const stockDisponible = validarStockCarrito(carrito);
+
+  if (!stockDisponible.ok) {
+    mensajeCarrito.textContent = stockDisponible.mensaje;
+    mensajeCarrito.style.color = "#b00020";
+    return;
+  }
+
+  const stockActualizado = descontarStockProductos(carrito);
+
+  if (!stockActualizado.ok) {
+    mensajeCarrito.textContent = stockActualizado.mensaje;
+    mensajeCarrito.style.color = "#b00020";
+    return;
+  }
 
   guardarCompra(carrito, sesion);
   vaciarCarritoGuardado();
@@ -394,6 +490,7 @@ function confirmarCheckout(evento) {
   }, 1800);
 }
 
+// Evento que controla botones de cantidad y eliminacion del carrito.
 listaCarrito.addEventListener("click", (event) => {
   const botonCantidad = event.target.closest(".btn-cantidad");
   const botonEliminar = event.target.closest(".btn-eliminar");
@@ -412,10 +509,12 @@ listaCarrito.addEventListener("click", (event) => {
   }
 });
 
+// Se conectan botones principales del carrito y checkout.
 btnVaciarCarrito.addEventListener("click", vaciarCarrito);
 btnFinalizarCompra.addEventListener("click", abrirCheckout);
 formCheckout.addEventListener("submit", confirmarCheckout);
 
+// Se agregan validaciones en tiempo real a los campos del checkout.
 Object.values(camposCheckout).forEach((campo) => {
   campo.addEventListener("input", () => {
     if (document.activeElement === campo) {
@@ -428,6 +527,8 @@ Object.values(camposCheckout).forEach((campo) => {
   });
 });
 
+// Se actualiza direccion cuando cambia el metodo de entrega.
 camposCheckout.entrega.addEventListener("change", actualizarEstadoDireccionCheckout);
 
+// Se renderiza el carrito al cargar la pagina.
 renderizarCarrito();

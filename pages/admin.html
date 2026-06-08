@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | LudoStore</title>
+    <link rel="icon" type="image/svg+xml" href="../ludostore-logo.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="navbar" id="home">
+      <a href="../index.html" class="navbar-logo">
+        <img src="../ludostore-logo.svg" alt="LudoStore" />
+      </a>
+
+      <nav class="navbar-menu">
+        <a href="../index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <main class="admin-main">
+      <section class="admin-hero">
+        <div>
+          <span class="admin-etiqueta">Panel interno</span>
+          <h1>Administracion LudoStore</h1>
+          <p>
+            Gestiona productos, inventario, usuarios y compras registradas en
+            la tienda.
+          </p>
+        </div>
+        <a href="../index.html" class="btn btn-outline-ludostore">
+          Volver a tienda
+        </a>
+      </section>
+
+      <section class="admin-resumen" aria-label="Resumen administrativo">
+        <article>
+          <span>Productos</span>
+          <strong id="adminTotalProductos">0</strong>
+        </article>
+        <article>
+          <span>Bajo stock</span>
+          <strong id="adminBajoStock">0</strong>
+        </article>
+        <article>
+          <span>Usuarios</span>
+          <strong id="adminTotalUsuarios">0</strong>
+        </article>
+        <article>
+          <span>Compras</span>
+          <strong id="adminTotalCompras">0</strong>
+        </article>
+      </section>
+
+      <section class="admin-tabs" aria-label="Secciones del panel">
+        <button class="admin-tab activo" data-panel="productos" type="button">
+          Productos
+        </button>
+        <button class="admin-tab" data-panel="inventario" type="button">
+          Inventario
+        </button>
+        <button class="admin-tab" data-panel="usuarios" type="button">
+          Usuarios
+        </button>
+        <button class="admin-tab" data-panel="compras" type="button">
+          Compras
+        </button>
+      </section>
+
+      <section class="admin-panel activo" id="panelProductos">
+        <div class="admin-panel-encabezado">
+          <div>
+            <h2>Productos</h2>
+            <p>Crea, edita y elimina juegos del catalogo.</p>
+          </div>
+          <button class="btn btn-ludostore" id="btnNuevoProducto" type="button">
+            Nuevo producto
+          </button>
+        </div>
+
+        <div class="admin-layout">
+          <form id="formProductoAdmin" class="admin-form" novalidate>
+            <h3 id="tituloFormularioProducto">Nuevo producto</h3>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoNombre">Nombre</label>
+              <input id="adminProductoNombre" class="form-control" type="text" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoCategoria">Categoria</label>
+              <select id="adminProductoCategoria" class="form-control">
+                <option value="Cartas">Cartas</option>
+                <option value="Cooperativos">Cooperativos</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Familiares">Familiares</option>
+              </select>
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario admin-campo-ancho">
+              <label for="adminProductoImagen">Ruta de imagen</label>
+              <input
+                id="adminProductoImagen"
+                class="form-control"
+                type="text"
+                placeholder="images/juegos/nombre.webp" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario admin-campo-ancho">
+              <label for="adminProductoDescripcion">Descripcion</label>
+              <textarea
+                id="adminProductoDescripcion"
+                class="form-control"
+                rows="3"></textarea>
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoPrecio">Precio</label>
+              <input id="adminProductoPrecio" class="form-control" type="number" min="1" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoDescuento">Descuento</label>
+              <input
+                id="adminProductoDescuento"
+                class="form-control"
+                type="text"
+                placeholder="Sin descuento" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoStock">Stock</label>
+              <input id="adminProductoStock" class="form-control" type="number" min="0" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoJugadores">Jugadores</label>
+              <input id="adminProductoJugadores" class="form-control" type="text" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoEdad">Edad</label>
+              <input id="adminProductoEdad" class="form-control" type="text" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminProductoDuracion">Duracion</label>
+              <input id="adminProductoDuracion" class="form-control" type="text" />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <p class="resumen-validacion admin-campo-ancho" id="resumenProductoAdmin">
+              Completa los datos para guardar un producto.
+            </p>
+
+            <div class="admin-form-acciones admin-campo-ancho">
+              <button class="btn btn-outline-ludostore" id="btnCancelarProducto" type="button">
+                Limpiar
+              </button>
+              <button class="btn btn-ludostore" type="submit">
+                Guardar producto
+              </button>
+            </div>
+          </form>
+
+          <div class="admin-listado">
+            <div class="admin-filtros">
+              <input
+                id="buscadorProductosAdmin"
+                class="form-control"
+                type="search"
+                placeholder="Buscar por nombre" />
+              <select id="filtroCategoriaAdmin" class="form-control">
+                <option value="todos">Todas las categorias</option>
+                <option value="Cartas">Cartas</option>
+                <option value="Cooperativos">Cooperativos</option>
+                <option value="Estrategia">Estrategia</option>
+                <option value="Familiares">Familiares</option>
+              </select>
+              <select id="filtroStockAdmin" class="form-control">
+                <option value="todos">Todo stock</option>
+                <option value="bajo">Bajo stock</option>
+                <option value="sin-stock">Sin stock</option>
+              </select>
+            </div>
+            <div id="listaProductosAdmin" class="admin-items"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-panel" id="panelInventario">
+        <div class="admin-panel-encabezado">
+          <div>
+            <h2>Inventario</h2>
+            <p>Ajusta stock y revisa productos con pocas unidades.</p>
+          </div>
+        </div>
+        <div id="listaInventarioAdmin" class="admin-items admin-inventario"></div>
+      </section>
+
+      <section class="admin-panel" id="panelUsuarios">
+        <div class="admin-panel-encabezado">
+          <div>
+            <h2>Usuarios y clientes</h2>
+            <p>Edita datos basicos y roles de cuentas registradas.</p>
+          </div>
+        </div>
+
+        <div class="admin-layout">
+          <form id="formUsuarioAdmin" class="admin-form" novalidate>
+            <h3 id="tituloFormularioUsuario">Selecciona un usuario</h3>
+
+            <div class="grupo-formulario admin-campo-ancho">
+              <label for="adminUsuarioNombre">Nombre completo</label>
+              <input id="adminUsuarioNombre" class="form-control" type="text" disabled />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminUsuarioAlias">Usuario</label>
+              <input id="adminUsuarioAlias" class="form-control" type="text" disabled />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminUsuarioCorreo">Correo</label>
+              <input id="adminUsuarioCorreo" class="form-control" type="email" disabled />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminUsuarioTelefono">Telefono</label>
+              <input id="adminUsuarioTelefono" class="form-control" type="tel" disabled />
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="adminUsuarioRol">Rol</label>
+              <select id="adminUsuarioRol" class="form-control" disabled>
+                <option value="usuario">Usuario</option>
+                <option value="admin">Admin</option>
+              </select>
+              <small class="mensaje-error"></small>
+            </div>
+
+            <div class="grupo-formulario admin-campo-ancho">
+              <label for="adminUsuarioDireccion">Direccion</label>
+              <textarea
+                id="adminUsuarioDireccion"
+                class="form-control"
+                rows="3"
+                disabled></textarea>
+              <small class="mensaje-error"></small>
+            </div>
+
+            <p class="resumen-validacion admin-campo-ancho" id="resumenUsuarioAdmin">
+              Elige un usuario del listado para editarlo.
+            </p>
+
+            <div class="admin-form-acciones admin-campo-ancho">
+              <button class="btn btn-outline-ludostore" id="btnCancelarUsuario" type="button">
+                Cancelar
+              </button>
+              <button class="btn btn-ludostore" type="submit">
+                Guardar usuario
+              </button>
+            </div>
+          </form>
+
+          <div class="admin-listado">
+            <div class="admin-filtros">
+              <input
+                id="buscadorUsuariosAdmin"
+                class="form-control"
+                type="search"
+                placeholder="Buscar nombre o correo" />
+            </div>
+            <div id="listaUsuariosAdmin" class="admin-items"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-panel" id="panelCompras">
+        <div class="admin-panel-encabezado">
+          <div>
+            <h2>Compras</h2>
+            <p>Monitorea pedidos asociados a usuarios registrados.</p>
+          </div>
+        </div>
+
+        <div class="admin-filtros admin-filtros-compras">
+          <input
+            id="buscadorComprasAdmin"
+            class="form-control"
+            type="search"
+            placeholder="Buscar cliente, correo o pedido" />
+          <input id="fechaComprasAdmin" class="form-control" type="date" />
+        </div>
+
+        <div id="listaComprasAdmin" class="admin-compras"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>LudoStore - Catalogo de juegos de mesa</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/importantes/carrito-utils.js"></script>
+    <script src="../scripts/importantes/validaciones.js"></script>
+    <script src="../scripts/importantes/auth-utils.js"></script>
+    <script src="../scripts/productos.js"></script>
+    <script src="../scripts/pages/vista-admin/admin.js"></script>
+  </body>
+</html>

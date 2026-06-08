@@ -1,6 +1,8 @@
+// Se rescatan los elementos principales del formulario de membresia.
 const formulario = document.getElementById("formRegistro");
 const resumenValidacion = document.getElementById("resumenValidacion");
 
+// Se rescatan los campos que componen el formulario.
 const campos = {
   nombreCompleto: document.getElementById("nombreCompleto"),
   usuario: document.getElementById("usuario"),
@@ -11,10 +13,12 @@ const campos = {
   direccion: document.getElementById("direccion"),
 };
 
+// Funcion que valida la clave usando las reglas compartidas.
 function passwordValida(password) {
   return passwordSegura(password);
 }
 
+// Funcion que valida todos los campos antes de enviar membresia.
 function validarFormulario() {
   let formularioValido = true;
 
@@ -90,6 +94,7 @@ function validarFormulario() {
   return formularioValido;
 }
 
+// Funcion que valida un campo especifico mientras se completa.
 function validarCampo(input) {
   const id = input.id;
   const valor = input.value;
@@ -149,6 +154,7 @@ function validarCampo(input) {
   }
 }
 
+// Funcion que limpia el formulario despues de enviarlo.
 function limpiarFormularioEnviado() {
   Object.values(campos).forEach((campo) => {
     campo.value = "";
@@ -156,6 +162,7 @@ function limpiarFormularioEnviado() {
   });
 }
 
+// Evento que procesa el envio del formulario de membresia.
 formulario.addEventListener("submit", function (evento) {
   evento.preventDefault();
 
@@ -183,6 +190,7 @@ formulario.addEventListener("submit", function (evento) {
   }
 });
 
+// Evento que limpia estados visuales al reiniciar el formulario.
 formulario.addEventListener("reset", function () {
   setTimeout(() => {
     Object.values(campos).forEach((campo) => limpiarEstado(campo));
@@ -194,6 +202,7 @@ formulario.addEventListener("reset", function () {
   }, 0);
 });
 
+// Se agregan validaciones en tiempo real a cada campo.
 Object.values(campos).forEach((campo) => {
   campo.addEventListener("input", function (e) {
     if (document.activeElement === campo) {

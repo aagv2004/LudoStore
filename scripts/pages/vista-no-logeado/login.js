@@ -1,11 +1,14 @@
+// Se rescatan los elementos principales del formulario de login.
 const formularioLogin = document.getElementById("formLogin");
 const resumenLogin = document.getElementById("resumenLogin");
 
+// Se rescatan los campos que componen el login.
 const camposLogin = {
   correo: document.getElementById("correoLogin"),
   password: document.getElementById("passwordLogin"),
 };
 
+// Funcion que valida el formulario completo antes de iniciar sesion.
 function validarLogin() {
   let formularioValido = true;
 
@@ -32,6 +35,7 @@ function validarLogin() {
   return formularioValido;
 }
 
+// Funcion que valida un campo especifico mientras el usuario escribe.
 function validarCampoLogin(input) {
   const id = input.id;
   const valor = input.value;
@@ -53,6 +57,7 @@ function validarCampoLogin(input) {
   }
 }
 
+// Evento que procesa el envio del formulario de login.
 formularioLogin.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
@@ -88,6 +93,7 @@ formularioLogin.addEventListener("submit", (evento) => {
   }, 700);
 });
 
+// Se agregan validaciones en tiempo real a cada campo del login.
 Object.values(camposLogin).forEach((campo) => {
   campo.addEventListener("input", () => {
     if (document.activeElement === campo) {

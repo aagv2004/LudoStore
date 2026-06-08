@@ -1,3 +1,4 @@
+// Funcion que muestra un mensaje de error en un grupo de formulario.
 function mostrarError(input, mensaje) {
   const grupo = input.closest(".grupo-formulario");
   const mensajeError = grupo.querySelector(".mensaje-error");
@@ -7,6 +8,7 @@ function mostrarError(input, mensaje) {
   mensajeError.textContent = mensaje;
 }
 
+// Funcion que marca un campo como correcto y limpia su error.
 function mostrarCorrecto(input) {
   const grupo = input.closest(".grupo-formulario");
   const mensajeError = grupo.querySelector(".mensaje-error");
@@ -16,6 +18,7 @@ function mostrarCorrecto(input) {
   mensajeError.textContent = "";
 }
 
+// Funcion que limpia los estados visuales de validacion de un campo.
 function limpiarEstado(input) {
   const grupo = input.closest(".grupo-formulario");
   const mensajeError = grupo.querySelector(".mensaje-error");
@@ -24,6 +27,7 @@ function limpiarEstado(input) {
   mensajeError.textContent = "";
 }
 
+// Funcion que actualiza mensajes generales de formularios.
 function actualizarResumen(elementoResumen, mensaje, tipo) {
   elementoResumen.textContent = mensaje;
   elementoResumen.classList.remove("correcto", "error");
@@ -33,15 +37,18 @@ function actualizarResumen(elementoResumen, mensaje, tipo) {
   }
 }
 
+// Funcion que valida si un texto esta vacio o solo tiene espacios.
 function campoVacio(valor) {
   return valor.trim() === "";
 }
 
+// Funcion que valida el formato basico de un correo electronico.
 function correoValido(correo) {
   const expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return expresionCorreo.test(correo);
 }
 
+// Funcion que calcula la edad desde una fecha de nacimiento.
 function calcularEdad(fechaNacimiento) {
   const nacimiento = new Date(fechaNacimiento);
   const hoy = new Date();
@@ -57,6 +64,7 @@ function calcularEdad(fechaNacimiento) {
   return edad;
 }
 
+// Funcion que obtiene las reglas faltantes de una contrasena.
 function obtenerErroresPassword(password) {
   const errores = [];
 
@@ -81,14 +89,17 @@ function obtenerErroresPassword(password) {
   return errores;
 }
 
+// Funcion que valida si una contrasena cumple todas las reglas.
 function passwordSegura(password) {
   return obtenerErroresPassword(password).length === 0;
 }
 
+// Funcion que valida si una contrasena cumple el minimo de largo.
 function passwordMinima(password) {
   return password.length >= 6;
 }
 
+// Funcion que arma el mensaje de ayuda para una contrasena invalida.
 function mensajePassword(password) {
   const errores = obtenerErroresPassword(password);
 

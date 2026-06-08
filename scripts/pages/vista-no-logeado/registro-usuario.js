@@ -1,3 +1,4 @@
+// Se rescatan los elementos principales del registro de usuario.
 const formularioRegistroUsuario = document.getElementById(
   "formRegistroUsuario",
 );
@@ -6,6 +7,7 @@ const resumenRegistroUsuario = document.getElementById(
 );
 const modalCuentaCreada = document.getElementById("modalCuentaCreada");
 
+// Se rescatan los campos que componen el formulario de registro.
 const camposRegistroUsuario = {
   nombreCompleto: document.getElementById("nombreCompletoUsuario"),
   usuario: document.getElementById("nombreUsuario"),
@@ -16,6 +18,7 @@ const camposRegistroUsuario = {
   direccion: document.getElementById("direccionUsuario"),
 };
 
+// Funcion que valida todos los campos antes de crear la cuenta.
 function validarRegistroUsuario() {
   let formularioValido = true;
 
@@ -127,6 +130,7 @@ function validarRegistroUsuario() {
   return formularioValido;
 }
 
+// Funcion que arma el objeto con los datos ingresados por el usuario.
 function obtenerDatosRegistroUsuario() {
   return {
     nombreCompleto: camposRegistroUsuario.nombreCompleto.value,
@@ -138,6 +142,7 @@ function obtenerDatosRegistroUsuario() {
   };
 }
 
+// Funcion que muestra el modal de confirmacion al crear cuenta.
 function mostrarModalCuentaCreada() {
   if (!modalCuentaCreada || !window.bootstrap) return;
 
@@ -145,6 +150,7 @@ function mostrarModalCuentaCreada() {
   modal.show();
 }
 
+// Funcion que valida un campo especifico del registro.
 function validarCampoRegistroUsuario(input) {
   const id = input.id;
   const valor = input.value;
@@ -207,6 +213,7 @@ function validarCampoRegistroUsuario(input) {
   }
 }
 
+// Evento que procesa el registro de una nueva cuenta.
 formularioRegistroUsuario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
@@ -243,6 +250,7 @@ formularioRegistroUsuario.addEventListener("submit", (evento) => {
   mostrarModalCuentaCreada();
 });
 
+// Evento que limpia los estados visuales al reiniciar el formulario.
 formularioRegistroUsuario.addEventListener("reset", () => {
   setTimeout(() => {
     Object.values(camposRegistroUsuario).forEach((campo) => {
@@ -257,6 +265,7 @@ formularioRegistroUsuario.addEventListener("reset", () => {
   }, 0);
 });
 
+// Se agregan validaciones en tiempo real a los campos del registro.
 Object.values(camposRegistroUsuario).forEach((campo) => {
   campo.addEventListener("input", () => {
     if (document.activeElement === campo) {

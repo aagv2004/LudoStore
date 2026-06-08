@@ -1,4 +1,6 @@
 /* ANIMACIONES */
+
+/* Animaciones de uso general */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -45,6 +47,7 @@
   }
 }
 
+/* No me gustó tanto, pero da el efecto en el formulario para las membresías (una vez que se envía) */
 @keyframes formularioConfirmado {
   0% {
     box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
@@ -59,6 +62,7 @@
   }
 }
 
+/* Utilizadas en la confirmación de compra / checkout */
 @keyframes checkoutCirculo {
   0% {
     opacity: 0;
@@ -100,4 +104,3 @@
     transform: rotate(360deg);
   }
 }
-

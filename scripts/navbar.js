@@ -1,11 +1,15 @@
+// Evento que inicializa el navbar cuando el DOM esta listo.
 document.addEventListener("DOMContentLoaded", () => {
+  // Se rescatan los elementos principales del navbar.
   const navbar = document.querySelector(".navbar");
   const menu = document.querySelector(".navbar-menu");
 
   document.body.classList.add("pagina-cargada");
 
+  // VARIABLES INICIALIZADORAS.
   const CLAVE_SESION_NAVBAR = "ludostore_sesion";
 
+  // Funcion que calcula el prefijo de ruta segun la pagina actual.
   function obtenerPrefijoRuta() {
     const ruta = window.location.pathname.replaceAll("\\", "/");
 
@@ -15,16 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   }
 
+  // Funcion que obtiene la sesion activa para renderizar el navbar.
   function obtenerSesionNavbar() {
     return JSON.parse(localStorage.getItem(CLAVE_SESION_NAVBAR));
   }
 
+  // Funcion que crea enlaces correctos desde cualquier carpeta.
   function crearHref(pagina) {
     const prefijo = obtenerPrefijoRuta();
 
     return `${prefijo}${pagina}`;
   }
 
+  // Funcion que retorna el icono SVG del carrito.
   function crearSvgCarrito() {
     return `
       <svg
@@ -40,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que retorna el icono SVG de usuario.
   function crearSvgUsuario() {
     return `
       <svg
@@ -56,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que retorna el icono SVG de cerrar sesion.
   function crearSvgLogout() {
     return `
       <svg
@@ -75,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que crea el submenu dinamico de categorias.
   function crearSubmenuCategorias() {
     return `
       <div class="submenu">
@@ -90,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que crea el enlace del carrito con su contador.
   function crearLinkCarrito() {
     return `
       <div class="carrito-container">
@@ -102,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que prepara el boton hamburguesa para menu movil.
   function prepararMenuMovil() {
     if (!navbar || !menu) return null;
 
@@ -129,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return botonMenu;
   }
 
+  // Funcion que crea el menu de usuario segun exista sesion.
   function crearMenuUsuario(sesion) {
     const opcionesSinSesion = `
       <a href="${crearHref("pages/login.html")}">Iniciar sesion</a>
@@ -170,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // Funcion que renderiza el navbar completo segun sesion actual.
   function renderizarNavbar() {
     if (!menu) return;
 
@@ -200,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarNavbar();
   const botonMenuMovil = prepararMenuMovil();
 
+  // Se rescatan elementos creados dinamicamente por el navbar.
   const submenu = document.querySelector(".submenu");
   const botonSubmenu = document.querySelector(".submenu-boton");
   const menuUsuario = document.querySelector(".usuario-menu");
@@ -207,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const botonCerrarSesion = document.getElementById("btnCerrarSesionNav");
   const enlacesInternos = document.querySelectorAll("a[href]");
 
+  // Funcion que cambia el estilo del navbar al hacer scroll.
   function cambiarNavbarAlScroll() {
     if (window.scrollY > 80) {
       navbar.classList.add("nav-scroll");
@@ -215,34 +231,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion que abre o cierra el submenu de categorias.
   function activarDesactivarSubMenu() {
     if (!submenu) return;
 
     submenu.classList.toggle("activo");
   }
 
+  // Funcion que cierra el submenu de categorias.
   function cerrarSubMenu() {
     if (!submenu) return;
 
     submenu.classList.remove("activo");
   }
 
+  // Funcion que abre o cierra el menu de usuario.
   function activarDesactivarMenuUsuario() {
     if (!menuUsuario) return;
 
     menuUsuario.classList.toggle("activo");
   }
 
+  // Funcion que cierra el menu de usuario.
   function cerrarMenuUsuario() {
     if (!menuUsuario) return;
 
     menuUsuario.classList.remove("activo");
   }
 
+  // Funcion que detecta si el menu movil esta abierto.
   function menuMovilAbierto() {
     return navbar && navbar.classList.contains("menu-abierto");
   }
 
+  // Funcion que cierra menu movil y submenus asociados.
   function cerrarMenuMovil() {
     if (!navbar || !botonMenuMovil) return;
 
@@ -253,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cerrarMenuUsuario();
   }
 
+  // Funcion que alterna el estado del menu movil.
   function alternarMenuMovil() {
     if (!navbar || !botonMenuMovil) return;
 
@@ -271,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion que cierra menus cuando se hace click fuera del navbar.
   function cerrarMenusAlHacerClickFuera(evento) {
     if (navbar && !navbar.contains(evento.target)) {
       cerrarMenuMovil();
@@ -285,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Funcion que cierra sesion desde el navbar.
   function cerrarSesionNavbar() {
     localStorage.removeItem(CLAVE_SESION_NAVBAR);
     window.location.href = crearHref("index.html");
@@ -292,6 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cambiarNavbarAlScroll();
 
+  // Se conectan eventos principales del navbar.
   window.addEventListener("scroll", cambiarNavbarAlScroll);
 
   if (botonMenuMovil) {
@@ -323,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", cerrarMenusAlHacerClickFuera);
 
+  // Se agrega transicion de salida a enlaces internos.
   enlacesInternos.forEach((enlace) => {
     enlace.addEventListener("click", (evento) => {
       const urlDestino = new URL(enlace.href, window.location.href);
@@ -353,6 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Evento que restaura clases visuales al volver desde historial.
 window.addEventListener("pageshow", () => {
   document.body.classList.remove("pagina-saliendo");
   document.body.classList.add("pagina-cargada");

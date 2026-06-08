@@ -1,3 +1,4 @@
+// Se rescatan los elementos del flujo de recuperacion de clave.
 const formularioRecuperar = document.getElementById("formRecuperarPassword");
 const panelCorreo = document.getElementById("panelCorreo");
 const panelCodigo = document.getElementById("panelCodigo");
@@ -11,6 +12,7 @@ const btnVerificarCorreo = document.getElementById("btnVerificarCorreo");
 const btnVerificarCodigo = document.getElementById("btnVerificarCodigo");
 const modalClaveActualizada = document.getElementById("modalClaveActualizada");
 
+// Se rescatan los campos usados para recuperar la clave.
 const camposRecuperacion = {
   correo: document.getElementById("correoRecuperacion"),
   codigo: document.getElementById("codigoRecuperacion"),
@@ -18,13 +20,16 @@ const camposRecuperacion = {
   repetirPassword: document.getElementById("repetirPasswordRecuperacion"),
 };
 
+// Se inicializa el usuario encontrado y el codigo temporal.
 let usuarioRecuperacion = null;
 let codigoActual = "";
 
+// Funcion que genera un codigo temporal de seis digitos.
 function generarCodigoRecuperacion() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
+// Funcion que muestra solo el panel activo del flujo.
 function mostrarPanel(panelActivo) {
   [panelCorreo, panelCodigo, panelNuevaClave].forEach((panel) => {
     panel.classList.remove("activo");
@@ -33,6 +38,7 @@ function mostrarPanel(panelActivo) {
   panelActivo.classList.add("activo");
 }
 
+// Funcion que actualiza el indicador visual del paso actual.
 function actualizarPasoRecuperacion(pasoActivo) {
   document.querySelectorAll(".paso-recuperacion").forEach((paso) => {
     const numeroPaso = Number(paso.dataset.paso);
@@ -42,6 +48,7 @@ function actualizarPasoRecuperacion(pasoActivo) {
   });
 }
 
+// Funcion que valida el correo ingresado para recuperar cuenta.
 function validarCorreoRecuperacion() {
   const correo = camposRecuperacion.correo.value;
 
@@ -59,16 +66,19 @@ function validarCorreoRecuperacion() {
   return true;
 }
 
+// Funcion que muestra el estado de verificacion del correo.
 function mostrarEstadoVerificacion() {
   estadoVerificacion.classList.add("activo");
   btnVerificarCorreo.disabled = true;
 }
 
+// Funcion que oculta el estado de verificacion del correo.
 function ocultarEstadoVerificacion() {
   estadoVerificacion.classList.remove("activo");
   btnVerificarCorreo.disabled = false;
 }
 
+// Funcion que avanza al paso de codigo despues de validar correo.
 function continuarACodigo() {
   codigoActual = generarCodigoRecuperacion();
   codigoTemporal.textContent = codigoActual;
@@ -83,6 +93,7 @@ function continuarACodigo() {
   mostrarPanel(panelCodigo);
 }
 
+// Funcion que verifica si el correo pertenece a una cuenta existente.
 function verificarCorreo() {
   if (!validarCorreoRecuperacion()) {
     actualizarResumen(
@@ -114,6 +125,7 @@ function verificarCorreo() {
   }, 850);
 }
 
+// Funcion que valida el codigo temporal ingresado por el usuario.
 function verificarCodigo() {
   const codigoIngresado = camposRecuperacion.codigo.value.trim();
 
@@ -144,6 +156,7 @@ function verificarCodigo() {
   camposRecuperacion.password.focus();
 }
 
+// Funcion que valida la nueva clave y su confirmacion.
 function validarNuevaClave() {
   let formularioValido = true;
   const password = camposRecuperacion.password.value;
@@ -172,6 +185,7 @@ function validarNuevaClave() {
   return formularioValido;
 }
 
+// Funcion que valida campos individuales de recuperacion.
 function validarCampoRecuperacion(input) {
   const id = input.id;
   const valor = input.value;
@@ -210,6 +224,7 @@ function validarCampoRecuperacion(input) {
   }
 }
 
+// Funcion que muestra el modal de clave actualizada.
 function mostrarModalClaveActualizada() {
   if (!modalClaveActualizada || !window.bootstrap) return;
 
@@ -217,9 +232,11 @@ function mostrarModalClaveActualizada() {
   modal.show();
 }
 
+// Se conectan los botones principales del flujo de recuperacion.
 btnVerificarCorreo.addEventListener("click", verificarCorreo);
 btnVerificarCodigo.addEventListener("click", verificarCodigo);
 
+// Se agregan validaciones en tiempo real a los campos.
 Object.values(camposRecuperacion).forEach((campo) => {
   campo.addEventListener("input", () => {
     if (document.activeElement === campo) {
@@ -232,6 +249,7 @@ Object.values(camposRecuperacion).forEach((campo) => {
   });
 });
 
+// Evento que actualiza la clave del usuario recuperado.
 formularioRecuperar.addEventListener("submit", (evento) => {
   evento.preventDefault();
 

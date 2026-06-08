@@ -1,16 +1,27 @@
+// VARIABLES INICIALIZADORAS.
 const CLAVE_CARRITO = "ludostore_carrito";
 
+// Funcion que obtiene el carrito guardado en localStorage.
 function obtenerCarrito() {
   return JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || [];
 }
 
+// Funcion que guarda el carrito actualizado en localStorage.
 function guardarCarrito(carrito) {
   localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
 }
 
+// Funcion que agrega productos al carrito respetando el stock.
 function agregarProductoAlCarrito(producto, cantidad = 1) {
   const carrito = obtenerCarrito();
   const productoEnCarrito = carrito.find((item) => item.id === producto.id);
+
+  if (cantidad > producto.stock || producto.stock <= 0) {
+    return {
+      ok: false,
+      mensaje: "No puedes superar el stock disponible.",
+    };
+  }
 
   if (productoEnCarrito) {
     const nuevaCantidad = productoEnCarrito.cantidad + cantidad;
@@ -41,6 +52,7 @@ function agregarProductoAlCarrito(producto, cantidad = 1) {
   };
 }
 
+// Funcion que actualiza el contador visual del carrito en el navbar.
 function actualizarContadorCarrito() {
   const contador = document.getElementById("contadorCarritoNav");
 
@@ -55,8 +67,10 @@ function actualizarContadorCarrito() {
   contador.textContent = cantidadTotal;
 }
 
+// Funcion que elimina el carrito guardado despues de vaciar o comprar.
 function vaciarCarritoGuardado() {
   localStorage.removeItem(CLAVE_CARRITO);
 }
 
+// Se actualiza el contador al cargar cualquier pagina que use carrito.
 actualizarContadorCarrito();

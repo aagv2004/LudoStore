@@ -23,6 +23,7 @@
 @import url("./pages/carrito.css");
 @import url("./pages/checkout.css");
 @import url("./pages/compras.css");
+@import url("./pages/admin.css");
 
 /* COMPONENTE CARDS DE PRODUCTOS */
 @import url("./componentes/tarjetas-productos.css");

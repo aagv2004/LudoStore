@@ -1,6 +1,8 @@
+// VARIABLES INICIALIZADORAS.
 const CLAVE_USUARIOS = "ludostore_usuarios";
 const CLAVE_SESION = "ludostore_sesion";
 
+// Se declara el usuario administrador base del sistema.
 const ADMIN_INICIAL = {
   id: "USR-ADMIN",
   nombreCompleto: "Administrador LudoStore",
@@ -12,18 +14,22 @@ const ADMIN_INICIAL = {
   rol: "admin",
 };
 
+// Funcion que obtiene los usuarios guardados en localStorage.
 function obtenerUsuarios() {
   return JSON.parse(localStorage.getItem(CLAVE_USUARIOS)) || [];
 }
 
+// Funcion que guarda la lista de usuarios en localStorage.
 function guardarUsuarios(usuarios) {
   localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(usuarios));
 }
 
+// Funcion que genera un identificador unico para usuarios nuevos.
 function crearIdUsuario() {
   return `USR-${Date.now()}`;
 }
 
+// Funcion que crea el administrador base si aun no existe.
 function inicializarUsuariosBase() {
   const usuarios = obtenerUsuarios();
   const existeAdmin = usuarios.some((usuario) => usuario.rol === "admin");
@@ -34,6 +40,7 @@ function inicializarUsuariosBase() {
   guardarUsuarios(usuarios);
 }
 
+// Funcion que busca un usuario registrado por su correo.
 function buscarUsuarioPorCorreo(correo) {
   const correoNormalizado = correo.trim().toLowerCase();
 
@@ -42,18 +49,21 @@ function buscarUsuarioPorCorreo(correo) {
   });
 }
 
+// Funcion que busca un usuario registrado por su id.
 function buscarUsuarioPorId(idUsuario) {
   return obtenerUsuarios().find((usuario) => {
     return usuario.id === idUsuario;
   });
 }
 
+// Funcion que valida si un correo puede usarse en una cuenta.
 function correoDisponibleParaUsuario(correo, idUsuario) {
   const usuario = buscarUsuarioPorCorreo(correo);
 
   return !usuario || usuario.id === idUsuario;
 }
 
+// Funcion que registra un usuario nuevo con rol de cliente.
 function registrarUsuario(datosUsuario) {
   const usuarios = obtenerUsuarios();
   const correoRegistrado = buscarUsuarioPorCorreo(datosUsuario.correo);
@@ -86,6 +96,7 @@ function registrarUsuario(datosUsuario) {
   };
 }
 
+// Funcion que valida credenciales y crea la sesion activa.
 function iniciarSesion(correo, password) {
   const usuario = buscarUsuarioPorCorreo(correo);
 
@@ -112,20 +123,24 @@ function iniciarSesion(correo, password) {
   };
 }
 
+// Funcion que obtiene la sesion activa desde localStorage.
 function obtenerSesionActiva() {
   return JSON.parse(localStorage.getItem(CLAVE_SESION));
 }
 
+// Funcion que elimina la sesion activa del usuario.
 function cerrarSesion() {
   localStorage.removeItem(CLAVE_SESION);
 }
 
+// Funcion que revisa si la sesion actual tiene un rol especifico.
 function usuarioTieneRol(rol) {
   const sesion = obtenerSesionActiva();
 
   return sesion && sesion.rol === rol;
 }
 
+// Funcion que actualiza datos del usuario sin cambiar su id ni rol.
 function actualizarUsuario(idUsuario, nuevosDatos) {
   const usuarios = obtenerUsuarios();
   const indiceUsuario = usuarios.findIndex((usuario) => {
@@ -168,4 +183,5 @@ function actualizarUsuario(idUsuario, nuevosDatos) {
   };
 }
 
+// Se inicializan los usuarios base al cargar este archivo.
 inicializarUsuariosBase();

@@ -1,15 +1,19 @@
+// VARIABLES INICIALIZADORAS.
 const CLAVE_COMPRAS = "ludostore_compras";
 
+// Se rescatan los elementos de resumen y listado de compras.
 const comprasResumen = document.getElementById("comprasResumen");
 const totalComprasUsuario = document.getElementById("totalComprasUsuario");
 const totalGastadoUsuario = document.getElementById("totalGastadoUsuario");
 const comprasVacio = document.getElementById("comprasVacio");
 const comprasLista = document.getElementById("comprasLista");
 
+// Funcion que obtiene todas las compras guardadas en localStorage.
 function obtenerCompras() {
   return JSON.parse(localStorage.getItem(CLAVE_COMPRAS)) || [];
 }
 
+// Funcion que formatea valores numericos a moneda CLP.
 function formatearPrecioCompra(valor) {
   return valor.toLocaleString("es-CL", {
     style: "currency",
@@ -17,6 +21,7 @@ function formatearPrecioCompra(valor) {
   });
 }
 
+// Funcion que formatea fechas de compra en formato chileno.
 function formatearFechaCompra(fecha) {
   return new Date(fecha).toLocaleDateString("es-CL", {
     day: "2-digit",
@@ -25,6 +30,7 @@ function formatearFechaCompra(fecha) {
   });
 }
 
+// Funcion que filtra compras pertenecientes a un usuario.
 function obtenerComprasUsuario(idUsuario) {
   return obtenerCompras()
     .filter((compra) => compra.idUsuario === idUsuario)
@@ -33,12 +39,14 @@ function obtenerComprasUsuario(idUsuario) {
     });
 }
 
+// Funcion que muestra el estado cuando no existen compras.
 function renderizarEstadoVacio() {
   comprasResumen.style.display = "none";
   comprasVacio.style.display = "block";
   comprasLista.innerHTML = "";
 }
 
+// Funcion que renderiza las compras del usuario en pantalla.
 function renderizarCompras(compras) {
   comprasResumen.style.display = "grid";
   comprasVacio.style.display = "none";
@@ -82,6 +90,7 @@ function renderizarCompras(compras) {
     .join("");
 }
 
+// Funcion que valida sesion y carga las compras del usuario.
 function inicializarMisCompras() {
   const sesion = obtenerSesionActiva();
 
@@ -100,4 +109,5 @@ function inicializarMisCompras() {
   renderizarCompras(comprasUsuario);
 }
 
+// Se inicializa la vista de compras al cargar la pagina.
 inicializarMisCompras();

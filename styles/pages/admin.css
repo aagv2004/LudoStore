@@ -1,0 +1,342 @@
+.admin-main {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 120px 0 48px;
+}
+
+.admin-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.admin-hero h1 {
+  margin: 8px 0;
+  color: var(--color-principal);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.admin-hero p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.admin-etiqueta,
+.admin-item span,
+.admin-compra span {
+  color: var(--color-secundario);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.admin-resumen {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.admin-resumen article,
+.admin-form,
+.admin-listado,
+.admin-panel,
+.admin-vacio,
+.admin-compra {
+  border: 1px solid rgba(59, 47, 47, 0.12);
+  border-radius: 8px;
+  background: var(--color-card);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.admin-resumen article {
+  padding: 18px;
+}
+
+.admin-resumen span {
+  display: block;
+  color: var(--color-texto-suave);
+  font-size: 0.88rem;
+}
+
+.admin-resumen strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-principal);
+  font-size: 2rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+}
+
+.admin-tab {
+  border: 1px solid rgba(59, 47, 47, 0.16);
+  border-radius: 8px;
+  background: #fffaf0;
+  color: var(--color-principal);
+  font-weight: 700;
+  padding: 10px 16px;
+  transition: var(--transicion);
+  white-space: nowrap;
+}
+
+.admin-tab.activo,
+.admin-tab:hover {
+  background: var(--color-principal);
+  color: #ffffff;
+}
+
+.admin-panel {
+  display: none;
+  padding: 22px;
+}
+
+.admin-panel.activo {
+  display: block;
+}
+
+.admin-panel-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin-panel-encabezado h2,
+.admin-form h3 {
+  margin: 0 0 6px;
+  color: var(--color-principal);
+}
+
+.admin-panel-encabezado p {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1.1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+
+.admin-form h3,
+.admin-campo-ancho,
+.admin-form-acciones {
+  grid-column: 1 / -1;
+}
+
+.admin-form label {
+  color: var(--color-principal);
+  font-weight: 700;
+}
+
+.admin-form-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.admin-listado {
+  padding: 16px;
+}
+
+.admin-filtros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.admin-filtros-compras {
+  grid-template-columns: minmax(220px, 1fr) 190px;
+}
+
+.admin-items,
+.admin-compras {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(59, 47, 47, 0.12);
+  border-radius: 8px;
+  background: #fffaf4;
+}
+
+.admin-item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.admin-item h3,
+.admin-compra h3 {
+  margin: 2px 0;
+  color: var(--color-principal);
+  font-size: 1rem;
+}
+
+.admin-item p,
+.admin-compra p {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.admin-item-acciones,
+.inventario-control {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.btn-admin-secundario,
+.btn-admin-peligro {
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 8px 12px;
+}
+
+.btn-admin-secundario {
+  background: var(--color-secundario);
+}
+
+.btn-admin-peligro {
+  background: #a63f3f;
+}
+
+.inventario-item {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.inventario-control input {
+  width: 96px;
+}
+
+.admin-vacio {
+  padding: 24px;
+  text-align: center;
+}
+
+.admin-vacio h3 {
+  color: var(--color-principal);
+}
+
+.admin-compra {
+  padding: 16px;
+}
+
+.admin-compra-encabezado {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.admin-compra-encabezado strong {
+  color: var(--color-principal);
+  font-size: 1.2rem;
+}
+
+.admin-compra ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  color: var(--color-texto);
+}
+
+.admin-compra-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-compra-meta span {
+  border-radius: 8px;
+  background: #f7efe1;
+  padding: 6px 10px;
+  text-transform: none;
+}
+
+@media (max-width: 900px) {
+  .admin-hero,
+  .admin-panel-encabezado {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-resumen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filtros,
+  .admin-filtros-compras {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-main {
+    width: min(100% - 20px, 1180px);
+    padding-top: 96px;
+  }
+
+  .admin-resumen,
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-panel {
+    padding: 14px;
+  }
+
+  .admin-item {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-item img {
+    width: 100%;
+    height: 160px;
+  }
+
+  .admin-item-acciones,
+  .inventario-control,
+  .admin-form-acciones {
+    justify-content: stretch;
+  }
+
+  .admin-item-acciones button,
+  .inventario-control button,
+  .admin-form-acciones button {
+    flex: 1;
+  }
+}

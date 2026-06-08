@@ -1,3 +1,4 @@
+// Se rescatan los elementos principales del catalogo.
 const contenedorCatalogo = document.getElementById("catalogoProductos");
 const filtroCategoria = document.getElementById("filtroCategoria");
 const filtroPrecio = document.getElementById("filtroPrecio");
@@ -7,6 +8,7 @@ const contadorCatalogo = document.getElementById("contadorCatalogo");
 const contenedorFiltros = document.querySelector(".catalogo-filtros");
 const botonFiltrosCatalogo = document.getElementById("botonFiltrosCatalogo");
 
+// Funcion que formatea valores numericos a moneda CLP.
 function formatearPrecio(valor) {
   return valor.toLocaleString("es-CL", {
     style: "currency",
@@ -14,6 +16,7 @@ function formatearPrecio(valor) {
   });
 }
 
+// Funcion que evalua si un producto cumple el filtro de precio.
 function productoCumplePrecio(producto, filtro) {
   if (filtro === "menor-15000") return producto.precio < 15000;
   if (filtro === "15000-25000")
@@ -23,6 +26,7 @@ function productoCumplePrecio(producto, filtro) {
   return true;
 }
 
+// Funcion que evalua si un producto cumple el filtro de descuento.
 function productoCumpleDescuento(producto, filtro) {
   if (filtro === "con-descuento") return producto.descuento !== "Sin descuento";
   if (filtro === "sin-descuento") return producto.descuento === "Sin descuento";
@@ -30,11 +34,13 @@ function productoCumpleDescuento(producto, filtro) {
   return true;
 }
 
+// Funcion que crea la tarjeta HTML de un producto del catalogo.
 function crearCardProducto(producto) {
   const descuentoTexto =
     producto.descuento === "Sin descuento"
       ? "Sin descuento"
       : `Descuento: ${producto.descuento}`;
+  const sinStock = producto.stock <= 0;
 
   return `
     <article class="juego-card">
@@ -56,8 +62,9 @@ function crearCardProducto(producto) {
             type="button"
             class="btn-agregar-carrito-card"
             data-id="${producto.id}"
+            ${sinStock ? "disabled" : ""}
           >
-            Agregar
+            ${sinStock ? "Sin stock" : "Agregar"}
           </button>
         </div>
       </div>
@@ -65,13 +72,14 @@ function crearCardProducto(producto) {
   `;
 }
 
+// Funcion que obtiene productos aplicando filtros y busqueda.
 function obtenerProductosFiltrados() {
   const categoriaSeleccionada = filtroCategoria.value;
   const precioSeleccionado = filtroPrecio.value;
   const descuentoSeleccionado = filtroDescuento.value;
   const busqueda = buscadorCatalogo.value.trim().toLowerCase();
 
-  return productos.filter((producto) => {
+  return obtenerProductos().filter((producto) => {
     const coincideCategoria =
       categoriaSeleccionada === "todos" ||
       producto.categoria === categoriaSeleccionada;
@@ -93,6 +101,7 @@ function obtenerProductosFiltrados() {
   });
 }
 
+// Funcion que renderiza el catalogo y su contador de resultados.
 function renderizarCatalogo() {
   const productosFiltrados = obtenerProductosFiltrados();
 
@@ -113,6 +122,7 @@ function renderizarCatalogo() {
     .join("");
 }
 
+// Se conectan los controles de filtro con el render del catalogo.
 [filtroCategoria, filtroPrecio, filtroDescuento, buscadorCatalogo].forEach(
   (control) => {
     control.addEventListener("input", renderizarCatalogo);
@@ -120,6 +130,7 @@ function renderizarCatalogo() {
   },
 );
 
+// Se conecta el boton que muestra u oculta filtros en pantallas pequenas.
 if (contenedorFiltros && botonFiltrosCatalogo) {
   botonFiltrosCatalogo.addEventListener("click", () => {
     const estaCerrado = contenedorFiltros.classList.toggle("filtros-cerrados");
@@ -131,13 +142,14 @@ if (contenedorFiltros && botonFiltrosCatalogo) {
   });
 }
 
+// Evento que agrega productos al carrito desde las tarjetas.
 document.addEventListener("click", (event) => {
   const botonAgregar = event.target.closest(".btn-agregar-carrito-card");
 
   if (!botonAgregar) return;
 
   const idProducto = botonAgregar.dataset.id;
-  const producto = productos.find((item) => item.id === idProducto);
+  const producto = buscarProductoPorId(idProducto);
 
   if (!producto) return;
 
@@ -154,4 +166,5 @@ document.addEventListener("click", (event) => {
   }, 1600);
 });
 
+// Se renderiza el catalogo al cargar la pagina.
 renderizarCatalogo();
