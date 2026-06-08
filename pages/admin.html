@@ -27,8 +27,8 @@
           <span class="admin-etiqueta">Panel interno</span>
           <h1>Administracion LudoStore</h1>
           <p>
-            Gestiona productos, inventario, usuarios y compras registradas en
-            la tienda.
+            Gestiona productos, inventario, usuarios y compras registradas en la
+            tienda.
           </p>
         </div>
         <a href="../index.html" class="btn btn-outline-ludostore">
@@ -87,7 +87,10 @@
 
             <div class="grupo-formulario">
               <label for="adminProductoNombre">Nombre</label>
-              <input id="adminProductoNombre" class="form-control" type="text" />
+              <input
+                id="adminProductoNombre"
+                class="form-control"
+                type="text" />
               <small class="mensaje-error"></small>
             </div>
 
@@ -104,11 +107,19 @@
 
             <div class="grupo-formulario admin-campo-ancho">
               <label for="adminProductoImagen">Ruta de imagen</label>
-              <input
-                id="adminProductoImagen"
-                class="form-control"
-                type="text"
-                placeholder="images/juegos/nombre.webp" />
+              <div class="admin-campo-ruta">
+                <input
+                  id="adminProductoImagen"
+                  class="form-control"
+                  type="text"
+                  placeholder="images/juegos/nombre.webp" />
+                <button
+                  id="btnSugerirRutaImagen"
+                  class="btn-admin-secundario"
+                  type="button">
+                  Sugerir ruta
+                </button>
+              </div>
               <small class="mensaje-error"></small>
             </div>
 
@@ -123,50 +134,93 @@
 
             <div class="grupo-formulario">
               <label for="adminProductoPrecio">Precio</label>
-              <input id="adminProductoPrecio" class="form-control" type="number" min="1" />
+              <div class="admin-campo-medida">
+                <span>$</span>
+                <input
+                  id="adminProductoPrecio"
+                  class="form-control"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="0" />
+                <span>pesos</span>
+              </div>
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminProductoDescuento">Descuento</label>
-              <input
-                id="adminProductoDescuento"
-                class="form-control"
-                type="text"
-                placeholder="Sin descuento" />
+              <div class="admin-campo-medida">
+                <input
+                  id="adminProductoDescuento"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="100"
+                  placeholder="0" />
+                <span>% descuento</span>
+              </div>
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminProductoStock">Stock</label>
-              <input id="adminProductoStock" class="form-control" type="number" min="0" />
+              <input
+                id="adminProductoStock"
+                class="form-control"
+                type="number"
+                min="0" />
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminProductoJugadores">Jugadores</label>
-              <input id="adminProductoJugadores" class="form-control" type="text" />
+              <input
+                id="adminProductoJugadores"
+                class="form-control"
+                type="text" />
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminProductoEdad">Edad</label>
-              <input id="adminProductoEdad" class="form-control" type="text" />
+              <div class="admin-campo-medida">
+                <span>+</span>
+                <input
+                  id="adminProductoEdad"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  placeholder="13" />
+                <span>años</span>
+              </div>
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminProductoDuracion">Duracion</label>
-              <input id="adminProductoDuracion" class="form-control" type="text" />
+              <div class="admin-campo-medida">
+                <input
+                  id="adminProductoDuracion"
+                  class="form-control"
+                  type="number"
+                  min="1"
+                  placeholder="20" />
+                <span>minutos</span>
+              </div>
               <small class="mensaje-error"></small>
             </div>
 
-            <p class="resumen-validacion admin-campo-ancho" id="resumenProductoAdmin">
+            <p
+              class="resumen-validacion admin-campo-ancho"
+              id="resumenProductoAdmin">
               Completa los datos para guardar un producto.
             </p>
 
             <div class="admin-form-acciones admin-campo-ancho">
-              <button class="btn btn-outline-ludostore" id="btnCancelarProducto" type="button">
+              <button
+                class="btn btn-outline-ludostore"
+                id="btnCancelarProducto"
+                type="button">
                 Limpiar
               </button>
               <button class="btn btn-ludostore" type="submit">
@@ -207,7 +261,16 @@
             <p>Ajusta stock y revisa productos con pocas unidades.</p>
           </div>
         </div>
-        <div id="listaInventarioAdmin" class="admin-items admin-inventario"></div>
+        <div class="admin-filtros admin-filtros-inventario">
+          <input
+            id="buscadorInventarioAdmin"
+            class="form-control"
+            type="search"
+            placeholder="Buscar producto, categoria o estado" />
+        </div>
+        <div
+          id="listaInventarioAdmin"
+          class="admin-items admin-inventario"></div>
       </section>
 
       <section class="admin-panel" id="panelUsuarios">
@@ -224,25 +287,41 @@
 
             <div class="grupo-formulario admin-campo-ancho">
               <label for="adminUsuarioNombre">Nombre completo</label>
-              <input id="adminUsuarioNombre" class="form-control" type="text" disabled />
+              <input
+                id="adminUsuarioNombre"
+                class="form-control"
+                type="text"
+                disabled />
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminUsuarioAlias">Usuario</label>
-              <input id="adminUsuarioAlias" class="form-control" type="text" disabled />
+              <input
+                id="adminUsuarioAlias"
+                class="form-control"
+                type="text"
+                disabled />
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminUsuarioCorreo">Correo</label>
-              <input id="adminUsuarioCorreo" class="form-control" type="email" disabled />
+              <input
+                id="adminUsuarioCorreo"
+                class="form-control"
+                type="email"
+                disabled />
               <small class="mensaje-error"></small>
             </div>
 
             <div class="grupo-formulario">
               <label for="adminUsuarioTelefono">Telefono</label>
-              <input id="adminUsuarioTelefono" class="form-control" type="tel" disabled />
+              <input
+                id="adminUsuarioTelefono"
+                class="form-control"
+                type="tel"
+                disabled />
               <small class="mensaje-error"></small>
             </div>
 
@@ -265,12 +344,17 @@
               <small class="mensaje-error"></small>
             </div>
 
-            <p class="resumen-validacion admin-campo-ancho" id="resumenUsuarioAdmin">
+            <p
+              class="resumen-validacion admin-campo-ancho"
+              id="resumenUsuarioAdmin">
               Elige un usuario del listado para editarlo.
             </p>
 
             <div class="admin-form-acciones admin-campo-ancho">
-              <button class="btn btn-outline-ludostore" id="btnCancelarUsuario" type="button">
+              <button
+                class="btn btn-outline-ludostore"
+                id="btnCancelarUsuario"
+                type="button">
                 Cancelar
               </button>
               <button class="btn btn-ludostore" type="submit">
@@ -280,7 +364,7 @@
           </form>
 
           <div class="admin-listado">
-            <div class="admin-filtros">
+            <div class="admin-filtros admin-filtros-usuarios">
               <input
                 id="buscadorUsuariosAdmin"
                 class="form-control"

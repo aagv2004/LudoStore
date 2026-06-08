@@ -80,7 +80,8 @@
 }
 
 .grupo-formulario input,
-.grupo-formulario textarea {
+.grupo-formulario textarea,
+.grupo-formulario select {
   width: 100%;
   padding: 13px 14px;
   border: 2px solid #e4dccf;
@@ -93,8 +94,26 @@
   transition: var(--transicion);
 }
 
+.grupo-formulario select,
+select.form-control {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-secundario) 50%),
+    linear-gradient(135deg, var(--color-secundario) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 52%,
+    calc(100% - 14px) 52%;
+  background-repeat: no-repeat;
+  background-size:
+    6px 6px,
+    6px 6px;
+  cursor: pointer;
+  padding-right: 42px;
+}
+
 .grupo-formulario input:focus,
-.grupo-formulario textarea:focus {
+.grupo-formulario textarea:focus,
+.grupo-formulario select:focus {
   border-color: var(--color-acento);
   box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.2);
   background-color: white;
@@ -107,13 +126,15 @@
 }
 
 .grupo-formulario.error input,
-.grupo-formulario.error textarea {
+.grupo-formulario.error textarea,
+.grupo-formulario.error select {
   border-color: #b00020;
   background-color: #fff5f5;
 }
 
 .grupo-formulario.correcto input,
-.grupo-formulario.correcto textarea {
+.grupo-formulario.correcto textarea,
+.grupo-formulario.correcto select {
   border-color: #2e7d32;
   background-color: #f4fff6;
 }
@@ -278,7 +299,8 @@
 }
 
 .form-registro input:disabled,
-.form-registro textarea:disabled {
+.form-registro textarea:disabled,
+.form-registro select:disabled {
   background-color: #f1ece3;
   color: var(--color-texto-suave);
   border-color: #ded4c4;

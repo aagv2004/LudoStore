@@ -14,7 +14,7 @@ const PRODUCTOS_BASE = [
     descuento: "10%",
     stock: 8,
     jugadores: "2 a 5 jugadores",
-    edad: "7+ anos",
+    edad: "7+ años",
     duracion: "20 minutos",
   },
   {
@@ -28,7 +28,7 @@ const PRODUCTOS_BASE = [
     descuento: "15%",
     stock: 6,
     jugadores: "2 a 5 jugadores",
-    edad: "8+ anos",
+    edad: "8+ años",
     duracion: "15 min",
   },
   {
@@ -42,7 +42,7 @@ const PRODUCTOS_BASE = [
     descuento: "Sin descuento",
     stock: 10,
     jugadores: "2 a 6 jugadores",
-    edad: "8+ anos",
+    edad: "8+ años",
     duracion: "20 min",
   },
   {
@@ -56,7 +56,7 @@ const PRODUCTOS_BASE = [
     descuento: "Sin descuento",
     stock: 5,
     jugadores: "2 a 4 jugadores",
-    edad: "8+ anos",
+    edad: "8+ años",
     duracion: "45 min",
   },
   {
@@ -70,7 +70,7 @@ const PRODUCTOS_BASE = [
     descuento: "10%",
     stock: 7,
     jugadores: "3 a 5 jugadores",
-    edad: "10+ anos",
+    edad: "10+ años",
     duracion: "20 min",
   },
   {
@@ -84,7 +84,7 @@ const PRODUCTOS_BASE = [
     descuento: "15%",
     stock: 6,
     jugadores: "2+ jugadores",
-    edad: "11+ anos",
+    edad: "11+ años",
     duracion: "15 min",
   },
   {
@@ -98,7 +98,7 @@ const PRODUCTOS_BASE = [
     descuento: "10%",
     stock: 4,
     jugadores: "3 a 4 jugadores",
-    edad: "10+ anos",
+    edad: "10+ años",
     duracion: "60 min",
   },
   {
@@ -112,7 +112,7 @@ const PRODUCTOS_BASE = [
     descuento: "Sin descuento",
     stock: 3,
     jugadores: "2 a 6 jugadores",
-    edad: "10+ anos",
+    edad: "10+ años",
     duracion: "120 min",
   },
   {
@@ -126,7 +126,7 @@ const PRODUCTOS_BASE = [
     descuento: "12%",
     stock: 5,
     jugadores: "2 a 5 jugadores",
-    edad: "7+ anos",
+    edad: "7+ años",
     duracion: "35 min",
   },
   {
@@ -140,7 +140,7 @@ const PRODUCTOS_BASE = [
     descuento: "Sin descuento",
     stock: 12,
     jugadores: "2 a 10 jugadores",
-    edad: "7+ anos",
+    edad: "7+ años",
     duracion: "15 min",
   },
   {
@@ -154,7 +154,7 @@ const PRODUCTOS_BASE = [
     descuento: "10%",
     stock: 9,
     jugadores: "1+ jugadores",
-    edad: "6+ anos",
+    edad: "6+ años",
     duracion: "20 min",
   },
   {
@@ -168,7 +168,7 @@ const PRODUCTOS_BASE = [
     descuento: "15%",
     stock: 8,
     jugadores: "2 a 8 jugadores",
-    edad: "6+ anos",
+    edad: "6+ años",
     duracion: "10 min",
   },
 ];
@@ -196,6 +196,29 @@ function inicializarProductosBase() {
   if (productosGuardados.length > 0) return;
 
   localStorage.setItem(CLAVE_PRODUCTOS, JSON.stringify(PRODUCTOS_BASE));
+}
+
+// Funcion que corrige textos antiguos guardados antes de usar la letra ñ.
+function normalizarTextosProductosGuardados() {
+  const productosGuardados = obtenerProductosGuardados();
+  let huboCambios = false;
+
+  const productosNormalizados = productosGuardados.map((producto) => {
+    if (!producto.edad || !producto.edad.includes("anos")) {
+      return producto;
+    }
+
+    huboCambios = true;
+
+    return {
+      ...producto,
+      edad: producto.edad.replaceAll("anos", "años"),
+    };
+  });
+
+  if (huboCambios) {
+    localStorage.setItem(CLAVE_PRODUCTOS, JSON.stringify(productosNormalizados));
+  }
 }
 
 // Funcion que obtiene la lista publica de productos.
@@ -341,6 +364,7 @@ function descontarStockProductos(itemsCompra) {
 
 // Se inicializa el catalogo base al cargar el archivo.
 inicializarProductosBase();
+normalizarTextosProductosGuardados();
 
 // Se mantiene una variable global para compatibilidad con paginas antiguas.
 let productos = obtenerProductos();

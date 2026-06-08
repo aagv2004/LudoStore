@@ -28,9 +28,69 @@ const ProductosAdmin = (() => {
   const filtroStockAdmin = document.getElementById("filtroStockAdmin");
   const btnNuevoProducto = document.getElementById("btnNuevoProducto");
   const btnCancelarProducto = document.getElementById("btnCancelarProducto");
+  const btnSugerirRutaImagen = document.getElementById("btnSugerirRutaImagen");
 
   // Se inicializa en null el producto que se esta editando.
   let productoEditandoId = null;
+
+  // Funcion que extrae el primer numero encontrado en un texto.
+  function extraerNumero(texto) {
+    const coincidencia = String(texto || "").match(/\d+/);
+
+    return coincidencia ? coincidencia[0] : "";
+  }
+
+  // Funcion que obtiene solo numeros desde un valor escrito.
+  function obtenerDigitos(valor) {
+    return String(valor || "").replace(/\D/g, "");
+  }
+
+  // Funcion que formatea numeros con separador de miles chileno.
+  function formatearMiles(valor) {
+    const digitos = obtenerDigitos(valor);
+
+    if (!digitos) return "";
+
+    return Number(digitos).toLocaleString("es-CL");
+  }
+
+  // Funcion que normaliza descuento vacio o cero a "Sin descuento".
+  function formatearDescuento(valor) {
+    const descuento = Number(valor);
+
+    if (!descuento) return "Sin descuento";
+
+    return `${descuento}%`;
+  }
+
+  // Funcion que normaliza edad minima en formato legible.
+  function formatearEdad(valor) {
+    return `${Number(valor)}+ años`;
+  }
+
+  // Funcion que normaliza duracion en minutos.
+  function formatearDuracion(valor) {
+    const minutos = Number(valor);
+
+    return minutos === 1 ? "1 minuto" : `${minutos} minutos`;
+  }
+
+  // Funcion que sugiere una ruta de imagen desde el nombre del producto.
+  function sugerirRutaImagen() {
+    const nombreProducto = camposProducto.nombre.value.trim();
+
+    if (campoVacio(nombreProducto)) {
+      mostrarError(
+        camposProducto.nombre,
+        "Ingresa un nombre para sugerir la ruta.",
+      );
+      camposProducto.nombre.focus();
+      return;
+    }
+
+    camposProducto.imagen.value = `images/juegos/${crearSlugProducto(nombreProducto)}.webp`;
+    mostrarCorrecto(camposProducto.imagen);
+  }
 
   // Funcion que limpia el formulario y vuelve al modo crear producto.
   function limpiarFormulario(
@@ -39,7 +99,7 @@ const ProductosAdmin = (() => {
   ) {
     productoEditandoId = null;
     formProductoAdmin.reset();
-    camposProducto.descuento.value = "Sin descuento";
+    camposProducto.descuento.value = "";
     tituloFormularioProducto.textContent = "Nuevo producto";
 
     Object.values(camposProducto).forEach((campo) => limpiarEstado(campo));
@@ -53,12 +113,12 @@ const ProductosAdmin = (() => {
       categoria: camposProducto.categoria.value,
       imagen: camposProducto.imagen.value,
       descripcion: camposProducto.descripcion.value,
-      precio: camposProducto.precio.value,
-      descuento: camposProducto.descuento.value,
+      precio: obtenerDigitos(camposProducto.precio.value),
+      descuento: formatearDescuento(camposProducto.descuento.value),
       stock: camposProducto.stock.value,
       jugadores: camposProducto.jugadores.value,
-      edad: camposProducto.edad.value,
-      duracion: camposProducto.duracion.value,
+      edad: formatearEdad(camposProducto.edad.value),
+      duracion: formatearDuracion(camposProducto.duracion.value),
     };
   }
 
@@ -75,7 +135,7 @@ const ProductosAdmin = (() => {
         return;
       }
 
-      if (nombreCampo === "precio" && Number(valor) <= 0) {
+      if (nombreCampo === "precio" && Number(obtenerDigitos(valor)) <= 0) {
         mostrarError(campo, "El precio debe ser mayor a 0.");
         valido = false;
         return;
@@ -83,6 +143,28 @@ const ProductosAdmin = (() => {
 
       if (nombreCampo === "stock" && Number(valor) < 0) {
         mostrarError(campo, "El stock no puede ser negativo.");
+        valido = false;
+        return;
+      }
+
+      if (
+        nombreCampo === "descuento" &&
+        !campoVacio(valor) &&
+        (Number(valor) < 0 || Number(valor) > 100)
+      ) {
+        mostrarError(campo, "El descuento debe estar entre 0 y 100.");
+        valido = false;
+        return;
+      }
+
+      if (nombreCampo === "edad" && Number(valor) < 0) {
+        mostrarError(campo, "La edad no puede ser negativa.");
+        valido = false;
+        return;
+      }
+
+      if (nombreCampo === "duracion" && Number(valor) <= 0) {
+        mostrarError(campo, "La duracion debe ser mayor a 0.");
         valido = false;
         return;
       }
@@ -106,12 +188,13 @@ const ProductosAdmin = (() => {
     camposProducto.categoria.value = producto.categoria;
     camposProducto.imagen.value = producto.imagen;
     camposProducto.descripcion.value = producto.descripcion;
-    camposProducto.precio.value = producto.precio;
-    camposProducto.descuento.value = producto.descuento;
+    camposProducto.precio.value = formatearMiles(producto.precio);
+    camposProducto.descuento.value =
+      producto.descuento === "Sin descuento" ? "" : extraerNumero(producto.descuento);
     camposProducto.stock.value = producto.stock;
     camposProducto.jugadores.value = producto.jugadores;
-    camposProducto.edad.value = producto.edad;
-    camposProducto.duracion.value = producto.duracion;
+    camposProducto.edad.value = extraerNumero(producto.edad);
+    camposProducto.duracion.value = extraerNumero(producto.duracion);
 
     Object.values(camposProducto).forEach((campo) => limpiarEstado(campo));
     actualizarResumen(
@@ -230,6 +313,11 @@ const ProductosAdmin = (() => {
     }
   }
 
+  // Funcion que formatea el precio mientras el usuario escribe.
+  function formatearPrecioEnFormulario() {
+    camposProducto.precio.value = formatearMiles(camposProducto.precio.value);
+  }
+
   // Funcion que conecta eventos del modulo de productos.
   function inicializar() {
     limpiarFormulario();
@@ -243,6 +331,8 @@ const ProductosAdmin = (() => {
 
     btnNuevoProducto.addEventListener("click", () => limpiarFormulario());
     btnCancelarProducto.addEventListener("click", () => limpiarFormulario());
+    btnSugerirRutaImagen.addEventListener("click", sugerirRutaImagen);
+    camposProducto.precio.addEventListener("input", formatearPrecioEnFormulario);
     formProductoAdmin.addEventListener("submit", procesarFormulario);
     listaProductosAdmin.addEventListener("click", procesarAccionListado);
   }

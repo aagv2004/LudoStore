@@ -1,4 +1,5 @@
 // MODULO ADMINISTRADOR DE COMPRAS.
+
 const ComprasAdmin = (() => {
   // Se rescatan los elementos principales de compras.
   const listaComprasAdmin = document.getElementById("listaComprasAdmin");
