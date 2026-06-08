@@ -1,0 +1,230 @@
+/* BOTONES */
+
+.botones-formulario {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.link-formulario {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 18px;
+  color: var(--color-secundario);
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transicion);
+}
+
+.link-formulario:hover {
+  color: var(--color-principal);
+  text-decoration: underline;
+}
+
+.link-login-recuperar {
+  align-self: start;
+  text-align: start;
+  padding-left: 12px;
+}
+
+.modal-ludostore {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: var(--radio-borde);
+  overflow: hidden;
+  box-shadow: var(--sombra-card);
+  max-height: calc(100dvh - 36px);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3010;
+  padding: 18px;
+}
+
+.modal-dialog {
+  display: flex;
+  max-height: calc(100dvh - 36px);
+  margin-inline: auto;
+}
+
+.modal-dialog-centered {
+  min-height: calc(100% - 36px);
+}
+
+.modal.show {
+  display: flex !important;
+  align-items: center;
+}
+
+body.modal-open .submenu-contenido,
+body.modal-open .usuario-menu-contenido {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-ludostore .modal-header {
+  flex: 0 0 auto;
+  background: linear-gradient(
+    135deg,
+    var(--color-principal),
+    var(--color-secundario)
+  );
+  color: white;
+}
+
+.modal-ludostore .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  background-color: var(--color-card);
+  color: var(--color-texto-suave);
+  overflow-y: auto;
+}
+
+.modal-ludostore .modal-body p {
+  margin-bottom: 0;
+}
+
+.modal-ludostore .modal-footer {
+  flex: 0 0 auto;
+  background-color: var(--color-card);
+  border-top: 1px solid #e4dccf;
+}
+
+.recuperar-contenedor {
+  overflow: hidden;
+}
+
+.recuperar-pasos {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.paso-recuperacion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #f4efe6;
+  color: var(--color-texto-suave);
+  font-weight: 800;
+  transition: var(--transicion);
+}
+
+.paso-recuperacion.activo {
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  transform: translateY(-2px);
+}
+
+.paso-recuperacion.completado {
+  background-color: #e7f6e9;
+  color: #2e7d32;
+}
+
+.recuperar-panel {
+  display: none;
+  animation: aparecerEscala 0.28s ease;
+}
+
+.recuperar-panel.activo {
+  display: block;
+}
+
+.recuperar-estado {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background-color: #f4efe6;
+  color: var(--color-principal);
+}
+
+.recuperar-estado.activo {
+  display: flex;
+}
+
+.recuperar-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #e4dccf;
+  border-top-color: var(--color-acento);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+.codigo-generado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background-color: #fff3cd;
+  color: #7a5200;
+}
+
+.codigo-generado span {
+  font-weight: 700;
+}
+
+.codigo-generado strong {
+  color: var(--color-principal);
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+
+.btn-ludostore {
+  background-color: var(--color-secundario);
+  color: white;
+  border-radius: var(--radio-pildora);
+  font-weight: bold;
+  padding: 12px 20px;
+  transition: var(--transicion);
+}
+
+.btn-ludostore:hover {
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  transform: translateY(-3px);
+}
+
+.btn-outline-ludostore {
+  background-color: transparent;
+  color: var(--color-principal);
+  border: 2px solid var(--color-secundario);
+  border-radius: var(--radio-pildora);
+  font-weight: bold;
+  padding: 12px 20px;
+  transition: var(--transicion);
+  text-decoration: none;
+}
+
+.btn-detalle-producto {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: 12px;
+  margin-left: 12px;
+}
+
+.btn-outline-ludostore:hover {
+  background-color: var(--color-principal);
+  color: white;
+  transform: translateY(-3px);
+}
+

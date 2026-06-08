@@ -1,0 +1,13 @@
+/* HEADER */
+header {
+  background: linear-gradient(
+    135deg,
+    var(--color-principal),
+    var(--color-secundario)
+  );
+  color: white;
+  padding: 24px 40px;
+  text-align: center;
+  animation: aparecerDesdeArriba 0.8s ease;
+}
+

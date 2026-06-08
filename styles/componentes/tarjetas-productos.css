@@ -1,0 +1,55 @@
+/* BOTONES Y CARDS CATÁLOGO -> CARRITO */
+.card-producto-acciones {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  margin-top: auto;
+}
+
+.card-producto-acciones .btn-detalle-producto {
+  align-self: stretch;
+  margin: 0;
+}
+
+.card-producto-acciones .btn-outline-ludostore,
+.card-producto-acciones .btn-agregar-carrito-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.btn-agregar-carrito-card {
+  border: none;
+  border-radius: var(--radio-pildora);
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn-agregar-carrito-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-card);
+}
+
+.btn-agregar-carrito-card.agregado {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.btn-agregar-carrito-card.sin-stock {
+  background-color: #b00020;
+  color: #ffffff;
+}
+

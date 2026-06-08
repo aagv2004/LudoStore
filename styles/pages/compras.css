@@ -1,0 +1,144 @@
+/* MIS COMPRAS */
+.mis-compras-contenedor {
+  width: min(1120px, 92%);
+  margin: 120px auto 60px;
+}
+
+.mis-compras-encabezado {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.mis-compras-encabezado h1 {
+  color: var(--color-principal);
+  margin: 12px 0 8px;
+}
+
+.mis-compras-encabezado p {
+  max-width: 620px;
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.compras-resumen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.compras-resumen div,
+.compra-card,
+.compras-vacio {
+  border-radius: var(--radio-borde);
+  background-color: var(--color-card);
+  box-shadow: var(--sombra-card);
+}
+
+.compras-resumen div {
+  padding: 20px;
+}
+
+.compras-resumen span {
+  display: block;
+  color: var(--color-texto-suave);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.compras-resumen strong {
+  color: var(--color-principal);
+  font-size: 1.35rem;
+}
+
+.compras-lista {
+  display: grid;
+  gap: 18px;
+}
+
+.compra-card {
+  padding: 22px;
+}
+
+.compra-card-encabezado {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e4dccf;
+}
+
+.compra-card-encabezado span {
+  color: var(--color-texto-suave);
+  font-weight: 700;
+}
+
+.compra-card-encabezado h2 {
+  color: var(--color-principal);
+  font-size: 1.25rem;
+  margin: 4px 0 0;
+}
+
+.compra-card-encabezado strong {
+  color: var(--color-secundario);
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+.compra-productos {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compra-productos li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-texto-suave);
+}
+
+.compra-productos strong {
+  color: var(--color-principal);
+  white-space: nowrap;
+}
+
+.compras-vacio {
+  display: none;
+  padding: 44px 24px;
+  text-align: center;
+}
+
+.compras-vacio h2 {
+  color: var(--color-principal);
+  margin-bottom: 10px;
+}
+
+.compras-vacio p {
+  color: var(--color-texto-suave);
+  margin: 0 auto 24px;
+  max-width: 520px;
+}
+
+.compras-vacio a {
+  display: inline-block;
+  border-radius: var(--radio-pildora);
+  padding: 12px 20px;
+  background-color: var(--color-acento);
+  color: var(--color-principal);
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transicion);
+}
+
+.compras-vacio a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-card);
+}
+

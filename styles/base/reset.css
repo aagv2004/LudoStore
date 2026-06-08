@@ -1,0 +1,65 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+body.pagina-cargada {
+  opacity: 1;
+}
+
+body.pagina-saliendo {
+  opacity: 0;
+}
+
+a,
+button,
+select,
+.btn-ludostore,
+.btn-outline-ludostore {
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+small,
+label,
+li {
+  cursor: default;
+}
+
+button:disabled,
+select:disabled,
+.btn-ludostore:disabled,
+.btn-outline-ludostore:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    opacity: 1;
+    transition: none;
+  }
+}
+

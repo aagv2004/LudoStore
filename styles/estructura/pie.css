@@ -1,0 +1,9 @@
+/* FOOTER */
+footer {
+  background-color: var(--color-principal);
+  color: white;
+  text-align: center;
+  padding: 22px;
+  margin-top: 40px;
+}
+

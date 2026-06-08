@@ -1,0 +1,17 @@
+/* VARIABLES GENERALES */
+:root {
+  --color-fondo: #f7f3ea;
+  --color-principal: #3b2f2f;
+  --color-secundario: #8b5e34;
+  --color-acento: #d9a441;
+  --color-card: #ffffff;
+  --color-texto: #2b2b2b;
+  --color-texto-suave: #666666;
+
+  --radio-borde: 18px;
+  --radio-pildora: 999px;
+  --sombra-card: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  --transicion: 0.3s ease;
+}
+

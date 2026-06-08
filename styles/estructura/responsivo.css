@@ -1,0 +1,651 @@
+/* RESPONSIVE */
+/* TABLET */
+@media (max-width: 900px) {
+  /* HEADER Y H1 */
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    gap: 18px;
+    padding: 16px 24px;
+  }
+
+  .navbar-logo img {
+    width: 170px;
+  }
+
+  .navbar-menu {
+    gap: 10px;
+  }
+
+  .navbar a,
+  .submenu-boton {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
+  /* DETALLE PRODUCTO */
+  .detalle-producto {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .detalle-imagen {
+    max-width: 100%;
+  }
+
+  .detalle-imagen img {
+    height: 340px;
+    max-height: 340px;
+  }
+
+  /* CATEGORIA Y CATALOGO */
+  .categoria-card {
+    grid-column: span 6;
+  }
+
+  .listado-juegos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalogo-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogo-filtros {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .catalogo-filtros-encabezado {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .catalogo-filtros .grupo-filtro {
+    margin-bottom: 0;
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type {
+    grid-column: 1 / -1;
+  }
+
+  .catalogo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* CARRITO */
+
+  .carrito-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-resumen {
+    position: static;
+  }
+
+  .carrito-item {
+    grid-template-columns: 100px 1fr;
+  }
+
+  .carrito-controles,
+  .btn-eliminar {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* PROBANDO MEDIAS */
+@media (max-width: 700px) {
+  .catalogo-filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type,
+  .catalogo-filtros .grupo-filtro:last-of-type {
+    grid-column: 1 / -1;
+  }
+}
+
+/* TELÉFONO */
+@media (max-width: 600px) {
+  /* HEADER */
+  header {
+    padding: 22px 20px;
+  }
+
+  /* MAIN */
+  main {
+    width: 92%;
+    padding: 28px 0;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .navbar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: white;
+    transition: var(--transicion);
+  }
+
+  .navbar-toggle:hover,
+  .navbar.menu-abierto .navbar-toggle {
+    background-color: var(--color-acento);
+    color: var(--color-principal);
+  }
+
+  .navbar-toggle span {
+    width: 20px;
+    height: 2px;
+    border-radius: var(--radio-pildora);
+    background-color: currentColor;
+    transition:
+      transform 0.22s ease,
+      opacity 0.22s ease;
+  }
+
+  .navbar.menu-abierto .navbar-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .navbar.menu-abierto .navbar-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar.menu-abierto .navbar-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .navbar-menu {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: 8px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      visibility 0.22s ease,
+      padding 0.28s ease,
+      transform 0.22s ease;
+  }
+
+  .navbar.menu-abierto .navbar-menu {
+    max-height: min(76vh, 560px);
+    overflow-y: auto;
+    padding-top: 8px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .navbar-menu > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .submenu,
+  .usuario-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .submenu-boton,
+  .usuario-menu-boton {
+    justify-content: space-between;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .usuario-menu-boton {
+    min-width: 0;
+    height: auto;
+  }
+
+  .usuario-menu-boton::before {
+    content: "Cuenta";
+    font-weight: 700;
+  }
+
+  .usuario-menu-boton svg {
+    width: 22px;
+    height: 22px;
+    margin-right: auto;
+  }
+
+  .usuario-menu-contenido {
+    position: static;
+    width: 100%;
+    min-width: auto;
+    max-height: 0;
+    margin-top: 0;
+    padding: 0 10px;
+    overflow: hidden;
+    transform: none;
+  }
+
+  .usuario-menu.activo .usuario-menu-contenido {
+    max-height: 280px;
+    margin-top: 8px;
+    padding: 10px;
+  }
+
+  .carrito-container {
+    width: 100%;
+  }
+
+  .link-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+  }
+
+  .carrito-etiqueta {
+    display: inline;
+    color: currentColor;
+    font-weight: 700;
+  }
+
+  .link-carrito .contador-carrito-nav,
+  .link-carrito #contadorCarritoNav {
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .navbar-logo img {
+    width: 150px;
+  }
+
+  .submenu-contenido {
+    position: static;
+    width: 100%;
+    min-width: auto;
+    margin-top: 0;
+    padding: 0 10px;
+
+    max-height: 0;
+    overflow: hidden;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+    pointer-events: none;
+  }
+
+  .submenu-contenido a {
+    text-align: left;
+  }
+
+  .submenu:hover .submenu-contenido {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .submenu.activo .submenu-contenido {
+    max-height: 260px;
+    margin-top: 8px;
+    padding: 10px;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* CATEGORÍAS */
+  .contenedor-categorias {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .categoria-card {
+    grid-column: span 12;
+  }
+
+  /* CATÁLOGO */
+  .listado-juegos {
+    grid-template-columns: 1fr;
+  }
+
+  .presentacion h2,
+  .categoria-detalle h2,
+  .categorias h2,
+  .catalogo-general h2 {
+    font-size: 1.6rem;
+  }
+
+  .catalogo-encabezado {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .catalogo-contador {
+    width: 100%;
+    text-align: center;
+  }
+
+  .catalogo-filtros {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .catalogo-filtros .grupo-filtro:first-of-type,
+  .catalogo-filtros .grupo-filtro:last-of-type {
+    grid-column: auto;
+  }
+
+  .catalogo-filtros-encabezado {
+    margin-bottom: 0;
+    padding: 14px 16px;
+  }
+
+  .catalogo-filtros h3 {
+    font-size: 1.1rem;
+  }
+
+  .catalogo-filtros-boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--radio-pildora);
+    background-color: var(--color-secundario);
+    color: white;
+    font-weight: bold;
+    line-height: 1.2;
+    transition: var(--transicion);
+  }
+
+  .catalogo-filtros-boton::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.25s ease;
+  }
+
+  .catalogo-filtros:not(.filtros-cerrados) .catalogo-filtros-boton::after {
+    transform: rotate(225deg) translate(-2px, -2px);
+  }
+
+  .catalogo-filtros-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-height: 520px;
+    padding: 0 16px 16px;
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      padding 0.28s ease,
+      visibility 0.22s ease;
+  }
+
+  .catalogo-filtros.filtros-cerrados .catalogo-filtros-panel {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .catalogo-filtros-panel .grupo-filtro {
+    margin-bottom: 0;
+  }
+
+  .categoria-card img,
+  .juego-card img {
+    height: 190px;
+  }
+
+  .catalogo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* DETALLE PRODUCTO */
+  .detalle-producto {
+    padding: 22px;
+  }
+
+  .detalle-info h2 {
+    font-size: 1.7rem;
+  }
+
+  .detalle-imagen img {
+    height: 260px;
+    max-height: 260px;
+    padding: 16px;
+  }
+
+  .detalle-acciones,
+  .detalle-acciones .btn-ludostore,
+  .detalle-acciones .btn-outline-ludostore {
+    width: 100%;
+  }
+
+  /* CARRITO */
+  .carrito-seccion {
+    margin-top: 100px;
+  }
+
+  .carrito-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mis-compras-contenedor {
+    margin-top: 100px;
+  }
+
+  .mis-compras-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .compras-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-modal .modal-body {
+    padding: 20px;
+  }
+
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-modal .modal-footer {
+    grid-template-columns: 1fr;
+    padding: 16px 20px 20px;
+  }
+
+  .checkout-modal .modal-footer .btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .checkout-modal .modal-footer .btn-outline-ludostore,
+  .checkout-modal .modal-footer .btn-ludostore {
+    justify-self: stretch;
+  }
+
+  .compra-card-encabezado,
+  .compra-productos li {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .compra-card-encabezado strong,
+  .compra-productos strong {
+    white-space: normal;
+  }
+
+  .carrito-item {
+    grid-template-columns: 1fr;
+  }
+
+  .carrito-item img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .carrito-controles,
+  .btn-eliminar {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar-logo img {
+    width: 138px;
+  }
+
+  .navbar-menu {
+    gap: 7px;
+  }
+
+  .navbar-menu > a {
+    min-height: 40px;
+    padding: 8px;
+    font-size: 0.84rem;
+  }
+
+  main {
+    width: 94%;
+  }
+
+  .card-producto-acciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* RESPONSIVE DEL FORMULARIO */
+@media (max-width: 900px) {
+  .registro-contenedor {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .registro-info {
+    padding: 0;
+    text-align: center;
+  }
+
+  .perfil-contenedor {
+    padding: 30px;
+  }
+
+  .perfil-formulario {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .registro-contenedor {
+    padding: 22px;
+  }
+
+  .form-registro-usuario {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-contenedor {
+    padding: 22px;
+  }
+
+  .perfil-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-acciones {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .perfil-acciones-derecha {
+    justify-content: stretch;
+  }
+
+  .perfil-acciones .btn,
+  .perfil-acciones-derecha .btn {
+    width: 100%;
+  }
+
+  .grupo-doble {
+    grid-template-columns: 1fr;
+  }
+
+  .botones-formulario {
+    flex-direction: column;
+  }
+
+  .btn-ludostore,
+  .btn-outline-ludostore {
+    width: 100%;
+  }
+
+  .registro-info h2 {
+    font-size: 1.6rem;
+  }
+}
